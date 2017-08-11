@@ -32,8 +32,8 @@ Now that you've got the code, follow these steps to get acclimated:
 
 * Update project name and description in `package.json` file
 * `npm install`, or `yarn install` - whatever you're into
-* Create two postgres databases: `boilermaker` and `boilermaker-test` (you can substitute these with the name of your own application - just be sure to go through and change the `package.json` and `server/db/db.js` to refer to the new names)
-  * By default, running `npm test` will use `boilermaker-test`, while regular development uses `boilermaker`
+* Create two postgres databases: `er2sql` and `er2sql-test` (you can substitute these with the name of your own application - just be sure to go through and change the `package.json` and `server/db/db.js` to refer to the new names)
+  * By default, running `npm test` will use `er2sql-test`, while regular development uses `er2sql`
 * Create a file called `secrets.js` in the project root
   * This file is `.gitignore`'d, and will *only* be required in your *development* environment
   * Its purpose is to attach the secret env variables that you'll use while developing
