@@ -21,7 +21,7 @@ router.post('/', (req, res, next) => {
 });
 
 function getSequelizeType(type){
-    let d = {};
+    let d = {'string': Sequelize.STRING, 'text': Sequelize.TEXT, 'float': Sequelze.FLOAT, 'date': Sequelize.DATE, 'boolean': Sequelze.BOOLEAN, 'enum': Sequelize.ENUM, 'array': Sequelize.ARRAY};
 }
 
 function formatFields(fields){
