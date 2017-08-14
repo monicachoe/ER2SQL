@@ -1,14 +1,8 @@
 const Sequelize = require('sequelize')
-const pg = require('pg')
-
-const conString = process.env.DATABASE_URL || 'postgres://localhost:5432/er2sql'; 
 const db = new Sequelize(
-  conString, {
+  process.env.DATABASE_URL || 'postgres://localhost:5432/er2sql', {
     logging: false
   }
 )
 
-const client = new pg.Client(conString);
-client.connect();
-
-module.exports = {db, client};
+module.exports = db;

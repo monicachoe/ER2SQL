@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Sequelize = require('sequelize');
-const db = require('./db');
+const db = require('../db');
 module.exports = router;
 
 // req.body : array of objects
