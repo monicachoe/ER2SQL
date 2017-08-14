@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const Sequelize = require('sequelize')
-const {Table, Table2} = require('../db/models')
+const {Table2} = require('../db/models')
 const client  = require('../db/client');
 module.exports = router
 
@@ -13,7 +13,7 @@ function DeleteTable(req, res, next) {
 }
 
 router.get('/', (req, res, next) => {
-	Table.findAll()
+	Table2.findAll()
 	.then(function(table){
 		res.send(table);
 	})

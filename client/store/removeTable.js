@@ -22,11 +22,10 @@ const removeTable = (table) => ({type: REMOVE_TABLE})
 export const removeTable = () =>
   dispatch =>
     axios.get(`/api/${tablename}`)
-      .then(res => {
-        dispatch(removeTable(res.data))
-      })
-      .catch(error =>
-        dispatch(getUser({error})))
+    .then(res => {
+      dispatch(removeTable(res.data))
+    })
+    .catch(error => console.log(err))
 /**
  * REDUCER
  */

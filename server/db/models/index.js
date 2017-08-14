@@ -1,4 +1,5 @@
 const User = require('./user')
+const Table2 = require('./table2')
 const Table = require('./table')
 
 /**
@@ -16,5 +17,6 @@ const Table = require('./table')
  */
 module.exports = {
   User,
+  Table2,
   Table
 }
