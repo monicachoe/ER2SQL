@@ -35,9 +35,10 @@ export default function (state = temp, action) {
     case ADD_TABLE: 
       return [...state, action.table];
     case ADD_FIELD:
-      let current = state[action.curTable];
-      current[action.name] = action.attributes;
-      return [...state, current];
+      /** TODO 
+       * FILL IN!!!
+       */
+      return;
     default:
       return state
   }
