@@ -22,6 +22,7 @@ router.post('/', (req, res, next) => {
 
 function getSequelizeType(type){
     let d = {'string': Sequelize.STRING, 'text': Sequelize.TEXT, 'float': Sequelze.FLOAT, 'date': Sequelize.DATE, 'boolean': Sequelze.BOOLEAN, 'enum': Sequelize.ENUM, 'array': Sequelize.ARRAY};
+    return d[type];
 }
 
 function formatFields(fields){
@@ -32,5 +33,5 @@ function formatFields(fields){
         let seqType = attribute['type']
         fields[field] = Object.assign({}, attribute, {type: getSequelizeType(seqType)})
     }
-    return fields
+    return fields;
 }
