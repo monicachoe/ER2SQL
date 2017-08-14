@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {addTableToTemp} from '../store';
 
-const Table = () => {
+const Table = (props) => {
     return (
         <form onSubmit={props.onAddTable}>
             <label>Table Name: <input type='text' name='tableName'/></label>
@@ -18,9 +19,12 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
     return {
-        onAddTable(e, tableName){
+        onAddTable(e){
             e.preventDefault();
-            dispatch(addTableToTemp(tableName));
+            const tableName = e.target.tableName.value;
+            const table = {[tableName]: {}}
+            // table[tableName] = {};
+            dispatch(addTableToTemp(table));
         } 
     }
 }
