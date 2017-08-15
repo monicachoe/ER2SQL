@@ -27,7 +27,6 @@ function getSequelizeType(type){
 
 function formatFields(fields){
     let keys = Object.keys(fields);
-    // ['name', 'quantity']
     for (var field of keys){
         let attribute = fields[field]; 
         let seqType = attribute['type']
