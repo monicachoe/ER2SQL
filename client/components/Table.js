@@ -22,8 +22,7 @@ const mapDispatch = (dispatch) => {
         onAddTable(e){
             e.preventDefault();
             const tableName = e.target.tableName.value;
-            const table = {[tableName]: {}}
-            // table[tableName] = {};
+            const table = {tableName, fields : {}};
             dispatch(addTableToTemp(table));
         } 
     }

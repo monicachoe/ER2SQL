@@ -7,7 +7,7 @@ const ADD_FIELD = 'ADD_FIELD';
 /**
  * INITIAL STATE
  */
-// temp = [{table1:{all fields}}, {table2:{all fields}}]
+// temp = [{tableName: table1, fields: {all fields}}, {tableName: table2, fields: {all fields}}]
 const temp = []
 
 /**
@@ -35,10 +35,10 @@ export default function (state = temp, action) {
     case ADD_TABLE: 
       return [...state, action.table];
     case ADD_FIELD:
-      /** TODO 
-       * FILL IN!!!
-       */
-      return;
+      let table = state.filter(each => each.tableName === action.curTable)[0];
+      let otherTables = state.filter(each => each.tableName !== action.curTable);
+      table.fields[action.name] = action.attributes;
+      return [...otherTables, table];
     default:
       return state
   }
