@@ -20,4 +20,17 @@ router.get('/', (req, res, next) => {
 	.catch(next)
 })
 
-router.get('/:tablename', DeleteTable);
+router.get('/:tablename/:databaseId', (req, res, next) => {
+	Table.findAll({
+		where:{
+			databaseId : req.params.databaseId
+		}
+	})
+	.then(function(tableName){
+		res.send(tablename).end()
+	})
+	.catch(next)
+}
+           )
+
+router.delete('/:tablename', DeleteTable);

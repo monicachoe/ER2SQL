@@ -4,29 +4,43 @@ import { withRouter, NavLink } from 'react-router-dom';
 import store, {deleteTable} from '../store';
 
 function RemoveTable (props){
-  const {table} = props;
+  const {tablename} = props;
 
     return(
         <div>
-          <h1>Hey How are you??</h1>
+          <form>
+            <label>
+              Table Name : 
+              <select name='type'>
+                {
+                  tablename.map(name => {
+                  return(
+                         <option>name</option>
+                        )
+                  })
+                }
+              </select>
+            </label>
+            <button></button> 
+          </form>
         </div>
       )
 }
 
 const mapStateToProps = function(state, ownProps){
-  // console.log("hey");
-  // console.log("help", state.table)
-  // return {
-  //   table: state.table
-  // }
+  console.log("hey");
+  console.log("help", state.tablename)
+  return {
+    tablename: state.tablename
+  }
 }
 
-const mapDispatch(dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     delete(event){
       event.preventDefault();
-      const tableName = e.target.tableName.value;
-      dispatch(deleteTable(table));
+      const tableName = e.target.tablename.value;
+      onClick: () => dispatch(deleteTable(table));
     }
   }
 }

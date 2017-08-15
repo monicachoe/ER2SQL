@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, RemoveTable} from './components'
-import {me, fetchTable, deleteTable} from './store'
+import {me, fetchTable, deleteTable, fetchTableName} from './store'
 
 /**
  * COMPONENT
@@ -25,9 +25,9 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
-            <Route exact path='/table2' component={RemoveTable} />
-            <Route exact path='/table2/table2' component={RemoveTable} />
-           
+            <Route exact path='/:tablename' component={RemoveTable} />
+            <Route exact path='/:tablename/:tablename' component={RemoveTable} />
+            <Route path='/:tablename/:tablename/:databaseid' component={RemoveTable} /> 
             {
               isLoggedIn &&
                 <Switch>
@@ -61,6 +61,7 @@ const mapDispatch = (dispatch) => {
       dispatch(me());
       dispatch(deleteTable());
       dispatch(fetchTable());
+      dispatch(fetchTableName());
     }
   }
 }
