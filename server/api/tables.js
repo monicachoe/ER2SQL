@@ -11,7 +11,8 @@ module.exports = router;
 //      {tableName : 'table2', 
 //          fields : {name : {type: String, validations: ...}, ...}]
 router.post('/', (req, res, next) => {
-    let tables = req.body; 
+    let tables = [req.body]; 
+    console.log(tables);
     for (var table of tables){
         let tableName = table.tableName;
         let fields = table.fields; 

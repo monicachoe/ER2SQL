@@ -2,9 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 const Field = (props) => {
-    const types = props.dataTypes;
-    console.log
-    const curTable = props.currentTable;
+    const types = ['string', 'text', 'float', 'date', 'boolean', 'enum', 'array'];
     const handleChange = props.handleChange;
     const id=props.id;
     return (
@@ -22,23 +20,4 @@ const Field = (props) => {
     )
 }
 
-const mapState = (state) => {
-    return {
-        dataTypes : state.datatypes,
-        currentTable: state.currentTable
-    }
-}
-
-const mapDispatch = (dispatch) => {
-    return {
-        addFieldToTable(e, curTable){
-            e.preventDefault();
-            const name = e.target.name.value;
-            const type = e.target.type.value;
-            const defaultValue = e.target.defaultValue.value;
-            dispatch(addFieldToTable(curTable, name, {type, defaultValue}));
-        }
-    }
-}
-
-export default connect(mapState, mapDispatch)(Field);
+export default Field;

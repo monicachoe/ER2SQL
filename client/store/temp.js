@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 /**
  * ACTION TYPES
  */
@@ -8,6 +10,7 @@ const ADD_FIELD = 'ADD_FIELD';
  * INITIAL STATE
  */
 // temp = [{tableName: table1, fields: {all fields}}, {tableName: table2, fields: {all fields}}]
+// look into changing it to object with array {listOfTable : []}
 const temp = [];
 
 /**
@@ -22,7 +25,6 @@ const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field})
 // Make axios request too!!! --> post to database
 export const addTableToTemp = (table) =>
   dispatch => {
-    temp.push(table);
     axios.post('/api/tables', table);
     dispatch(addTable(table));}
 

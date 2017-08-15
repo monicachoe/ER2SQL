@@ -54,7 +54,7 @@ class CreateTable extends Component{
             <button onClick={this.handleClick}>Add Field</button>
             <input type='submit' disabled={this.state.tableName.length === 0}/>
             <hr />
-            {fieldsArr.map(each => <AddField id={each} handleChange={this.handleChange}/>)}
+            {fieldsArr.map(each => <AddField key={each} id={each} handleChange={this.handleChange}/>)}
             </form>
         );
     }
