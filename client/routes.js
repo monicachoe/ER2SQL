@@ -4,7 +4,7 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, AddTable, AddField} from './components'
+import {Main, Login, Signup, UserHome, CreateTable} from './components'
 import {me, fetchDatatypes} from './store'
 
 /**
@@ -25,8 +25,7 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
-            <Route path='/add-table' component={AddTable} />
-            <Route path='/add-field' component={AddField} />
+            <Route path='/add-table' component={CreateTable} />
             {
               isLoggedIn &&
                 <Switch>

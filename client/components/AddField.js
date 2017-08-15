@@ -3,19 +3,22 @@ import {connect} from 'react-redux';
 
 const Field = (props) => {
     const types = props.dataTypes;
+    console.log
     const curTable = props.currentTable;
+    const handleChange = props.handleChange;
+    const id=props.id;
     return (
-        <form onSubmit={(e)=>props.addFieldToTable(curTable)}>
-            <label>Name: <input type='text' name='columnName' /></label>
-            <label>Type: <select name='type'>
+        <div>
+            <label>Name: <input type='text' name='columnName' id={id} onChange={handleChange}/></label>
+            <label>Type: <select name='type' id={id} onChange={handleChange}>
                     <option>-</option>
                     {types.map((type) => <option value={type} key={type}>{type}</option>)}
                 </select>
             </label>
-            <label>Default Value: <input type='text' name='defaultValue' /></label>
-            <label>Validations: <select><option>-</option></select></label>
-            <input type='submit' />
-        </form>
+            <label>Default Value: <input type='text' name='defaultValue' id={id} onChange={handleChange}/></label>
+            <label>Validations: <select><option key={id} onChange={handleChange}>-</option></select></label>
+            <hr />
+        </div>
     )
 }
 

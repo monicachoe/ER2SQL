@@ -4,10 +4,9 @@ import {addTableToTemp} from '../store';
 
 const Table = (props) => {
     return (
-        <form onSubmit={props.onAddTable}>
+        <div>
             <label>Table Name: <input type='text' name='tableName'/></label>
-            <input type='submit' />
-        </form>
+        </div>
     )
 }
 
@@ -24,7 +23,7 @@ const mapDispatch = (dispatch) => {
             const tableName = e.target.tableName.value;
             const table = {tableName, fields : {}};
             dispatch(addTableToTemp(table));
-        } 
+        }
     }
 }
 

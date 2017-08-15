@@ -8,7 +8,7 @@ const ADD_FIELD = 'ADD_FIELD';
  * INITIAL STATE
  */
 // temp = [{tableName: table1, fields: {all fields}}, {tableName: table2, fields: {all fields}}]
-const temp = []
+const temp = [];
 
 /**
  * ACTION CREATORS
@@ -19,9 +19,12 @@ const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field})
 /**
  * THUNK CREATORS
  */
+// Make axios request too!!! --> post to database
 export const addTableToTemp = (table) =>
-  dispatch =>
-    dispatch(addTable(table));
+  dispatch => {
+    temp.push(table);
+    axios.post('/api/tables', table);
+    dispatch(addTable(table));}
 
 export const addFieldToTable = (curTable, name, attributes) => 
   dispatch =>
