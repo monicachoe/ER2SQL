@@ -4,7 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 import user from './user'
 import removeTable from './removeTable'
 
-const reducer = combineReducers({user})
+const reducer = combineReducers({user, removeTable})
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 const store = createStore(reducer, middleware)
 

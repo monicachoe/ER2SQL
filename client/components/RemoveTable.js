@@ -1,25 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom'; 
-import store from '../store';
+import store, {deleteTable} from '../store';
 
 function RemoveTable (props){
   const {table} = props;
 
     return(
         <div>
-          <form>
-            <label>Name:</label>
-            <input type="submit" />
-          </form>
+          <h1>Hey How are you??</h1>
         </div>
       )
-  }
 }
 
 const mapStateToProps = function(state, ownProps){
+  // console.log("hey");
+  // console.log("help", state.table)
+  // return {
+  //   table: state.table
+  // }
+}
+
+const mapDispatch(dispatch) => {
   return {
-    table: state.table
+    delete(event){
+      event.preventDefault();
+      const tableName = e.target.tableName.value;
+      dispatch(deleteTable(table));
+    }
   }
 }
 

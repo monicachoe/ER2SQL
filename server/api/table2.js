@@ -20,4 +20,4 @@ router.get('/', (req, res, next) => {
 	.catch(next)
 })
 
-router.get('/:tablename', DeleteTable);
+router.get('/:tablename/:tablename', DeleteTable);
