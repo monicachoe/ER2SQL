@@ -10,14 +10,22 @@ module.exports = router;
 //                    quantity : {type : integer, validations: ...}}}, 
 //      {tableName : 'table2', 
 //          fields : {name : {type: String, validations: ...}, ...}]
+// router.post('/', (req, res, next) => {
+//     let tables = [req.body];
+//     for (var table of tables){
+//         let tableName = table.tableName;
+//         let fields = formatFields(table.fields); 
+//         const createdTable = db.define(tableName, fields);
+//         db.sync();
+//     }
+// });
+
 router.post('/', (req, res, next) => {
-    let tables = [req.body];
-    for (var table of tables){
-        let tableName = table.tableName;
-        let fields = formatFields(table.fields); 
-        const createdTable = db.define(tableName, fields);
-        db.sync();
-    }
+    let table = req.body;
+    let tableName = table.tableName;
+    let fields = formatFields(table.fields); 
+    const createdTable = db.define(tableName, fields);
+    db.sync();
 });
 
 function getSequelizeType(type){
