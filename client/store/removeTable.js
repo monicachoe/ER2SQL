@@ -34,9 +34,9 @@ const tableName = (tablename) => ({type: TABLE_NAME, tablename})
     })
     .catch(error => console.log(error))
 
-  export const deleteTable = () =>
+  export const deleteTable = (tableName) =>
   dispatch =>
-    axios.get(`/api/${table}/${table}`)
+    axios.get(`/api/table/${tableName}`)
     .then(res => {
       dispatch(fetchTable(res.data))
     })

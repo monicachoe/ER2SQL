@@ -12,11 +12,11 @@ function RemoveTable (props){
           <form>
             <label>
               Table Name : 
-              <select name='type'>
+              <select name='tableName'>
                 {
                   dummyData.map(name => {
                   return(
-                         <option value={name}>{name}</option>
+                         <option key={name} value={name}>{name}</option>
                         )
                   })
                 }
@@ -29,7 +29,7 @@ function RemoveTable (props){
 }
 
 const mapStateToProps = function(state, ownProps){
-
+  return {}
 }
 
 const mapDispatchToProps = (dispatch) => {
