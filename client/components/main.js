@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
+import {default as Box} from './box'
+import {default as Sidebar} from './sidebar'
 
 /**
  * COMPONENT
@@ -14,25 +16,31 @@ const Main = (props) => {
   const {children, handleClick, isLoggedIn} = props
 
   return (
-    <div>
-      <h1>BOILERMAKER</h1>
-      <nav>
-        {
-          isLoggedIn
-            ? <div>
-              {/* The navbar will show these links after you log in */}
-              <Link to='/home'>Home</Link>
-              <a href='#' onClick={handleClick}>Logout</a>
-            </div>
-            : <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to='/login'>Login</Link>
-              <Link to='/signup'>Sign Up</Link>
-            </div>
-        }
-      </nav>
-      <hr />
-      {children}
+    <div id="main" className="container-fluid">
+      <div className="child1">
+        <Sidebar/>
+      </div>
+      <div className="child2">
+        <nav>
+          {
+            isLoggedIn
+              ? <div>
+                {/* The navbar will show these links after you log in */}
+                <Link to='/home'>Home</Link>
+                <a href='#' onClick={handleClick}>Logout</a>
+              </div>
+              : <div>
+                {/* The navbar will show these links before you log in */}
+                <Link to='/login'>Login</Link>
+                <Link to='/signup'>Sign Up</Link>
+              </div>
+          }
+        </nav>
+
+        <hr />
+        <Box/>
+        {children}
+      </div>
     </div>
   )
 }
