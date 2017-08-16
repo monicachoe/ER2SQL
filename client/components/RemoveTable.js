@@ -4,7 +4,8 @@ import { withRouter, NavLink } from 'react-router-dom';
 import store, {deleteTable} from '../store';
 
 function RemoveTable (props){
-  const {tablename} = props;
+  // const {tablename} = props;
+  let dummyData =['monica', 'brenda', 'vinaya', 'kelaiya'];
 
     return(
         <div>
@@ -13,9 +14,9 @@ function RemoveTable (props){
               Table Name : 
               <select name='type'>
                 {
-                  tablename.map(name => {
+                  dummyData.map(name => {
                   return(
-                         <option>name</option>
+                         <option value={name}>{name}</option>
                         )
                   })
                 }
@@ -28,11 +29,7 @@ function RemoveTable (props){
 }
 
 const mapStateToProps = function(state, ownProps){
-  console.log("hey");
-  console.log("help", state.tablename)
-  return {
-    tablename: state.tablename
-  }
+
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -45,4 +42,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(RemoveTable));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RemoveTable));

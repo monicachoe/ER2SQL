@@ -27,7 +27,7 @@ const tableName = (tablename) => ({type: TABLE_NAME, tablename})
 
  export const fetchTable = () =>
   dispatch =>
-    axios.get(`/api/${table}`)
+    axios.get('/api/table')
     .then(res => {
       console.log("this is axios", res.data);
       dispatch(createTable(res.data))

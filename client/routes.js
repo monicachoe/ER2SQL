@@ -25,7 +25,8 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
-            <Route exact path='/:tablename' component={RemoveTable} />
+            <Route path='/remove-table' component={RemoveTable} />
+            <Route exact path='/remove-table' component={RemoveTable} />
             <Route exact path='/:tablename/:tablename' component={RemoveTable} />
             <Route path='/:tablename/:tablename/:databaseid' component={RemoveTable} /> 
             {
