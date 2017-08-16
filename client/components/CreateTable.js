@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AddTable, AddField} from '../components';
+import {AddField} from '../components';
 import store, {addTableToTemp} from '../store';
 
 class CreateTable extends Component{
@@ -25,14 +25,12 @@ class CreateTable extends Component{
         e.preventDefault();
         let name = e.target.name;
         let value = e.target.value;
-        if (name === 'tableName') {this.setState({tableName : value})}
+        if (name==='tableName') {this.setState({tableName : value})}
         else {
             this.state.fields[e.target.id] = Object.assign({}, this.state.fields[e.target.id], {[name]: value});
         }
     }
     
-    // Must be formatted this way!! 
-    // table = {tableName: table1, fields: {field1: {}, field2:{}}}
     handleSubmit(e){
         e.preventDefault();
         let tableName = this.state.tableName;
