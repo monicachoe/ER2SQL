@@ -25,14 +25,14 @@ const tableName = (tablename) => ({type: TABLE_NAME, tablename})
  * THUNK CREATORS
  */
 
- export const fetchTable = () =>
-  dispatch =>
-    axios.get('/api/table')
-    .then(res => {
-      console.log("this is axios", res.data);
-      dispatch(createTable(res.data))
-    })
-    .catch(error => console.log(error))
+//  export const fetchTable = () =>
+//   dispatch =>
+//     axios.get('/api/table')
+//     .then(res => {
+//       console.log("this is axios", res.data);
+//       dispatch(createTable(res.data))
+//     })
+//     .catch(error => console.log(error))
 
   export const deleteTable = (tableName) =>
   dispatch =>
@@ -42,13 +42,13 @@ const tableName = (tablename) => ({type: TABLE_NAME, tablename})
     })
     .catch(error => console.log(error))
 
-  export const fetchTableName = (table, databaseid) =>
-  dispatch =>
-    axios.get(`/api/${table}/${table}/${databaseid}`)
-    .then(res => {
-      dispatch(tableName(res.data))
-    })
-    .catch(error => console.log(error))
+//   export const fetchTableName = (table, databaseid) =>
+//   dispatch =>
+//     axios.get(`/api/${table}/${table}/${databaseid}`)
+//     .then(res => {
+//       dispatch(tableName(res.data))
+//     })
+//     .catch(error => console.log(error))
 
 
 /**

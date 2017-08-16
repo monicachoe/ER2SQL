@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom'; 
-import store, {deleteTable} from '../store';
+import store from '../store';
 
 function RemoveTable (props){
   // const {tablename} = props;
   let dummyData =['monica', 'brenda', 'vinaya', 'kelaiya'];
-
+  let handleSubmit = props.handleSubmit;
     return(
         <div>
-          <form>
+          <form onSubmit={handleSubmit}>
             <label>
               Table Name : 
               <select name='tableName'>
@@ -22,7 +22,7 @@ function RemoveTable (props){
                 }
               </select>
             </label>
-            <button></button> 
+            <input type='submit' />
           </form>
         </div>
       )
@@ -34,10 +34,14 @@ const mapStateToProps = function(state, ownProps){
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    delete(event){
-      event.preventDefault();
-      const tableName = e.target.tablename.value;
-      onClick: () => dispatch(deleteTable(table));
+    // delete(event){
+    //   event.preventDefault();
+    //   const tableName = e.target.tablename.value;
+    //   onClick: () => dispatch(deleteTable(table));
+    // },
+    handleSubmit(e){
+      e.preventDefault();
+      console.log('submitted!');
     }
   }
 }
