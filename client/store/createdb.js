@@ -7,14 +7,14 @@ const CREATE = 'CREATE';
 
 /* ------------   ACTION CREATORS     ------------------ */
 
-const create = status => ({type: CREATE, status});
+const create = newDb => ({type: CREATE, newDb});
 
 /* ------------       REDUCERS     ------------------ */
 
-export default function reducer (state = "failure", action){
+export default function reducer (state = {}, action){
   switch (action.type){
     case CREATE:
-      return action.status;
+      return action.newDb;
     default:
       return state;
   }
@@ -22,11 +22,11 @@ export default function reducer (state = "failure", action){
 
 /* ------------   THUNK CREATORS     ------------------ */
 // unsure about the route path
-export const createDatabase = (dbName, userID) => dispatch => {
-    axios.post(`/api/$(userID)/$(dbName)`)
+export const createDatabase = (dbName, userId) => dispatch => {
+    axios.post(`/api/users/${userId}/${dbName}`)
        .then(res => {
          console.log(res.data);
-         dispatch(create("success"))
+         dispatch(create(res.data));
        })
-       .catch(err => console.error(`Creating databse $(dbName) unsuccessfull`, err));
+       .catch(err => console.error(`Creating databse ${dbName} unsuccessfull`, err));
 }

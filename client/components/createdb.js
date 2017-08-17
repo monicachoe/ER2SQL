@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Link} from 'react-router-dom'
 import {createDatabase} from '../store'
 
 class CreateDB extends Component {
@@ -24,10 +23,9 @@ class CreateDB extends Component {
   render(){
     return (
       <div>
-      <h1>In CreateDB page</h1>
       <form onSubmit={this.handleSubmit}>
         <label>Enter the DB name:</label>
-        <input name="db" type="text" />
+        <input name="db" type="text" value={this.state.dbName} onChange={this.handleChange}/>
         <button type="submit">Create DB</button>
       </form>
       </div>
@@ -45,5 +43,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps))(CreateDB);
-// export default CreateDB;
+export default connect(mapStateToProps, mapDispatchToProps)(CreateDB);
+
