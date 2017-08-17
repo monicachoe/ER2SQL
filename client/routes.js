@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {me} from './store'
-import {Main, Login, Signup, UserHome, CreateTable, Field, Box, CreateDB, RemoveTable} from './components'
+import {Main, Login, Signup, UserHome, CreateTable, Field, Box, CreateDB, RemoveTable, LoadDb} from './components'
 
 /**
  * COMPONENT
@@ -27,6 +27,7 @@ class Routes extends Component {
             <Route path='/signup' component={Signup} />
             <Route exact path='/createdb' component={CreateDB} />
             <Route path='/add-table' component={CreateTable} />
+            <Route exact path='/loaddb' component={LoadDb} />
             {
               isLoggedIn &&
                 <Switch>

@@ -5,6 +5,7 @@ import axios from 'axios';
  */
 const ADD_TABLE = 'ADD_TABLE';
 const ADD_FIELD = 'ADD_FIELD';
+const REMOVE_TABLE = 'REMOVE_TABLE';
 
 /**
  * INITIAL STATE
@@ -17,8 +18,8 @@ const temp = [];
  * ACTION CREATORS
  */
 const addTable = table => ({type: ADD_TABLE, table});
-const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field})
-
+const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field});
+const removeTable = (tableName) => ({type: REMOVE_TABLE, tableName});
 /**
  * THUNK CREATORS
  */
@@ -35,6 +36,14 @@ export const addFieldToTable = (curTable, name, attributes) =>
   dispatch =>
     dispatch(addField(curTable, name, attributes));
 
+export const deleteTable = (tableName) => 
+    dispatch =>
+    // console.log('tableName recieved: ', tableName);
+    axios.delete(`/api/metatables`)
+    axios.delete(`/api/tables/${tableName}`)
+      .then(res => dispatch(removeTable(tableName)))
+      .catch(err => console.log(err));
+
 /**
  * REDUCER
  */
@@ -47,6 +56,8 @@ export default function (state = temp, action) {
       let otherTables = state.filter(each => each.tableName !== action.curTable);
       table.fields[action.name] = action.attributes;
       return [...otherTables, table];
+    case REMOVE_TABLE:
+      return state.filter(each => each.tableName !== action.tableName);
     default:
       return state
   }

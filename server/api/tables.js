@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Sequelize = require('sequelize');
-const {db} = require('../db');
+const {db, client} = require('../db');
 module.exports = router;
 
 // req.body : array of objects
@@ -18,6 +18,14 @@ router.post('/', (req, res, next) => {
     const createdTable = db.define(tableName, fields);
     db.sync()
     .then(()=>res.status(200).send(`OK. Table ${tableName} created.`));
+});
+
+router.delete('/:tablename', (req, res, next) => {
+    var table = req.params.tablename
+    client.query(`DROP TABLE ${table}`, function (err, result) {
+      if (err) return next(err);
+      res.end(); // pass ersrors to Express
+    });
 });
 
 function getSequelizeType(type){

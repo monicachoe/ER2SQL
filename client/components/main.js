@@ -17,10 +17,11 @@ const Main = (props) => {
 
   return (
     <div id="main" className="container-fluid">
+      <h1>SimpleQl</h1>
       <div className="child1">
         <Sidebar/>
       </div>
-      <div className="child2">
+      <div classNAme='child2'>
         <nav>
           {
             isLoggedIn
@@ -36,10 +37,10 @@ const Main = (props) => {
               </div>
           }
         </nav>
-        <hr />
-        <Box/>
-        {children}
       </div>
+      <hr />
+      <Box />
+      {children}
     </div>
   )
 }

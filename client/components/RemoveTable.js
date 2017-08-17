@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom'; 
-import store from '../store';
+import store, {deleteTable} from '../store';
 
 function RemoveTable (props){
   // const {tablename} = props;
@@ -12,7 +12,7 @@ function RemoveTable (props){
           <form onSubmit={handleSubmit}>
             <label>
               Table Name : 
-              <select name='tableName'>
+              <select name='tableName'><option>-</option>
                 {dummyData.map(name => <option key={name} value={name}>{name}</option>)}
               </select>
             </label>
@@ -24,7 +24,7 @@ function RemoveTable (props){
 
 const mapStateToProps = function(state, ownProps){
   return {
-    tables : state.loaddb.tables
+    // tables : state.loaddb.tables
   }
 }
 
@@ -37,7 +37,8 @@ const mapDispatchToProps = (dispatch) => {
     // },
     handleSubmit(e){
       e.preventDefault();
-      console.log('submitted!');
+      dispatch(deleteTable(e.target.tableName.value));
+      console.log('submitted!', e.target.tableName.value);
     }
   }
 }

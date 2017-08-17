@@ -36,7 +36,7 @@ class CreateTable extends Component{
         let tableName = this.state.tableName;
         let curFields = this.state.fields;
         let curState = store.getState();
-        let databaseId = curState.createdb.id;
+        let databaseId = curState.database.id;
         let table = {tableName, fields : {}, databaseId};
         for (var field of curFields){
             let temp = field.columnName;

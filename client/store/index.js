@@ -4,16 +4,16 @@ import thunkMiddleware from 'redux-thunk';
 import user from './user';
 import temp from './temp';
 import metatable from './metatable';
-import createdb from './createdb';
-import removeTable from './removeTable';
+import database from './database';
+import userdbs from './userDatabases';
 
-const reducer = combineReducers({user, temp, metatable, createdb, removeTable});
+const reducer = combineReducers({user, temp, metatable, database, userdbs});
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}));
 const store = createStore(reducer, middleware);
 
 export default store;
 export * from './user';
 export * from './temp';
-export * from './metatable'
-export * from './createdb'
-export * from './removeTable';
+export * from './metatable';
+export * from './database';
+export * from './userDatabases';
