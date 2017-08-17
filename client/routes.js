@@ -4,8 +4,8 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, Table, Field, Box} from './components'
 import {me, fetchDatatypes} from './store'
+import {Main, Login, Signup, UserHome, Table, Field, Box,CreateDB} from './components'
 
 /**
  * COMPONENT
@@ -27,6 +27,8 @@ class Routes extends Component {
             <Route path='/signup' component={Signup} />
             <Route path='/add-table' component={Table} />
             <Route path='/add-field' component={Field} />
+            <Route exact path='/createdb' component={CreateDB} />
+            {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
