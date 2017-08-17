@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Table from './Table'
-import Field from './Field'
 import CreateDB from './createdb'
+import CreateTable from './CreateTable'
 
 export default class Sidebar extends Component {
     constructor(props) {
@@ -64,8 +63,7 @@ export default class Sidebar extends Component {
                     ? <CreateDB/> : <div/>
 
                 }
-                <Table/>
-                <Field/>
+            <CreateTable/>
             </div>
         )
     }
