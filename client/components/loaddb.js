@@ -14,7 +14,7 @@ class LoadDb extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if (nextProps.user.id && this.props.user !== nextProps.user){
+    if (nextProps.user.id && this.props.userdbs !== nextProps.userdbs){
       this.props.getUserDatabases(nextProps.user.id);
     }
   }

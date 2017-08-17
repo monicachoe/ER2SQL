@@ -15,5 +15,6 @@ const db = new Sequelize(
   process.env.DATABASE_URL || 'postgres://localhost:5432/er2sql', {
     logging: false
   }
-)
-module.exports = db
+);
+
+module.exports = db;
