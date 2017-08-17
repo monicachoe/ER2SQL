@@ -6,6 +6,9 @@ import store, {deleteTable} from '../store';
 function RemoveTable (props){
   // const {tablename} = props;
   let dummyData =['monica', 'brenda', 'vinaya', 'kelaiya'];
+  let tables = props.tables;
+  let keys = Object.keys(tables);
+  console.log('tables are: ', tables, props.tables)
   let handleSubmit = props.handleSubmit;
     return(
         <div>
@@ -13,7 +16,7 @@ function RemoveTable (props){
             <label>
               Table Name : 
               <select name='tableName'><option>-</option>
-                {dummyData.map(name => <option key={name} value={name}>{name}</option>)}
+                {keys.map(each => <option key={each}>{tables[each].table.database.name} {tables[each].tableId} {tables[each].table.tableName}</option>)}
               </select>
             </label>
             <input type='submit' />
@@ -24,7 +27,8 @@ function RemoveTable (props){
 
 const mapStateToProps = function(state, ownProps){
   return {
-    // tables : state.loaddb.tables
+    tables : state.temp,
+    database : state.database
   }
 }
 
@@ -37,10 +41,12 @@ const mapDispatchToProps = (dispatch) => {
     // },
     handleSubmit(e){
       e.preventDefault();
-      dispatch(deleteTable(e.target.tableName.value));
+      let splitName = e.target.tableName.value.split(" ");
+      let tableName = splitName[0]+splitName[1]+'s';
+      dispatch(deleteTable(tableName, Number(splitName[1])));
       console.log('submitted!', e.target.tableName.value);
     }
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RemoveTable));
+export default connect(mapStateToProps, mapDispatchToProps)(RemoveTable);

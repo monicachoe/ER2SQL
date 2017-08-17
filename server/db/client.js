@@ -1,5 +1,5 @@
 var pg = require('pg');
-var client = new pg.Client('postgres://localhost/er2sql');
+var client = new pg.Client('postgres://localhost:5432/er2sql');
 
 client.connect();
 

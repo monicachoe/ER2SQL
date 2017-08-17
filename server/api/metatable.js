@@ -23,9 +23,8 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
-router.delete('/:databaseId/:tableName', (req,res,next) => {
-    var tableId = req.params.tableId
-    Table.destroy({where: {id: tableId}})
-    .then(() => res.status(204).send(`Succesfully deleted table ${tableId} `))
-    .catch(err);
-});
+router.delete('/:tableId', (req,res,next) => {
+   var tableId = req.params.tableId
+   Table.destroy({where: {id: tableId}})
+   .then(() => res.status(204).send(`Succesfully deleted table ${tableId} `));
+})
