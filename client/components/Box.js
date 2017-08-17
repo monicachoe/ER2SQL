@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import { logout } from '../store'
 
+// TEMP CONTAINS ALL NEWLY CREATED TABLES
 export const Box = (props) => {
     const {temp} = props
-    console.log(temp)
     return (
         <table style={{ width: 25 + 'px' }}>
             <tr>
