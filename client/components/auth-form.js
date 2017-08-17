@@ -64,13 +64,19 @@ const mapSignup = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit (evt) {
-      evt.preventDefault()
+      evt.preventDefault();
+      let name;
       const formName = evt.target.name;
       const email = evt.target.email.value;
       const password = evt.target.password.value;
-      const name = evt.target.username.value;
+      if (formName === 'signup'){
+        name = evt.target.username.value;
+      }
       console.log(formName, email, password, name, "handleSubmit func");
-      (formName === 'signup') ? dispatch(signup(name, email, password, formName)) : dispatch(auth(email, password, formName))
+
+      (formName === 'signup')
+      ? dispatch(signup(name, email, password, formName))
+      : dispatch(auth(email, password, formName));
     }
   }
 }

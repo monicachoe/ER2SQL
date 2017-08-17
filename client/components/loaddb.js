@@ -1,43 +1,58 @@
-// import React, {Component} from 'react';
-// import {connect} from 'react-redux';
-// import {getUserDatabase} from '../store';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {getUserDatabases} from '../store';
 
-// class LoadDb extends Component {
+class LoadDb extends Component {
 
-//   constructor(props){
-//     super(props);
+  constructor(props){
+    super(props);
+    this.state = {
+      'selectedDb': ''
+    }
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
+  componentWillReceiveProps(nextProps){
+    if (nextProps.user.id && this.props.user !== nextProps.user){
+      this.props.getUserDatabases(nextProps.user.id);
+    }
+  }
 
-//   handleSubmit (evt){
-//     evt.preventDefault();
-//   }
+  handleChange(evt){
+    console.log("target", evt.target);
+    console.log("target value", evt.target.value);
+  }
 
-//   render(){
-//     return (
-//       <div>
-//         <h1> In LoadDb </h1>
-//         <form onSubmit= {this.handleSubmit}>
-//           <label htmlFor="load">Select database</label>
-//           <select name="load">
-//             {}
-//           </select>
-//           <button type="submit">Load DB</button>
-//         </form>
-//       </div>
-//     )
-//   }
-// }
+  handleSubmit (evt){
+    evt.preventDefault();
+  }
 
-// const mapStateToProps = ({user}) => ({user});
+  render(){
+    return (
+      <div>
+        <form onSubmit= {this.handleSubmit}>
+          <label htmlFor="load">Select database</label>
+          <select name="load" onChange={this.handleChange}>
+            {this.props.userdbs && this.props.userdbs.map(eachDB => {
+              return (<option key={eachDB.id} value={eachDB.name}>{eachDB.name}</option>)
+            })}
+          </select>
+          <button type="submit">Load DB</button>
+        </form>
+      </div>
+    )
+  }
+}
 
-// const mapDisptachProps = (dispatch) =>{
-//   return {
-//     getUserDatabase(userId){
-//       dispatch(getUserDatabase(userId))
-//     }
-//   }
-// }
+const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
 
-// export default connect(mapStateToProps, mapDisptachProps)(LoadDb);
+const mapDisptachProps = (dispatch) => {
+  return {
+    getUserDatabases(userId){
+      dispatch(getUserDatabases(userId))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDisptachProps)(LoadDb);
