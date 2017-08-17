@@ -10,10 +10,10 @@ router.get('/:tableId', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  var name  = req.body.name
+  var name  = req.body.tableName
   var databaseId = req.body.databaseId
-  Table.Create({name: name, databaseId: databaseId})
-    .then(() => res.status(204).send(`Created table ${name}`))
+  Table.create({name: name, databaseId: databaseId})
+    .then((table) => res.status(204).json(table.id))
     .catch(next)
 })
 
