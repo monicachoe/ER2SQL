@@ -13,13 +13,7 @@ function RemoveTable (props){
             <label>
               Table Name : 
               <select name='tableName'>
-                {
-                  dummyData.map(name => {
-                  return(
-                         <option key={name} value={name}>{name}</option>
-                        )
-                  })
-                }
+                {dummyData.map(name => <option key={name} value={name}>{name}</option>)}
               </select>
             </label>
             <input type='submit' />
@@ -29,7 +23,9 @@ function RemoveTable (props){
 }
 
 const mapStateToProps = function(state, ownProps){
-  return {}
+  return {
+    tables : state.loaddb.tables
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

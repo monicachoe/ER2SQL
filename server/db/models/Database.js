@@ -1,12 +1,11 @@
-const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Table = db.define('table', {
+const Database = db.define('database', {
   name: {
     type: Sequelize.STRING,
     allowNull: false
   }
 })
 
-module.exports = Table;
+module.exports = Database;
