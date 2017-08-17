@@ -21,6 +21,7 @@ const Main = (props) => {
         <Sidebar/>
       </div>
       <div className="child2">
+        <h1>SimpleQL</h1>
         <nav>
           {
             isLoggedIn

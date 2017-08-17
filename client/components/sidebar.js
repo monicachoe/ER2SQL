@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {CreateTable, Field, CreateDB} from './index';
+import {CreateTable, Field, CreateDB, LoadDb} from './index';
 
 export default class Sidebar extends Component {
     constructor(props) {
@@ -55,7 +55,7 @@ export default class Sidebar extends Component {
                 <button onClick={this.showLoadForm}>Load DB</button>
                 {
                     this.state.showLoad
-                        ? <h1>Hello!</h1> : <div/>
+                        ? <LoadDb/> : <div/>
                 }
                 {
                     this.state.showCreate

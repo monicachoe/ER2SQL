@@ -32,6 +32,7 @@ class LoadDb extends Component {
   }
 
   render(){
+    console.log('my dbs: ', this.props.userdbs);
     return (
       <div>
         <form onSubmit= {this.handleSubmit}>
@@ -53,6 +54,7 @@ const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
 const mapDisptachProps = (dispatch) => {
   return {
     getUserDatabases(userId){
+      console.log('userId: ', userId);
       dispatch(getUserDatabases(userId))
     },
     loadDatabase(selectedDb){
