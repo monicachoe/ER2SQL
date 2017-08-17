@@ -4,13 +4,8 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-<<<<<<< HEAD
-import {me, fetchDatatypes} from './store'
-import {Main, Login, Signup, UserHome, Table, Field, Box,CreateDB} from './components'
-=======
-import {Main, Login, Signup, UserHome, CreateTable} from './components'
 import {me} from './store'
->>>>>>> d6701b81d344768f21bb45f381a7eae83693df04
+import {Main, Login, Signup, UserHome, CreateTable, Field, Box, CreateDB} from './components'
 
 /**
  * COMPONENT
