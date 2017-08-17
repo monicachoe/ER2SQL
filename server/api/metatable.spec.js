@@ -12,51 +12,52 @@ describe('Table routes', () => {
   });
 
   describe('/api/metatable/', () => {
-    const name = "Kelaiya"
+    var name = "Kelaiya";
+    var table = []
     beforeEach(() => {
         return Table.create({
           name: name
         })
+        .then(function(data){
+          table = data
+        })
     })
 
-    it('GET /api/metadatabase/:tableId', () => {
+    it('GET /api/metatable/:tableId', () => {
       return request(app)
-      .get('/api/metadatabase/:tableId')
+      .get('/api/metatable/' + table.id)
       .expect(200)
       .then(res => {
-        expect(res.data).to.be.equal('u got it!');
+        console.log("res", res.body)
+        expect(res.body.name).to.be.equal('Kelaiya');
       })
     });
 
-    it('GET /api/metadatabase/:databaseId', () => {
+    it('POST /api/metatable', () => {
       return request(app)
-      .get('/api/metadatabase/:databaseId')
-      .expect(200)
-      .then(res => {
-        expect(res.body).to.be.an('string');
-        expect(res.body.name).to.be.equal(`got database ${Database1}`);
+      .post('/api/metatable/')
+      .send({name: 'kelaiya', databaseId: 1})
+      // .expect(200)
+      .then(found => {
+        Table.findById(1)
+        .then((table) => console.log("hey",table.name))
+        console.log("hey I am here", table)
+        expect(table.name).to.be.an('string')
+        expect(table.name).to.be.equal('Kelaiya');
       })
+      .catch(() => console.log("Something went wrong"));
+      
     });
 
-    it('GET /api/metadatabase/:databaseId/metatable', () => {
+    it('DELETE /api/metatable/:tableId', () => {
       return request(app)
-      .get('/api/metadatabase/:databaseId/metatable')
-      .expect(200)
+      .delete('/api/metatable' + table.id)
       .then(res => {
         expect(res.body[0].name).to.be.equal(id);
       })
     });
 
-    it('POST /api/metadatabase/', ()=>{
-      return request(app)
-      .post('/api/metadatabase/')
-      .send({name: 'data1'},{id: 1})
-      .expect(201)
-      .then(res=> {
-        expect(res.body.name).to.be.equal('data1')
-        expect(res.body.id).to.be,equal(1)
-      })
-    });
+    
 
   });
 

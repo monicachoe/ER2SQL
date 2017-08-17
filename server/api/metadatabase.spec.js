@@ -15,7 +15,7 @@ describe('Database routes', () => {
     var database
     const tableName = 'Table2';
     const databaseName = "Kelaiya";
-    const id = 2;
+    
     // const databaseName = 'Database1';
     // const message = "u got it"
     // const id = 2;
@@ -23,7 +23,7 @@ describe('Database routes', () => {
     beforeEach(() => {
         return Database.create({
           name: databaseName,
-          userId: 2
+          
         })
         .then(function(data){
           database = data
@@ -59,21 +59,17 @@ describe('Database routes', () => {
       })
     });
 
-    it.only('POST /api/metadatabase/', ()=>{
+    it('POST /api/metadatabase/', ()=>{
       return request(app)
       .post('/api/metadatabase/')
-      .send({name: 'data1', userId: 2})
-      .expect(200)
-      .then(res=> {
-        const data = res.text;
-        return Database.findById(data.id)
-      })
+      .send({name: 'data1', userId: 1})
       .then(found => {
-        console.log("res")
-        expect(found.name).to.be.equal('data1')
-        expect(found.userId).to.be.equal(2)
+        Database.findById(1)
+        .then((database) => console.log("hey", database.name))
+        expect(database.name).to.be.an("string")
+        expect(database.name).to.be.equal('data1')
       })
-
+      .catch(() => console.log("Game over"))
     })
 
   });
