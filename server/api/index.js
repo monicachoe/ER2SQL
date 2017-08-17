@@ -2,9 +2,8 @@ const router = require('express').Router()
 module.exports = router
 
 router.use('/users', require('./users'))
-router.use('/tables', require('./tables'))
-router.use('/datatypes', require('./datatypes'))
-router.use('/fields', require('./fields'))
+router.use('/metatable', require('./metatable'))
+router.use('/metadatabase', require('./metadatabase'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')
