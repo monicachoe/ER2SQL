@@ -39,7 +39,7 @@ export const addFieldToTable = (curTable, name, attributes) =>
 export const deleteTable = (tableName) => 
     dispatch =>
     // console.log('tableName recieved: ', tableName);
-    axios.delete(`/api/metatables`)
+    // axios.delete(`/api/metatables`)
     axios.delete(`/api/tables/${tableName}`)
       .then(res => dispatch(removeTable(tableName)))
       .catch(err => console.log(err));

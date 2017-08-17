@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {CreateTable, Field, CreateDB, RemoveTable} from './index';
+import {CreateTable, Field, CreateDB, RemoveTable, LoadDB} from './index';
 
 export default class Sidebar extends Component {
     constructor(props) {
@@ -75,7 +75,7 @@ export default class Sidebar extends Component {
                 <button onClick={this.showLoadForm}>Load DB</button>
                 <button onClick={this.showRemoveTableForm}>RemoveTable</button>
                 <button onClick={this.showCreateTableForm}>Create Table</button>
-                {this.state.showLoad ? <h1>Hello!</h1> : <div/>}
+                {this.state.showLoad ? <LoadDB/> : <div/>}
                 {this.state.showCreate ? <CreateDB/> : <div/>}
                 {this.state.showCreateTable ? <CreateTable /> : null}
                 {this.state.showRemoveTable ? <RemoveTable /> : null}

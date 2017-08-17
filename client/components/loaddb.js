@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getUserDatabases} from '../store';
+import {getUserDatabases, loadDatabase } from '../store';
 
 class LoadDb extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      'selectedDb': ''
+      'dbName': ''
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -20,12 +20,15 @@ class LoadDb extends Component {
   }
 
   handleChange(evt){
-    console.log("target", evt.target);
-    console.log("target value", evt.target.value);
+    this.setState({dbName: evt.target.value});
   }
 
   handleSubmit (evt){
     evt.preventDefault();
+    let selectedDb = this.props.userdbs.filter((eachDb) => {
+      if (eachDb.name === this.state.dbName ) return eachDb;
+    })
+    this.props.loadDatabase(selectedDb);
   }
 
   render(){
@@ -51,6 +54,9 @@ const mapDisptachProps = (dispatch) => {
   return {
     getUserDatabases(userId){
       dispatch(getUserDatabases(userId))
+    },
+    loadDatabase(selectedDb){
+      dispatch(loadDatabase(selectedDb));
     }
   }
 }
