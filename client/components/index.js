@@ -4,3 +4,4 @@ export {Login, Signup} from './auth-form';
 export {default as CreateTable} from './CreateTable';
 export {default as CreateDB} from './createdb'
 export {default as AddField} from './AddField';
+export {default as LoadDb} from './loaddb';

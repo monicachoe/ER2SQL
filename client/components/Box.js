@@ -6,31 +6,40 @@ import { logout } from '../store'
 
 // TEMP CONTAINS ALL NEWLY CREATED TABLES
 export const Box = (props) => {
-    const {temp} = props
+    const { tables } = props
+    console.log(tables)
+    var columnName;
     return (
-        <table style={{ width: 25 + 'px' }}>
-            <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Age</th>
-            </tr>
-            <tr>
-                <td>Jill</td>
-                <td>Smith</td>
-                <td>50</td>
-            </tr>
-            <tr>
-                <td>Eve</td>
-                <td>Jackson</td>
-                <td>94</td>
-            </tr>
-        </table>
+        <div>
+            {
+                tables && tables.map((table) => {
+                    columnName = Object.keys(table.fields)
+                    return (
+
+                        <table style={{ width: 25 + 'px' }}>
+                            <caption>{table.tableName}</caption> 
+                            {
+                                columnName.map((column) => {
+                                    return (
+                                        <tr>
+                                            <td>{column}</td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </table>
+                    )
+                }
+
+                )
+            }
+        </div>
     )
 }
 
 const mapState = (state) => {
     return {
-        temp: state.temp
+        tables: state.temp
     }
 }
 

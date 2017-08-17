@@ -61,11 +61,7 @@ export default class Sidebar extends Component {
                     this.state.showCreate
                     ? <CreateDB/> : <div/>
                 }
-<<<<<<< HEAD
-            <CreateTable/>
-=======
                 <CreateTable/>
->>>>>>> 880c2274026821ae260ee6d568095ffcee55b1d7
             </div>
         )
     }
