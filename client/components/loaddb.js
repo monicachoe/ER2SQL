@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getUserDatabases, loadDatabase } from '../store';
+import { loadDatabase } from '../store';
 
 class LoadDb extends Component {
 
@@ -11,10 +11,6 @@ class LoadDb extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentDidMount(){
-    this.props.getUserDatabases(this.props.user.id);
   }
 
   handleChange(evt){
@@ -30,7 +26,6 @@ class LoadDb extends Component {
   }
 
   render(){
-
     return (
       <div>
         <form onSubmit= {this.handleSubmit}>
@@ -51,10 +46,6 @@ const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
 
 const mapDisptachProps = (dispatch) => {
   return {
-    getUserDatabases(userId){
-      console.log('userId: ', userId);
-      dispatch(getUserDatabases(userId))
-    },
     loadDatabase(selectedDb){
       dispatch(loadDatabase(selectedDb));
     }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import {connect} from 'react-redux';
 import {CreateTable, Field, CreateDB, LoadDb} from './index';
+import {getUserDatabases} from '../store'
 
-export default class Sidebar extends Component {
+class Sidebar extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -12,7 +12,6 @@ export default class Sidebar extends Component {
         }
         this.showCreateForm = this.showCreateForm.bind(this)
         this.showLoadForm = this.showLoadForm.bind(this)
-        // this.showBothForm = this.showBothForm.bind(this)
     }
     showCreateForm(evt) {
         evt.preventDefault()
@@ -36,6 +35,11 @@ export default class Sidebar extends Component {
         this.setState({
             showLoad: !this.state.showLoad
         })
+        //Remove this check once we have our home page not showing
+        // createdb/ loaddb options before logging in
+        if (this.props.user.id){
+            this.props.getUserDatabases(this.props.user.id);
+        }
     }
     // showBothForm(evt){
     //     evt.preventDefault()
@@ -66,3 +70,16 @@ export default class Sidebar extends Component {
         )
     }
 }
+
+const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
+
+const mapDisptachProps = (dispatch) => {
+  return {
+    getUserDatabases(userId){
+      console.log('userId: ', userId);
+      dispatch(getUserDatabases(userId))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDisptachProps)(Sidebar);
