@@ -2,10 +2,10 @@ const router = require('express').Router()
 module.exports = router
 
 router.use('/users', require('./users'))
-router.use('/tables', require('./tables'))
-router.use('/fields', require('./fields'))
-router.use('/metatable', require('./metatable'))
-router.use('/metadatabase', require('./metadatabase'))
+router.use('/tables', require('./tables')) // virutal tables
+router.use('/fields', require('./fields')) // for the virtual tables
+router.use('/metatable', require('./metatable')) // OUR table to hold table information 
+router.use('/metadatabase', require('./metadatabase')) // OUR table to hold database information
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')
