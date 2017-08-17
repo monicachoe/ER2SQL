@@ -5,27 +5,19 @@ module.exports = router;
 
 // req.body : array of objects
 // each object represents one table
-// ex/ [{tableName : 'table1', 
+// ex/ [{tableName : '1', 
 //          fields : {name : {type: String, validations: ...}, 
 //                    quantity : {type : integer, validations: ...}}}, 
-//      {tableName : 'table2', 
+//      {tableName : '2', 
 //          fields : {name : {type: String, validations: ...}, ...}]
-// router.post('/', (req, res, next) => {
-//     let tables = [req.body];
-//     for (var table of tables){
-//         let tableName = table.tableName;
-//         let fields = formatFields(table.fields); 
-//         const createdTable = db.define(tableName, fields);
-//         db.sync();
-//     }
-// });
 
 router.post('/', (req, res, next) => {
     let table = req.body;
-    let tableName = table.tableName;
-    let fields = formatFields(table.fields); 
+    let tableName = table.tableName.toString();
+    let fields = formatFields(table.fields);
     const createdTable = db.define(tableName, fields);
-    db.sync();
+    db.sync()
+    .then(()=>res.status(200).send(`OK. Table ${tableName} created.`));
 });
 
 function getSequelizeType(type){
