@@ -1,7 +1,24 @@
 const router = require('express').Router();
+const {Table} = require('../db/models')
+module.exports = router
 
-POST to metatable --> databse ID, name
+router.get('/:tableId', (req, res, next) => {
+  var tableId = req.params.tableId
+  Table.findOne({where: {id: tableId}})
+    .then((table) => res.json(table))
+    .catch(next)
+})
 
-DELETE from metatable --> tableID
+router.post('/', (req, res, next) => {
+  var name  = req.body.name
+  var databaseId = req.body.databaseId
+  Table.Create({name: name, databaseId: databaseId})
+    .then(() => res.status(204).send(`Created table ${name}`))
+    .catch(next)
+})
 
-GET all tables associated to a database metatable --> database ID
+router.delete('/:tableId', (req,res,next) => {
+    var tableId = req.params.tableId
+    Table.destroy({where: {id: tableId}})
+    .then(() => res.status(204).send(`Succesfully deleted table ${tableId} `))
+})
