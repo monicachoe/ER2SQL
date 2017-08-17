@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import CreateDB from './createdb'
-import CreateTable from './CreateTable'
+import {CreateTable, Field, CreateDB} from './index';
 
 export default class Sidebar extends Component {
     constructor(props) {
@@ -61,9 +60,12 @@ export default class Sidebar extends Component {
                 {
                     this.state.showCreate
                     ? <CreateDB/> : <div/>
-
                 }
+<<<<<<< HEAD
             <CreateTable/>
+=======
+                <CreateTable/>
+>>>>>>> 880c2274026821ae260ee6d568095ffcee55b1d7
             </div>
         )
     }

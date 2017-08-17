@@ -24,9 +24,6 @@ export default function reducer (state = {}, action){
 // unsure about the route path
 export const createDatabase = (dbName, userId) => dispatch => {
     axios.post(`/api/users/${userId}/${dbName}`)
-       .then(res => {
-         console.log(res.data);
-         dispatch(create(res.data));
-       })
+       .then(res => dispatch(create(res.data)))
        .catch(err => console.error(`Creating databse ${dbName} unsuccessfull`, err));
 }

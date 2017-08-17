@@ -7,7 +7,6 @@ import {auth, signup} from '../store'
  * COMPONENT
  */
 const AuthForm = (props) => {
-  console.log(props);
   const {name, displayName, handleSubmit, error} = props
 
   return (
@@ -69,7 +68,6 @@ const mapDispatch = (dispatch) => {
       const email = evt.target.email.value;
       const password = evt.target.password.value;
       const name = evt.target.username.value;
-      console.log(formName, email, password, name, "handleSubmit func");
       (formName === 'signup') ? dispatch(signup(name, email, password, formName)) : dispatch(auth(email, password, formName))
     }
   }

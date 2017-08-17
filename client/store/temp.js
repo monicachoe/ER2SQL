@@ -26,7 +26,7 @@ const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field})
 // Assuming that posting to metatable returns the tableId!!!!! 
 export const addTableToTemp = (table) =>
   dispatch => {
-    axios.post('/api/metatable', {'tableName' : table.tableName, 'databaseId' : table.databaseID || 1})
+    axios.post('/api/metatable', {'tableName' : table.tableName, 'databaseId' : table.databaseId})
     .then(res => res.data)
     .then(res => axios.post('/api/tables', {'tableName' : res.id, 'fields' : table.fields}))
     dispatch(addTable(table));}

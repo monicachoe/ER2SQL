@@ -7,19 +7,11 @@ class CreateTable extends Component{
         super();
         this.state = {
             tableName : '',
-            fields : [],
-            database : undefined
+            fields : []
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-    }
-
-    componentDidMount(){
-        let currentState = store.getState();
-        this.setState({
-            databaseId : currentState.database
-        });
     }
 
     handleClick(e){
@@ -43,20 +35,26 @@ class CreateTable extends Component{
         e.preventDefault();
         let tableName = this.state.tableName;
         let curFields = this.state.fields;
-        let table = {tableName, fields : {}, 'databaseId' : this.state.databaseId};
+        let curState = store.getState();
+        let databaseId = curState.createdb.id;
+        let table = {tableName, fields : {}, databaseId};
         for (var field of curFields){
             let temp = field.columnName;
             delete field['columnName'];
             table.fields[temp] = field;
         }
         store.dispatch(addTableToTemp(table));
+        this.setState({
+            tableName : '',
+            fields : []
+        });
     }
 
     render(){
         let fieldsArr = [...Array(this.state.fields.length).keys()];
         return (
             <form onSubmit={this.handleSubmit}>
-            <label>Table Name: <input type='text' name='tableName' onChange={this.handleChange}/></label>
+            <label>Table Name: <input type='text' name='tableName' onChange={this.handleChange} value={this.state.tableName}/></label>
             <button onClick={this.handleClick}>Add Field</button>
             <input type='submit' disabled={this.state.tableName.length === 0}/>
             <hr />
