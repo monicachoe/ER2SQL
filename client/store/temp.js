@@ -20,6 +20,7 @@ const temp = [];
 const addTable = table => ({type: ADD_TABLE, table});
 const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field});
 const removeTable = (tableName) => ({type: REMOVE_TABLE, tableName});
+
 /**
  * THUNK CREATORS
  */
@@ -34,7 +35,6 @@ export const addTableToTemp = (table) =>
       tableName = table.database.name + tableId
       return res.data})
     .then(res => axios.post('/api/tables', {tableName, 'fields' : table.fields}))
-    .then(() => console.log('tableID: ', tableName))
     .then(() => dispatch(addTable({table, tableId})));
   }
 
@@ -44,8 +44,6 @@ export const addFieldToTable = (curTable, name, attributes) =>
 
 export const deleteTable = (tableName, tableId) => 
     dispatch =>
-    // console.log('tableName recieved: ', tableName);
-    // axios.delete(`/api/metatables`)
     axios.delete(`/api/tables/${tableName}`)
       .then(res => dispatch(removeTable(tableName)))
       .then(() => axios.delete(`/api/metatable/${tableId}`))

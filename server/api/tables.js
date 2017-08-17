@@ -21,12 +21,10 @@ router.post('/', (req, res, next) => {
 });
 
 router.delete('/:tablename', (req, res, next) => {
-    console.log('HIT THE DELETE ROUTE')
     var table = req.params.tablename
-    console.log('table: ', table);
     client.query(`DROP TABLE ${table}`, function (err, result) {
       if (err) return next(err);
-      res.end(); // pass ersrors to Express
+      res.end();
     });
 });
 
