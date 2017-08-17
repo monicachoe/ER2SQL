@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Table from './Table'
 import Field from './Field'
+import CreateDB from './createdb'
 
 export default class Sidebar extends Component {
     constructor(props) {
@@ -13,9 +14,15 @@ export default class Sidebar extends Component {
         }
         this.showCreateForm = this.showCreateForm.bind(this)
         this.showLoadForm = this.showLoadForm.bind(this)
+        // this.showBothForm = this.showBothForm.bind(this)
     }
     showCreateForm(evt) {
         evt.preventDefault()
+        if(this.state.showLoad){
+            this.setState({
+            showLoad: !this.state.showLoad
+            })
+        }
         this.setState({
             showCreate: !this.state.showCreate
         })
@@ -23,12 +30,26 @@ export default class Sidebar extends Component {
 
     showLoadForm(evt) {
         evt.preventDefault()
+        if(this.state.showCreate){
+            this.setState({
+            showCreate: !this.state.showCreate
+            })
+        }
         this.setState({
             showLoad: !this.state.showLoad
         })
     }
+    // showBothForm(evt){
+    //     evt.preventDefault()
+    //     if(this.state.showLoad){
+    //         this.state
+    //     }
+    //     this.setState({
+    //         showLoad: !this.state.showLoad,
+    //         showCreate: !this.state.showCreate
+    //     })
+    // }
     render() {
-        console.log(this.state)
         return (
             <div>
                 <h1>Options</h1>
@@ -38,7 +59,14 @@ export default class Sidebar extends Component {
                     this.state.showLoad
                         ? <h1>Hello!</h1> : <div/>
                 }
+                {
+                    this.state.showCreate
+                    ? <CreateDB/> : <div/>
+
+                }
+                <Table/>
+                <Field/>
             </div>
-        );
+        )
     }
 }

@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 /**
  * ACTION TYPES
  */
@@ -8,7 +10,8 @@ const ADD_FIELD = 'ADD_FIELD';
  * INITIAL STATE
  */
 // temp = [{tableName: table1, fields: {all fields}}, {tableName: table2, fields: {all fields}}]
-const temp = []
+// look into changing it to object with array {listOfTable : []}
+const temp = [];
 
 /**
  * ACTION CREATORS
@@ -19,9 +22,14 @@ const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field})
 /**
  * THUNK CREATORS
  */
+// Make axios request too!!! --> post to database
+// Assuming that posting to metatable returns the tableId!!!!! 
 export const addTableToTemp = (table) =>
-  dispatch =>
-    dispatch(addTable(table));
+  dispatch => {
+    axios.post('/api/metatables', {'tableName' : table.tableName, 'databaseId' : table.databaseID})
+    .then(res => res.data)
+    .then(tableId => axios.post('/api/tables', {'tableName' : tableId, 'fields' : table.fields}))
+    dispatch(addTable(table));}
 
 export const addFieldToTable = (curTable, name, attributes) => 
   dispatch =>

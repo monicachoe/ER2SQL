@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Sequelize = require('sequelize');
-const db = require('../db');
+const {db} = require('../db');
 module.exports = router;
 
 // req.body : array of objects
@@ -10,18 +10,26 @@ module.exports = router;
 //                    quantity : {type : integer, validations: ...}}}, 
 //      {tableName : 'table2', 
 //          fields : {name : {type: String, validations: ...}, ...}]
+// router.post('/', (req, res, next) => {
+//     let tables = [req.body];
+//     for (var table of tables){
+//         let tableName = table.tableName;
+//         let fields = formatFields(table.fields); 
+//         const createdTable = db.define(tableName, fields);
+//         db.sync();
+//     }
+// });
+
 router.post('/', (req, res, next) => {
-    let tables = req.body; 
-    for (var table of tables){
-        let tableName = table.tableName;
-        let fields = table.fields; 
-        const createdTable = db.define(tableName, fields);
-        db.sync();
-    }
+    let table = req.body;
+    let tableName = table.tableName;
+    let fields = formatFields(table.fields); 
+    const createdTable = db.define(tableName, fields);
+    db.sync();
 });
 
 function getSequelizeType(type){
-    let d = {'string': Sequelize.STRING, 'text': Sequelize.TEXT, 'float': Sequelze.FLOAT, 'date': Sequelize.DATE, 'boolean': Sequelze.BOOLEAN, 'enum': Sequelize.ENUM, 'array': Sequelize.ARRAY};
+    let d = {'string': Sequelize.STRING, 'text': Sequelize.TEXT, 'float': Sequelize.FLOAT, 'date': Sequelize.DATE, 'boolean': Sequelize.BOOLEAN, 'enum': Sequelize.ENUM, 'array': Sequelize.ARRAY};
     return d[type];
 }
 
