@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
 })
 
 //POST: Route to create database by each user.
-router.post('/:userId/:dbName', (req, res, next) => {
+router.post('/:userId/database/:dbName', (req, res, next) => {
   console.log('route: ', req.params.userId, req.params.dbName);
   Database.findOrCreate( {where: {
     userId: req.params.userId,
@@ -23,7 +23,7 @@ router.post('/:userId/:dbName', (req, res, next) => {
   }})
   .spread( (db, created) => {
     if (!created){
-      res.send('Database ', req.params.dbName, ' already exists ');
+      throw new Error(`Database ${req.params.dbName} already exists`);
     }
     else {
       console.log(db);
