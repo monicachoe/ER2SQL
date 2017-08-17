@@ -28,7 +28,7 @@ export const addTableToTemp = (table) =>
   dispatch => {
     axios.post('/api/metatables', {'tableName' : table.tableName, 'databaseId' : table.databaseID})
     .then(res => res.data)
-    .then(tableId => axios.post('/api/tables', {'tableName' : tableId, 'fields' : table.fields});)
+    .then(tableId => axios.post('/api/tables', {'tableName' : tableId, 'fields' : table.fields}))
     dispatch(addTable(table));}
 
 export const addFieldToTable = (curTable, name, attributes) => 
