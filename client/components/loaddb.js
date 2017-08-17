@@ -13,10 +13,8 @@ class LoadDb extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps){
-    if (nextProps.user.id && this.props.userdbs !== nextProps.userdbs){
-      this.props.getUserDatabases(nextProps.user.id);
-    }
+  componentDidMount(){
+    this.props.getUserDatabases(this.props.user.id);
   }
 
   handleChange(evt){
@@ -32,7 +30,7 @@ class LoadDb extends Component {
   }
 
   render(){
-    console.log('my dbs: ', this.props.userdbs);
+
     return (
       <div>
         <form onSubmit= {this.handleSubmit}>
