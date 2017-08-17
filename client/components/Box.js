@@ -22,7 +22,7 @@ export const Box = (props) => {
                                 columnName.map((column) => {
                                     return (
                                         <tr>
-                                            <td>{column}</td>
+                                            <td key="column">{column}</td>
                                         </tr>
                                     )
                                 })
