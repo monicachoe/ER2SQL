@@ -1,6 +1,6 @@
 var pg = require('pg');
 var client = new pg.Client('postgres://localhost/er2sql');
 
-client.connect()
+client.connect();
 
 module.exports = client;
