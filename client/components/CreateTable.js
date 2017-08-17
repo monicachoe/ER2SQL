@@ -7,11 +7,19 @@ class CreateTable extends Component{
         super();
         this.state = {
             tableName : '',
-            fields : []
+            fields : [],
+            database : undefined
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentDidMount(){
+        let currentState = store.getState();
+        this.setState({
+            databaseId : currentState.database
+        });
     }
 
     handleClick(e){
@@ -35,7 +43,7 @@ class CreateTable extends Component{
         e.preventDefault();
         let tableName = this.state.tableName;
         let curFields = this.state.fields;
-        let table = {tableName, fields : {}};
+        let table = {tableName, fields : {}, 'databaseId' : this.state.databaseId};
         for (var field of curFields){
             let temp = field.columnName;
             delete field['columnName'];
