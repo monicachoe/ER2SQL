@@ -4,8 +4,9 @@ import thunkMiddleware from 'redux-thunk';
 import user from './user';
 import temp from './temp';
 import datatypes from './datatypes'
+import metatable from './metatable'
 
-const reducer = combineReducers({user, temp, datatypes});
+const reducer = combineReducers({user, temp, datatypes, metatable});
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}));
 const store = createStore(reducer, middleware);
 
@@ -13,3 +14,4 @@ export default store;
 export * from './user';
 export * from './temp';
 export * from './datatypes';
+export * from './metatable'

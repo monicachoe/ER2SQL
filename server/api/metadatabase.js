@@ -23,6 +23,6 @@ router.post('/', (req, res, next) => {
 router.get('/:databaseId/tables', (req, res, next) => {
     var databaseId = req.params.databaseId
     Table.findAll({ where: { databaseId } })
-        .then(() => res.send(204).status(`found tables for db ${databaseId}`))
+        .then((tables) => res.json(tables))
         .catch(next)
 })

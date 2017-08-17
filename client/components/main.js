@@ -5,6 +5,7 @@ import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
 import {default as Box} from './box'
 import {default as Sidebar} from './sidebar'
+import Metatables from './Metatables'
 
 /**
  * COMPONENT
@@ -19,6 +20,7 @@ const Main = (props) => {
     <div id="main" className="container-fluid">
       <div className="child1">
         <Sidebar/>
+        <Metatables/>
       </div>
       <div className="child2">
         <nav>
