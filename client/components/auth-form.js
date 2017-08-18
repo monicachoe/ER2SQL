@@ -11,7 +11,7 @@ const AuthForm = (props) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <form className = 'login' onSubmit={handleSubmit} name={name}>
         { displayName && (displayName === 'Sign Up')
         ?<div>
           <label htmlFor='username'><small>Name</small></label>
@@ -19,15 +19,15 @@ const AuthForm = (props) => {
         </div>
         : ''
         }
-        <div>
+        <div className = 'login-child1'>
           <label htmlFor='email'><small>Email</small></label>
           <input name='email' type='text' />
         </div>
-        <div>
+        <div className = 'login-child2'>
           <label htmlFor='password'><small>Password</small></label>
           <input name='password' type='password' />
         </div>
-        <div>
+        <div className = 'login-child3'>
           <button type='submit'>{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}

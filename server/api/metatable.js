@@ -3,6 +3,13 @@ const {Table, Database} = require('../db/models')
 const client = require('../db/client');
 module.exports = router
 
+    // .then((db) => {
+    //   client.query(`SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '${db.name + tableId + 's'}'`)
+    // })
+    // .then((columns) => 
+    //   res.json(columns.rows)
+    // )
+
 router.get('/', (req, res, next) => {
   Table.findAll()
   .then(tables => res.json(tables))
@@ -21,12 +28,8 @@ router.get('/:tableId/columns', (req,res,next) => {
     .then((table) => {
         Database.findOne({where: {id: table.databaseId}})
     })
-    .then((db) => {
-      client.query(`SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '${db.name + tableId + 's'}'`)
-    })
-    .then((columns) => 
-      res.json(columns.rows)
-    )
+    .then((db) => res.json(db))
+    .catch(next);
   })
 
 router.post('/', (req, res, next) => {

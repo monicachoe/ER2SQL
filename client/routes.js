@@ -16,15 +16,13 @@ class Routes extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("nextProps: ", nextProps);
-    console.log("prev props: ", this.props);
-    if(this.props.user && (nextProps.isLoggedIn !== this.props.isLoggedIn)){
+    if (nextProps.isLoggedIn && (nextProps.isLoggedIn !== this.props.isLoggedIn)){
       this.props.getUserDatabases();
     }
   }
 
   render () {
-    console.log("In routes", this.props.user);
+    // console.log("In routes", this.props.user);
     const {isLoggedIn} = this.props
 
     return (
@@ -61,7 +59,8 @@ const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 

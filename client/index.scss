@@ -18,12 +18,28 @@ body {
     margin: 1em;
     display: inline-block;
   }
-  table, th, td {
+  table {  
+    color: #333;
+    font-family: Helvetica, Arial, sans-serif;
+    width: 640px; 
     border: 2px solid black;
-  }
-  table{
-    margin: 15px;
-  }
+}
+
+td, th {  
+    border: 1px solid transparent; /* No more visible border */
+    height: 30px; 
+    transition: all 0.3s;  /* Simple transition for hover effect */
+}
+
+th {  
+    background: #DFDFDF;  /* Darken header a bit */
+    font-weight: bold;
+}
+
+td {  
+    background: #FAFAFA;
+    text-align: center;
+}
   .container-fluid{
     display:flex;
     flex-direction: row;
@@ -36,6 +52,14 @@ body {
   .child2{
     width:80%;
   }
-
-
+  .login {
+   border: 2px solid black;
+   display:flex;
+   flex-direction: column;
+   justify-content: center;
+   align-content: center;
+   align-items: center;
+   width: 150px;
+  }
+  
 }
