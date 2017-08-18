@@ -7,6 +7,7 @@ import {load} from './index';
  */
 const GET_TABLES = 'GET_TABLES'
 const GET_COLUMNS = 'GET_COLUMNS'
+const REMOVE = 'REMOVE'
 
 /**
  * INITIAL STATE
@@ -17,6 +18,7 @@ const defaultTables = []
  * ACTION CREATORS
  */
 const getTables = tables => ({ type: GET_TABLES, tables })
+const remove = ()=> ({type: REMOVE});
 // const removeUser = () => ({type: REMOVE_USER})
 
 /**
@@ -83,7 +85,9 @@ export const getMetatables = (databaseId) =>
     )
   }
 
-
+export const clearMetatable = () => dispatch => {
+  dispatch(remove());
+}
 // dispatch(getTables(res.data)))
 
 
@@ -94,8 +98,8 @@ export default function (state = defaultTables, action) {
   switch (action.type) {
     case GET_TABLES:
       return action.tables
-    // case REMOVE_USER:
-    //   return defaultUser
+    case REMOVE:
+      return []
     default:
       return state
   }

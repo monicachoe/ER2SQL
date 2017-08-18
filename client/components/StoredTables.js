@@ -10,7 +10,7 @@ export const StoredTables = (props) => {
     var columnNames;
     return (
         <div>
-            {
+            { 
                 (tables.length) && tables.map((table) => {
                     (table) ? columnNames = (table.fields) : columnNames = false
                     return (

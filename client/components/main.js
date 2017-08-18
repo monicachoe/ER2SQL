@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {logout, clearDatabase, clearUserDbs} from '../store'
+import {logout, clearDatabase, clearUserDbs, clearMetatable, clearTemp} from '../store'
 import {default as TempTable} from './TempTable'
 import {default as Sidebar} from './sidebar'
 import { default as CreateLoad } from './CreateLoad'
@@ -69,6 +69,8 @@ const mapDispatch = (dispatch) => {
     handleClick () {
       dispatch(clearUserDbs());
       dispatch(clearDatabase());
+      dispatch(clearMetatable());
+      dispatch(clearTemp());
       dispatch(logout())
     }
   }
