@@ -7,17 +7,15 @@ import { logout } from '../store'
 // TEMP CONTAINS ALL NEWLY CREATED TABLES
 export const Box = (props) => {
     const { tables } = props
-    console.log('fields: ',tables.fields)
     var columnName;
     return (
         <div>
             {
                 tables && tables.map((table) => {
-                    columnName = Object.keys(table.fields)
+                    columnName = Object.keys(table.table.fields)
                     return (
-
                         <table style={{ width: 25 + 'px' }}>
-                            <caption>{table.tableName}</caption> 
+                            <caption>{table.table.tableName}</caption> 
                             {
                                 columnName.map((column) => {
                                     return (
