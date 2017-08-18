@@ -9,17 +9,17 @@ const AddAssociation = (props) => {
         <form onSubmit={handleSubmit}>
             <label>Table1: <select name='table1'>
                 <option>-</option>
-                {dummyData.map(each => <option value={each}>{each}</option>)}
+                {dummyData.map(each => <option key={each} value={each}>{each}</option>)}
             </select>
             </label>
             <label>Table2: <select name='table2'>
                 <option>-</option>
-                {dummyData.map(each => <option value={each}>{each}</option>)}
+                {dummyData.map(each => <option key={each} value={each}>{each}</option>)}
             </select>
             </label>
             <label>Association Type: <select name='associationType'>
                 <option>-</option>
-                {assocTypes.map(each=> <option value={each}>{each}</option>)}
+                {assocTypes.map(each=> <option key={each} value={each}>{each}</option>)}
                 </select>
             </label>
             <input type='submit' />
