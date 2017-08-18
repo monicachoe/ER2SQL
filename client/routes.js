@@ -28,10 +28,7 @@ class Routes extends Component {
             <Route exact path='/createdb' component={CreateDB} />
             <Route path='/add-table' component={CreateTable} />
             <Route exact path='/loaddb' component={LoadDb} />
-<<<<<<< HEAD
             <Route path='/add-association' component={AddAssociation} />
-=======
->>>>>>> 538a73f50624bd0a20cd1241b84aed2eb1b2b5eb
             {
               isLoggedIn &&
                 <Switch>

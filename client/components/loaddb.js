@@ -14,7 +14,7 @@ class LoadDb extends Component {
   }
 
   handleChange(evt){
-    this.setState({dbName: evt.target.value});
+    this.setState({dbName: evt.target.value})
   }
 
   handleSubmit (evt){
@@ -25,7 +25,7 @@ class LoadDb extends Component {
     this.props.loadDatabase(selectedDb);
   }
 
-  render(){
+  render (){
     return (
       <div>
         <form onSubmit= {this.handleSubmit}>
