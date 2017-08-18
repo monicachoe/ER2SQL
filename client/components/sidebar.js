@@ -10,21 +10,23 @@ class Sidebar extends Component {
         super(props)
         this.state = {
             showCreateTable: false,
-            showRemoveTable: false,
-            showAssociation: false
+            showRemoveTable: false
+            // ,
+            // showAssociation: false
         }
         // this.showBothForm = this.showBothForm.bind(this)
         this.showCreateTableForm = this.showCreateTableForm.bind(this);
         this.showRemoveTableForm = this.showRemoveTableForm.bind(this);
-        this.showAssociationForm = this.showAssociationForm.bind(this);
+        // this.showAssociationForm = this.showAssociationForm.bind(this);
     }
 
     showCreateTableForm(e) {
         e.preventDefault();
         this.setState({
             showCreateTable: true,
-            showRemoveTable: false,
-            showAssociation: false
+            showRemoveTable: false
+            // ,
+            // showAssociation: false
         })
     }
 
@@ -32,16 +34,17 @@ class Sidebar extends Component {
         e.preventDefault();
         this.setState({
             showCreateTable: false,
-            showRemoveTable: true,
-            showAssociation: false
+            showRemoveTable: true
+            // ,
+            // showAssociation: false
         })
     }
-    showAssociationForm(e){
-        e.preventDefault();
-        this.setState({
-            showAssociation: !this.state.showAssociation
-        })
-    }
+    // showAssociationForm(e){
+    //     e.preventDefault();
+    //     this.setState({
+    //         showAssociation: !this.state.showAssociation
+    //     })
+    // }
     // showBothForm(evt){
     //     evt.preventDefault()
     //     if(this.state.showLoad){

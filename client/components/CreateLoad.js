@@ -21,9 +21,7 @@ class CreateLoad extends Component {
         evt.preventDefault()
         this.setState({
             showCreate: true,
-            showLoad: false,
-            showCreateTable: false,
-            showRemoveTable: false
+            showLoad: false
         })
     }
 
@@ -31,9 +29,7 @@ class CreateLoad extends Component {
         evt.preventDefault()
         this.setState({
             showCreate: false,
-            showLoad: true,
-            showCreateTable: false,
-            showRemoveTable: false
+            showLoad: true
         })
         this.props.getUserDatabases(this.props.user.id);
     }
