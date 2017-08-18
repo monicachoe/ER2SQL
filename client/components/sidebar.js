@@ -38,6 +38,7 @@ class Sidebar extends Component {
             showCreateTable: false,
             showRemoveTable: false
         })
+        this.props.getUserDatabases(this.props.user.id);
     }
 
     showCreateTableForm(e) {
@@ -58,11 +59,6 @@ class Sidebar extends Component {
             showCreateTable: false,
             showRemoveTable: true
         })
-        //Remove this check once we have our home page not showing
-        // createdb/ loaddb options before logging in
-        if (this.props.user.id){
-            this.props.getUserDatabases(this.props.user.id);
-        }
     }
     // showBothForm(evt){
     //     evt.preventDefault()
@@ -97,7 +93,8 @@ const mapDisptachProps = (dispatch) => {
   return {
     getUserDatabases(userId){
       console.log('userId: ', userId);
-      dispatch(getUserDatabases(userId))
+      console.log("dispatched from sidebar")
+      dispatch(getUserDatabases())
     }
   }
 }

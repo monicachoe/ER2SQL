@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, clearDatabase, clearUserDbs} from '../store'
 import {default as Box} from './box'
 import {default as Sidebar} from './sidebar'
 
@@ -55,9 +55,12 @@ const mapState = (state) => {
   }
 }
 
+//On logging out all the other states should be cleared.
 const mapDispatch = (dispatch) => {
   return {
     handleClick () {
+      dispatch(clearUserDbs());
+      dispatch(clearDatabase());
       dispatch(logout())
     }
   }

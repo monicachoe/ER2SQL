@@ -4,12 +4,14 @@ import axios from 'axios';
 
 const CREATE = 'CREATE';
 const LOAD = 'LOAD';
+const REMOVE = 'REMOVE';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
 
 const create = newDb => ({type: CREATE, newDb});
 const load = (userDb) => ({type: LOAD, userDb });
+const remove = () => ({type: REMOVE});
 
 /* ------------       REDUCERS     ------------------ */
 
@@ -19,6 +21,8 @@ export default function reducer (state = {}, action){
       return action.newDb;
     case LOAD:
       return action.userDb;
+    case REMOVE:
+      return {};
     default:
       return state;
   }
@@ -36,4 +40,8 @@ export const createDatabase = (dbName, userId) => dispatch => {
 
 export const loadDatabase = (selectedDb) => dispatch => {
   dispatch(load(selectedDb));
+}
+
+export const clearDatabase = () => dispatch => {
+  dispatch(remove());
 }
