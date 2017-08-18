@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import { logout } from '../store'
 
-export const Box = (props) => {
+export const TempTable = (props) => {
     const { tables } = props
     var columnNames;
 
@@ -14,12 +14,12 @@ export const Box = (props) => {
                 tables && tables.map((table) => {
                     (table.table.fields) ? columnNames = Object.keys(table.table.fields) : columnNames = false
                     return (
-                        <table key= {table.tableId} style={{ width: 25 + 'px' }}>
+                        <table key={table.tableId} style={{ width: 25 + 'px' }}>
                             <tr>
                                 <th>{table.table.tableName}</th>
                             </tr>
 
-                            { columnNames &&
+                            {columnNames &&
                                 columnNames.map((column) => {
                                     return (
                                         <tr key={column}>
@@ -44,4 +44,4 @@ const mapState = (state) => {
     }
 }
 
-export default connect(mapState)(Box) 
+export default connect(mapState)(TempTable) 

@@ -7,7 +7,7 @@ class LoadTables extends Component {
   constructor(props){
     super(props);
     this.state = {
-      'dbName': ''
+      'tables' : 
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -42,7 +42,11 @@ class LoadTables extends Component {
   }
 }
 
-const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
+const mapStateToProps = (state) => {
+    return {
+        dbArray: state.database
+    }
+};
 
 const mapDisptachProps = (dispatch) => {
   return {

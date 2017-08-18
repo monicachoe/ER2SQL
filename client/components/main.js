@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout, clearDatabase, clearUserDbs} from '../store'
-import {default as Box} from './box'
+import {default as TempTable} from './TempTable'
 import {default as Sidebar} from './sidebar'
 import { default as CreateLoad } from './CreateLoad'
+import {default as StoredTables} from './StoredTables'
 
 /**
  * COMPONENT
@@ -39,14 +40,14 @@ const Main = (props) => {
                     }
                 </nav>
                 <hr />
-
-                <Box />
                 {children}
                 {
                     isLoggedIn
                         ? <CreateLoad />
                         : <div />
                 }
+                <StoredTables/>
+                <TempTable/>
             </div>
         </div>
     )
@@ -57,7 +58,8 @@ const Main = (props) => {
  */
 const mapState = (state) => {
     return {
-        isLoggedIn: !!state.user.id
+        isLoggedIn: !!state.user.id,
+        metatable: state.metatable
     }
 }
 
