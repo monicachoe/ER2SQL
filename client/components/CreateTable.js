@@ -33,10 +33,11 @@ class CreateTable extends Component{
     
     handleSubmit(e){
         e.preventDefault();
-        // let tableName = this.state.tableName;
+        let tableName = this.state.tableName;
         let curFields = this.state.fields;
-        // let databaseId = store.getState().database.id;
-        let table = {tableName : this.state.tableName, fields : {}, databaseId : store.getState().database.id};
+        let curState = store.getState();
+        let database = curState.database;
+        let table = {tableName, fields : {}, database};
         for (var field of curFields){
             let temp = field.columnName;
             delete field['columnName'];

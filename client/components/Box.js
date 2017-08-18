@@ -4,24 +4,25 @@ import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import { logout } from '../store'
 
-// TEMP CONTAINS ALL NEWLY CREATED TABLES
 export const Box = (props) => {
     const { tables } = props
-    console.log(tables)
-    var columnName;
+    var columnNames;
+
     return (
         <div>
             {
                 tables && tables.map((table) => {
-                    columnName = Object.keys(table.fields)
+                    (table.table.fields) ? columnNames = Object.keys(table.table.fields) : columnNames = false
                     return (
+                        <table key= {table.tableId} style={{ width: 25 + 'px' }}>
+                            <tr>
+                                <th>{table.table.tableName}</th>
+                            </tr>
 
-                        <table style={{ width: 25 + 'px' }}>
-                            <caption>{table.tableName}</caption> 
-                            {
-                                columnName.map((column) => {
+                            { columnNames &&
+                                columnNames.map((column) => {
                                     return (
-                                        <tr>
+                                        <tr key={column}>
                                             <td key="column">{column}</td>
                                         </tr>
                                     )

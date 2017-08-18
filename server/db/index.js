@@ -5,4 +5,4 @@ require('./models');
 // register models
 require('./models')
 
-module.exports = { db };
+module.exports = { db, client };
