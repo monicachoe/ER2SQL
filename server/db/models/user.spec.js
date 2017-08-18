@@ -1,8 +1,8 @@
 /* global describe beforeEach it */
 
 const {expect} = require('chai')
-const db = require('../index')
-const User = db.model('user')
+const { db } = require('../index')
+const User = require('./user')
 
 describe('User model', () => {
   beforeEach(() => {
@@ -16,7 +16,8 @@ describe('User model', () => {
       beforeEach(() => {
         return User.create({
           email: 'cody@puppybook.com',
-          password: 'bones'
+          password: 'bones',
+          name: "kel"
         })
           .then(user => {
             cody = user

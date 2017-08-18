@@ -1,6 +1,6 @@
 const {expect} = require('chai')
 const request = require('supertest')
-const db = require('../db')
+const { db } = require('../db')
 const app = require('../index')
 const { Database, Table } = require('../db/models')
 
@@ -17,7 +17,7 @@ describe('Database routes', () => {
     const databaseName = "Kelaiya";
     beforeEach(() => {
         return Database.create({
-          name: databaseName,
+          name: databaseName
           
         })
         .then(function(data){

@@ -40,4 +40,6 @@ export default function (state = defaultTables, action) {
     default:
       return state
   }
+
 }
+

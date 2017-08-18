@@ -5,6 +5,7 @@ import axios from 'axios';
  */
 const ADD_TABLE = 'ADD_TABLE';
 const ADD_FIELD = 'ADD_FIELD';
+const REMOVE_TABLE = 'REMOVE_TABLE';
 
 /**
  * INITIAL STATE
@@ -17,7 +18,8 @@ const temp = [];
  * ACTION CREATORS
  */
 const addTable = table => ({type: ADD_TABLE, table});
-const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field})
+const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field});
+const removeTable = (tableName) => ({type: REMOVE_TABLE, tableName});
 
 /**
  * THUNK CREATORS
@@ -26,16 +28,26 @@ const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field})
 // Assuming that posting to metatable returns the tableId!!!!! 
 export const addTableToTemp = (table) =>
   dispatch => {
-    axios.post('/api/metatable', {'tableName' : table.tableName, 'databaseId' : table.databaseId})
-    .then(res => res.data)
+    let tableId, tableName;
+    axios.post('/api/metatable', {'tableName' : table.tableName, 'databaseId' : table.database.id})
     .then(res => {
-      console.log("post", res)
-      axios.post('/api/tables', {'tableName' : res.id, 'fields' : table.fields})})
-    dispatch(addTable(table));}
+      tableId = res.data.id;
+      tableName = table.database.name + tableId
+      return res.data})
+    .then(res => axios.post('/api/tables', {tableName, 'fields' : table.fields}))
+    .then(() => dispatch(addTable({table, tableId})));
+  }
 
 export const addFieldToTable = (curTable, name, attributes) => 
   dispatch =>
     dispatch(addField(curTable, name, attributes));
+
+export const deleteTable = (tableName, tableId) => 
+    dispatch =>
+    axios.delete(`/api/tables/${tableName}`)
+      .then(res => dispatch(removeTable(tableName)))
+      .then(() => axios.delete(`/api/metatable/${tableId}`))
+      .catch(err => console.log(err))
 
 /**
  * REDUCER
@@ -49,6 +61,8 @@ export default function (state = temp, action) {
       let otherTables = state.filter(each => each.tableName !== action.curTable);
       table.fields[action.name] = action.attributes;
       return [...otherTables, table];
+    case REMOVE_TABLE:
+      return state.filter(each => each.tableName !== action.tableName);
     default:
       return state
   }

@@ -1,3 +1,4 @@
+if (process.env.NODE_ENV !== 'production') require('../secrets')
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
@@ -5,7 +6,7 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const passport = require('passport')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
-const db = require('./db')
+const {db} = require('./db')
 const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
@@ -19,7 +20,7 @@ module.exports = app
  * keys as environment variables, so that they can still be read by the
  * Node process on process.env
  */
-if (process.env.NODE_ENV !== 'production') require('../secrets')
+
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
@@ -71,7 +72,7 @@ const startListening = () => {
   const server = app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
 }
 
-const syncDb = () => db.sync()
+const syncDb = () => db.sync({force:true})
 
 // This evaluates as true when this file is run directly from the command line,
 // i.e. when we say 'node server/index.js' (or 'nodemon server/index.js', or 'nodemon server', etc)

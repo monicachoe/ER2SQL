@@ -15,8 +15,9 @@ router.get('/', (req, res, next) => {
 })
 
 //POST: Route to create database by each user.
-router.post('/:userId/databases/:dbName', (req, res, next) => {
-  console.log('route: ', req.params.userId, req.params.dbName);
+
+
+router.post('/:userId/database/:dbName', (req, res, next) => {
   Database.findOrCreate( {where: {
     userId: req.params.userId,
     name: req.params.dbName
@@ -37,9 +38,20 @@ router.post('/:userId/databases/:dbName', (req, res, next) => {
 // /api/users/1/databases
 // OR
 // /api/databases?userId=1
-router.get('/:userId/databases', (req, res, next) => {
+// router.get('/:userId/databases', (req, res, next) => {
+//   Database.findAll({where: {
+//     userId: req.params.userId
+//   }})
+//   .then( (databases) => {
+//     res.send(databases);
+//   })
+//   .catch(next);
+// });
+
+//GET: Route to get databases of logged-in user
+router.get('/databases', (req, res, next) => {
   Database.findAll({where: {
-    userId: req.params.userId
+    userId: req.user.id
   }})
   .then( (databases) => {
     res.send(databases);
