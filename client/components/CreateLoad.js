@@ -5,20 +5,23 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, AddAssociation} from './index';
 
-class Sidebar extends Component {
+class CreateLoad extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showCreateTable: false,
-            showRemoveTable: false
+            showCreate: false,
+            showLoad: false,
+
         }
+        this.showCreateForm = this.showCreateForm.bind(this)
+        this.showLoadForm = this.showLoadForm.bind(this)
         // this.showBothForm = this.showBothForm.bind(this)
-        this.showCreateTableForm = this.showCreateTableForm.bind(this);
-        this.showRemoveTableForm = this.showRemoveTableForm.bind(this);
     }
     showCreateForm(evt) {
         evt.preventDefault()
         this.setState({
+            showCreate: true,
+            showLoad: false,
             showCreateTable: false,
             showRemoveTable: false
         })
@@ -27,31 +30,14 @@ class Sidebar extends Component {
     showLoadForm(evt) {
         evt.preventDefault()
         this.setState({
+            showCreate: false,
+            showLoad: true,
             showCreateTable: false,
             showRemoveTable: false
         })
     }
-
-    showCreateTableForm(e) {
-        e.preventDefault();
-        this.setState({
-            showCreateTable: true,
-            showRemoveTable: false
-        })
-    }
-
-    showRemoveTableForm(e) {
-        e.preventDefault();
-        this.setState({
-            showCreateTable: false,
-            showRemoveTable: true
-        })
         //Remove this check once we have our home page not showing
         // createdb/ loaddb options before logging in
-        if (this.props.user.id){
-            this.props.getUserDatabases(this.props.user.id);
-        }
-    }
     // showBothForm(evt){
     //     evt.preventDefault()
     //     if(this.state.showLoad){
@@ -65,12 +51,10 @@ class Sidebar extends Component {
     render() {
         return (
             <div>
-                <h1>Options</h1>
-                <button onClick={this.showRemoveTableForm}>RemoveTable</button>
-                <button onClick={this.showCreateTableForm}>Create Table</button>
-                {this.state.showCreateTable ? <CreateTable /> : null}
-                {this.state.showRemoveTable ? <RemoveTable /> : null}
-                <AddAssociation/>
+                <button onClick={this.showCreateForm}>Create Db</button>
+                <button onClick={this.showLoadForm}>Load DB</button>
+                {this.state.showLoad ? <LoadDB/> : <div/>}
+                {this.state.showCreate ? <CreateDB/> : <div/>}
             </div>
         )
     }
@@ -87,4 +71,4 @@ const mapDisptachProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDisptachProps)(Sidebar);
+export default connect(mapStateToProps, mapDisptachProps)(CreateLoad);
