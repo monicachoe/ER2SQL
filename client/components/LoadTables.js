@@ -1,22 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { loadDatabase, getMetatables } from '../store';
+import { loadDatabase } from '../store';
 
-class LoadDb extends Component {
+class LoadTables extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      'dbName': ''
+      'tables' : 
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps){
-    if(nextProps.database !== this.props.database){
-      this.props.getMetatables(nextProps.database.id);
-    }
   }
 
   handleChange(evt){
@@ -28,7 +22,7 @@ class LoadDb extends Component {
     let selectedDb = this.props.userdbs.filter((eachDb) => {
       if (eachDb.name === this.state.dbName ) return eachDb;
     })
-    this.props.loadDatabase(selectedDb[0]);
+    this.props.loadDatabase(selectedDb);
   }
 
   render (){
@@ -48,17 +42,17 @@ class LoadDb extends Component {
   }
 }
 
-const mapStateToProps = ({user, userdbs, database, metatable}) => ({user, userdbs, database, metatable});
+const mapStateToProps = (state) => {
+    return {
+        dbArray: state.database
+    }
+};
 
 const mapDisptachProps = (dispatch) => {
   return {
     loadDatabase(selectedDb){
       dispatch(loadDatabase(selectedDb));
-    },
-    getMetatables(databaseId){
-      dispatch(getMetatables(databaseId));
     }
-
   }
 }
 
