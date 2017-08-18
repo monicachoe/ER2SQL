@@ -29,7 +29,7 @@ const removeTable = (tableName) => ({type: REMOVE_TABLE, tableName});
 export const addTableToTemp = (table) =>
   dispatch => {
     let tableId, tableName;
-    axios.post('/api/metatable', {'tableName' : table.tableName, 'databaseId' : table.database.id})
+    axios.post('/api/metatable/', {'tableName' : table.tableName, 'databaseId' : table.database.id})
     .then(res => {
       tableId = res.data.id;
       tableName = table.database.name + tableId
