@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "build-client": "webpack",
+    "build-client": "webpack -p",
     "build-client-watch": "webpack -w",
     "deploy": "webpack -p && git add -f public/bundle.js public/bundle.js.map && git commit --allow-empty -m 'Deploying' && git push heroku deploy:master",
     "start": "node server",

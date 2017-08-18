@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {getUserDatabases} from '../store'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, AddAssociation} from './index';
+import {CreateTable, Field, CreateDB, RemoveTable, LoadDB} from './index';
 
 class CreateLoad extends Component {
     constructor(props) {
