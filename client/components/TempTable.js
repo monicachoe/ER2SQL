@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import { logout } from '../store'
 
-export const Box = (props) => {
+export const TempTable = (props) => {
     const { tables } = props
     var columnNames;
 
@@ -44,4 +44,4 @@ const mapState = (state) => {
     }
 }
 
-export default connect(mapState)(Box) 
+export default connect(mapState)(TempTable) 

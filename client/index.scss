@@ -23,6 +23,7 @@ body {
     font-family: Helvetica, Arial, sans-serif;
     width: 640px; 
     border: 2px solid black;
+    margin: 15px;
 }
 
 td, th {  
@@ -61,5 +62,8 @@ td {
    align-items: center;
    width: 150px;
   }
-  
+  .boxes{
+    display:flex;
+    flex-direction: row;
+  }
 }

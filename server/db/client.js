@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+=======
+// var pg = require('pg');
+// var client = new pg.Client('postgres://localhost:5432/er2sql');
+
+// client.connect();
+
+// module.exports = client;
+>>>>>>> 84197e2daf6fadbbe769be5877597d8c670bca03
 const pg = require('pg')
 
 const client = new pg.Client({
@@ -11,6 +20,7 @@ const client = new pg.Client({
 client.connect();
 
 module.exports = client;
+<<<<<<< HEAD
 
 // var pg = require('pg');
 // var client = new pg.Client('postgres://localhost:5432/er2sql');
@@ -18,3 +28,5 @@ module.exports = client;
 // client.connect();
 
 // module.exports = client;
+=======
+>>>>>>> 84197e2daf6fadbbe769be5877597d8c670bca03

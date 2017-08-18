@@ -42,6 +42,5 @@ export const getUserDatabases = () => dispatch => {
 }
 
 export const clearUserDbs = () => dispatch => {
-  console.log("In remove");
   dispatch(remove());
 }
