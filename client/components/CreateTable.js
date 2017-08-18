@@ -33,7 +33,7 @@ class CreateTable extends Component{
     
     handleSubmit(e){
         e.preventDefault();
-        // let tableName = this.state.tableName;
+        let tableName = this.state.tableName;
         let curFields = this.state.fields;
         let curState = store.getState();
         let database = curState.database;

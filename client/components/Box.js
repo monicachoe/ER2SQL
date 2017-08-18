@@ -7,7 +7,7 @@ import { logout } from '../store'
 // TEMP CONTAINS ALL NEWLY CREATED TABLES
 export const Box = (props) => {
     const { tables } = props
-    console.log(tables)
+    console.log('fields: ',tables.fields)
     var columnName;
     return (
         <div>
