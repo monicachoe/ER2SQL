@@ -3,6 +3,12 @@ const {Table, Database} = require('../db/models')
 const client = require('../db/client');
 module.exports = router
 
+router.get('/', (req, res, next) => {
+  Table.findAll()
+  .then(tables => res.json(tables))
+  .catch(next);
+});
+
 router.get('/:tableId', (req, res, next) => {
   var tableId = req.params.tableId;
   Table.findOne({where: {id: tableId}})
@@ -28,11 +34,11 @@ router.post('/', (req, res, next) => {
   var databaseId = req.body.databaseId;
   Table.create({name: name, databaseId: databaseId})
     .then((table) => res.json(table))
-    .catch(next)
-})
+    .catch(next);
+});
 
 router.delete('/:tableId', (req,res,next) => {
-    var tableId = req.params.tableId
-    Table.destroy({where: {id: tableId}})
-    .then(() => res.status(204).send(`Succesfully deleted table ${tableId} `));
+   var tableId = req.params.tableId
+   Table.destroy({where: {id: tableId}})
+   .then(() => res.status(204).send(`Succesfully deleted table ${tableId} `));
 })

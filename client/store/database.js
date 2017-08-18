@@ -28,7 +28,9 @@ export default function reducer (state = {}, action){
 // TODO: handleError on UI when Thunk hits the catch block: for later
 export const createDatabase = (dbName, userId) => dispatch => {
     axios.post(`/api/users/${userId}/database/${dbName}`)
-       .then(res => dispatch(create(res.data)))
+       .then(res => {
+         dispatch(create(res.data));
+       })
        .catch(err => console.error(`Creating databse ${dbName} unsuccessfull`, err));
 }
 

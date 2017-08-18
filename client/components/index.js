@@ -6,4 +6,5 @@ export {default as CreateDB} from './createdb'
 export {default as LoadDb} from './loaddb'
 export {default as AddAssociation} from './AddAssociation';
 export {default as AddField} from './AddField';
+export {default as RemoveTable} from './RemoveTable';
 

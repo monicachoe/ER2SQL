@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {CreateTable, Field, CreateDB, LoadDb} from './index';
 import {getUserDatabases} from '../store'
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import {CreateTable, Field, CreateDB, RemoveTable, LoadDB} from './index';
 
 class Sidebar extends Component {
     constructor(props) {
@@ -9,31 +12,52 @@ class Sidebar extends Component {
         this.state = {
             showCreate: false,
             showLoad: false,
+            showCreateTable: false,
+            showRemoveTable: false
         }
         this.showCreateForm = this.showCreateForm.bind(this)
         this.showLoadForm = this.showLoadForm.bind(this)
+        // this.showBothForm = this.showBothForm.bind(this)
+        this.showCreateTableForm = this.showCreateTableForm.bind(this);
+        this.showRemoveTableForm = this.showRemoveTableForm.bind(this);
     }
     showCreateForm(evt) {
         evt.preventDefault()
-        if(this.state.showLoad){
-            this.setState({
-            showLoad: !this.state.showLoad
-            })
-        }
         this.setState({
-            showCreate: !this.state.showCreate
+            showCreate: true,
+            showLoad: false,
+            showCreateTable: false,
+            showRemoveTable: false
         })
     }
 
     showLoadForm(evt) {
         evt.preventDefault()
-        if(this.state.showCreate){
-            this.setState({
-            showCreate: !this.state.showCreate
-            })
-        }
         this.setState({
-            showLoad: !this.state.showLoad
+            showCreate: false,
+            showLoad: true,
+            showCreateTable: false,
+            showRemoveTable: false
+        })
+    }
+
+    showCreateTableForm(e) {
+        e.preventDefault();
+        this.setState({
+            showLoad: false,
+            showCreate: false,
+            showCreateTable: true,
+            showRemoveTable: false
+        })
+    }
+
+    showRemoveTableForm(e) {
+        e.preventDefault();
+        this.setState({
+            showLoad: false,
+            showCreate: false,
+            showCreateTable: false,
+            showRemoveTable: true
         })
         //Remove this check once we have our home page not showing
         // createdb/ loaddb options before logging in
@@ -57,15 +81,12 @@ class Sidebar extends Component {
                 <h1>Options</h1>
                 <button onClick={this.showCreateForm}>Create Db</button>
                 <button onClick={this.showLoadForm}>Load DB</button>
-                {
-                    this.state.showLoad
-                        ? <LoadDb/> : <div/>
-                }
-                {
-                    this.state.showCreate
-                    ? <CreateDB/> : <div/>
-                }
-                <CreateTable/>
+                <button onClick={this.showRemoveTableForm}>RemoveTable</button>
+                <button onClick={this.showCreateTableForm}>Create Table</button>
+                {this.state.showLoad ? <LoadDB/> : <div/>}
+                {this.state.showCreate ? <CreateDB/> : <div/>}
+                {this.state.showCreateTable ? <CreateTable /> : null}
+                {this.state.showRemoveTable ? <RemoveTable /> : null}
             </div>
         )
     }
