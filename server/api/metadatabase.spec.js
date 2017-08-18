@@ -15,11 +15,6 @@ describe('Database routes', () => {
     var database
     const tableName = 'Table2';
     const databaseName = "Kelaiya";
-    
-    // const databaseName = 'Database1';
-    // const message = "u got it"
-    // const id = 2;
-
     beforeEach(() => {
         return Database.create({
           name: databaseName,
@@ -69,7 +64,7 @@ describe('Database routes', () => {
         expect(database.name).to.be.an("string")
         expect(database.name).to.be.equal('data1')
       })
-      .catch(() => console.log("Game over"))
+      .catch(() => console.log("Error"))
     })
 
   });
