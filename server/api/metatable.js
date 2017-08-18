@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {Table} = require('../db/models')
+const {Table, Database} = require('../db/models')
 const client = require('../db/client');
 module.exports = router
 
@@ -11,7 +11,13 @@ router.get('/:tableId', (req, res, next) => {
 })
 router.get('/:tableId/columns', (req,res,next) => {
   var tableId = req.params.tableId
-  client.query(`SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '1s'`)
+  Table.findOne({where: {id: tableId}})
+    .then((table) => {
+        Database.findOne({where: {id: table.databaseId}})
+    })
+    .then((db) => {
+      client.query(`SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '${db.name + tableId + 's'}'`)
+    })
     .then((columns) => 
       res.json(columns.rows)
     )
