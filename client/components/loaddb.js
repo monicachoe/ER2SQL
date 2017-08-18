@@ -15,7 +15,6 @@ class LoadDb extends Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.database !== this.props.database){
-      console.log("db id: ", nextProps.database.id);
       this.props.getMetatables(nextProps.database.id);
     }
   }
@@ -33,7 +32,6 @@ class LoadDb extends Component {
   }
 
   render (){
-    console.log("metatable after loading: ", this.props.metatable);
     return (
       <div>
         <form onSubmit= {this.handleSubmit}>
@@ -45,9 +43,6 @@ class LoadDb extends Component {
           </select>
           <button type="submit">Load DB</button>
         </form>
-        {this.props.metatable[0] && this.props.metatable.map( eachTable => {
-          <div>{eachTable.name}</div>
-        })}
       </div>
     )
   }
@@ -59,11 +54,8 @@ const mapDisptachProps = (dispatch) => {
   return {
     loadDatabase(selectedDb){
       dispatch(loadDatabase(selectedDb));
-      // console.log("selectedDb: ", selectedDb);
-      // dispatch(getMetatables(selectedDb.id));
     },
     getMetatables(databaseId){
-      console.log("in getmeta dispath load");
       dispatch(getMetatables(databaseId));
     }
 

@@ -11,7 +11,7 @@ export const StoredTables = (props) => {
     return (
         <div>
             { 
-                (tables.length) && tables.map((table) => {
+                (tables) && tables.map((table) => {
                     (table) ? columnNames = (table.fields) : columnNames = false
                     return (
                         <table key={table.id} style={{ width: 25 + 'px' }}>

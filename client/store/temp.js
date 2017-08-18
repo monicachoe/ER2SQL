@@ -21,7 +21,7 @@ const temp = [];
 const addTable = table => ({type: ADD_TABLE, table});
 const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field});
 const removeTable = (tableName) => ({type: REMOVE_TABLE, tableName});
-const remove = () => ({type: REMOVe});
+const remove = () => ({type: REMOVE});
 /**
  * THUNK CREATORS
  */

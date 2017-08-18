@@ -72,8 +72,6 @@ const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
 const mapDisptachProps = (dispatch) => {
   return {
     getUserDatabases(userId){
-      console.log('userId: ', userId);
-      console.log("dispatched from sidebar")
       dispatch(getUserDatabases())
     }
   }

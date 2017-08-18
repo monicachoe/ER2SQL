@@ -4,7 +4,7 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, CreateDB, LoadDb, AddAssociation, Box, CreateTable, RemoveTable} from './components'
+import {Main, Login, Signup, UserHome, CreateDB, LoadDb, Box, CreateTable, RemoveTable} from './components'
 import {me, getUserDatabases} from './store'
 
 /**
@@ -22,7 +22,6 @@ class Routes extends Component {
   }
 
   render () {
-    // console.log("In routes", this.props.user);
     const {isLoggedIn} = this.props
 
     return (
@@ -35,7 +34,6 @@ class Routes extends Component {
             <Route exact path='/createdb' component={CreateDB} />
             <Route path='/add-table' component={CreateTable} />
             <Route exact path='/loaddb' component={LoadDb} />
-            <Route path='/add-association' component={AddAssociation} />
             {
               isLoggedIn &&
                 <Switch>
@@ -70,7 +68,6 @@ const mapDispatch = (dispatch) => {
       dispatch(me());
     },
     getUserDatabases(){
-      console.log("dispatched from routes")
       dispatch(getUserDatabases());
     }
   }
