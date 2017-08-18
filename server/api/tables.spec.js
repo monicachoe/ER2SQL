@@ -10,12 +10,12 @@ describe('Table routes', () => {
   });
 
   describe('/api/tables/', () => {
-    var tablename = "1";
-    var tablee = {name: tablename}
+    var tableName = "1";
+    var tablee = {name: tableName}
 
     beforeEach(() => {
         return Table.create({
-          name: tablename
+          name: tableName
         })
         .then(function(data){
           tablee = data
@@ -32,22 +32,17 @@ describe('Table routes', () => {
       .catch(() => console.log("Error"))
     });
 
-    it.only('DELETE /api/tables', () => {
+    it('DELETE /api/tables/:tableName', () => {
       return request(app)
-      .delete('/api/tables/')
-      .send({tableName: "1", "fields": {"style":{"type": "string"}}})
+      .delete('/api/tables/' + tableName)
       .then(res => {
-        console.log("here", res)
-        expect(res.text).to.be.equal("OK. Table 1 created.");
+        Table.destroy({where: { tableName: "1"}})
+        .then((table) => {
+          expect(res).to.be.equal("Deleted")
+        })
       })
-      .catch(() => console.log("Error"))
-    });
-
-
-
-
-    
-    });
+    })
   });
+});
 
 

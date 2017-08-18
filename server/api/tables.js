@@ -12,6 +12,7 @@ module.exports = router;
 //          fields : {name : {type: String, validations: ...}, ...}]
 
 router.get('/',(req,res, next) => {
+    console.log("res", res)
     res.send("hey").end()
 })
 router.post('/', (req, res, next) => {
@@ -26,7 +27,8 @@ router.post('/', (req, res, next) => {
 router.delete('/:tablename', (req, res, next) => {
     var table = req.params.tablename
     client.query(`DROP TABLE ${table}`, function (err, result) {
-      if (err) return next(err);
+      if (err) {return next(err)}
+      else {return "Deleted" };
       res.end();
     });
 });

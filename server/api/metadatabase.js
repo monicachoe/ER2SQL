@@ -25,7 +25,10 @@ router.post('/', (req, res, next) => {
 router.get('/:databaseId/tables', (req, res, next) => {
     var databaseId = req.params.databaseId
     Table.findAll({ where: { databaseId } })
-        .then((tables) => res.json(tables))
+        .then((tables) => {
+            console.log("res", res);
+            res.json(tables)
+        })
         .catch(next)
 });
 

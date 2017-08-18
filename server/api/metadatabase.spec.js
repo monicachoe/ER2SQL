@@ -13,6 +13,7 @@ describe('Database routes', () => {
 
   describe('/api/metadatabase/', () => {
     var database
+    var table
     const tableName = 'Table2';
     const databaseName = "Kelaiya";
     beforeEach(() => {
@@ -45,13 +46,15 @@ describe('Database routes', () => {
       })
     });
 
-    it('GET /api/metadatabase/:databaseId/metatable', () => {
+    it('GET /api/metadatabase/:databaseId/tables', () => {
       return request(app)
-      .get('/api/metadatabase/:databaseId/metatable')
-      .expect(200)
-      .then(res => {
-        expect(res.body[0].name).to.be.equal(id);
-      })
+      .get('/api/metadatabase/' + database.id + '/table')
+      .then(found => {
+        console.log("found", found)
+        //console.log("here", res)
+        //expect(found).to.be.equal(1)
+      });
+  
     });
 
     it('POST /api/metadatabase/', ()=>{
