@@ -6,17 +6,13 @@ import { logout } from '../store'
 
 export const StoredTables = (props) => {
     const { tables } = props
-    console.log('HERE IT IS', tables[0]);
-    tables.forEach(function(element) {
-        console.log("Each table data: ",element);
-    });
     // const tables = [{id: 2 , name: 'Name', columns: [1, 2, 3]}]
     var columnNames;
     return (
         <div>
             {
                 (tables.length) && tables.map((table) => {
-                    (table) ? columnNames = (table.columns) : columnNames = false
+                    (table) ? columnNames = (table.fields) : columnNames = false
                     return (
                         <table key={table.id} style={{ width: 25 + 'px' }}>
                             <tr>

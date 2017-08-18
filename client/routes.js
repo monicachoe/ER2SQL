@@ -27,9 +27,9 @@ class Routes extends Component {
 
     return (
       <Router history={history}>
+        <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route exact path ='/' component = {Main} />
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
             <Route exact path='/createdb' component={CreateDB} />
@@ -46,6 +46,7 @@ class Routes extends Component {
             {/* Displays our Login component as a fallback */}
             <Route component={Login} />
           </Switch>
+        </Main>
       </Router>
     )
   }

@@ -10,18 +10,21 @@ class Sidebar extends Component {
         super(props)
         this.state = {
             showCreateTable: false,
-            showRemoveTable: false
+            showRemoveTable: false,
+            showAssociation: false
         }
         // this.showBothForm = this.showBothForm.bind(this)
         this.showCreateTableForm = this.showCreateTableForm.bind(this);
         this.showRemoveTableForm = this.showRemoveTableForm.bind(this);
+        this.showAssociationForm = this.showAssociationForm.bind(this);
     }
 
     showCreateTableForm(e) {
         e.preventDefault();
         this.setState({
             showCreateTable: true,
-            showRemoveTable: false
+            showRemoveTable: false,
+            showAssociation: false
         })
     }
 
@@ -29,7 +32,14 @@ class Sidebar extends Component {
         e.preventDefault();
         this.setState({
             showCreateTable: false,
-            showRemoveTable: true
+            showRemoveTable: true,
+            showAssociation: false
+        })
+    }
+    showAssociationForm(e){
+        e.preventDefault();
+        this.setState({
+            showAssociation: !this.state.showAssociation
         })
     }
     // showBothForm(evt){
@@ -46,11 +56,12 @@ class Sidebar extends Component {
         return (
             <div>
                 <h1>Options</h1>
-                <button onClick={this.showRemoveTableForm}>RemoveTable</button>
                 <button onClick={this.showCreateTableForm}>Create Table</button>
+                <button onClick={this.showRemoveTableForm}>RemoveTable</button>
+                <button onClick={this.showAssociationForm}>Add Association</button>
                 {this.state.showCreateTable ? <CreateTable /> : null}
                 {this.state.showRemoveTable ? <RemoveTable /> : null}
-                <AddAssociation/>
+                {this.state.showAssociation ? <AddAssociation/> : null}
             </div>
         )
     }

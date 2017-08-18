@@ -47,7 +47,7 @@ const Main = (props) => {
                         : <div />
                 }
                 <StoredTables/>
-                <TempTable/>
+                <TempTable className="Boxes"/>
             </div>
         </div>
     )

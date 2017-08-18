@@ -14,12 +14,12 @@ export const TempTable = (props) => {
                 tables && tables.map((table) => {
                     (table.table.fields) ? columnNames = Object.keys(table.table.fields) : columnNames = false
                     return (
-                        <table key={table.tableId} style={{ width: 25 + 'px' }}>
+                        <table key= {table.tableId} style={{ width: 25 + 'px' }}>
                             <tr>
                                 <th>{table.table.tableName}</th>
                             </tr>
 
-                            {columnNames &&
+                            { columnNames &&
                                 columnNames.map((column) => {
                                     return (
                                         <tr key={column}>
