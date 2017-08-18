@@ -17,7 +17,6 @@ const Main = (props) => {
 
   return (
     <div id="main" className="container-fluid">
-      <h1>SimpleQl</h1>
       <div className="child1">
         <Sidebar/>
       </div>
@@ -38,11 +37,11 @@ const Main = (props) => {
               </div>
           }
         </nav>
-      </div>
-      <hr />
+         <hr />
       <Box />
       {children}
-    </div>
+      </div>
+     </div>
   )
 }
 
