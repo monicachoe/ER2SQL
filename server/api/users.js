@@ -32,10 +32,23 @@ router.post('/:userId/database/:dbName', (req, res, next) => {
 });
 
 //GET: Route to get databases of logged-in user
-// /api/users/1/databases OR /api/databases?userId=1
-router.get('/:userId/databases', (req, res, next) => {
+// /api/users/1/databases
+// OR
+// /api/databases?userId=1
+// router.get('/:userId/databases', (req, res, next) => {
+//   Database.findAll({where: {
+//     userId: req.params.userId
+//   }})
+//   .then( (databases) => {
+//     res.send(databases);
+//   })
+//   .catch(next);
+// });
+
+//GET: Route to get databases of logged-in user
+router.get('/databases', (req, res, next) => {
   Database.findAll({where: {
-    userId: req.params.userId
+    userId: req.user.id
   }})
   .then( (databases) => {
     res.send(databases);

@@ -1,10 +1,11 @@
-/**
- * `components/index.js` exists simply as a 'central export' for our components.
- * This way, we can import all of our components from the same place, rather than
- * having to figure out which file they belong to!
- */
-export {default as Main} from './main'
-export {default as UserHome} from './user-home'
+export {default as Main} from './main';
+export {default as UserHome} from './user-home';
+export {Login, Signup} from './auth-form';
+export {default as CreateTable} from './CreateTable';
 export {default as CreateDB} from './createdb'
-export {default as LoadDb} from './loaddb'
-export {Login, Signup} from './auth-form'
+export {default as LoadDB} from './loaddb'
+export {default as AddAssociation} from './AddAssociation';
+export {default as AddField} from './AddField';
+export {default as RemoveTable} from './RemoveTable';
+export {default as Sidebar} from './sidebar';
+export {default as CreateLoad} from './CreateLoad';

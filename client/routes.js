@@ -4,8 +4,8 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, CreateDB, LoadDb} from './components'
-import {me} from './store'
+import {Main, Login, Signup, UserHome, CreateDB, LoadDb, AddAssociation, Box, CreateTable, RemoveTable} from './components'
+import {me, getUserDatabases} from './store'
 
 /**
  * COMPONENT
@@ -15,7 +15,14 @@ class Routes extends Component {
     this.props.loadInitialData()
   }
 
+  componentWillReceiveProps(nextProps){
+    if (nextProps.isLoggedIn && (nextProps.isLoggedIn !== this.props.isLoggedIn)){
+      this.props.getUserDatabases();
+    }
+  }
+
   render () {
+    // console.log("In routes", this.props.user);
     const {isLoggedIn} = this.props
 
     return (
@@ -26,7 +33,9 @@ class Routes extends Component {
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
             <Route exact path='/createdb' component={CreateDB} />
+            <Route path='/add-table' component={CreateTable} />
             <Route exact path='/loaddb' component={LoadDb} />
+            <Route path='/add-association' component={AddAssociation} />
             {
               isLoggedIn &&
                 <Switch>
@@ -50,14 +59,19 @@ const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
-      dispatch(me())
+      dispatch(me());
+    },
+    getUserDatabases(){
+      console.log("dispatched from routes")
+      dispatch(getUserDatabases());
     }
   }
 }

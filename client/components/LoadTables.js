@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { loadDatabase } from '../store';
 
-class LoadDb extends Component {
+class LoadTables extends Component {
 
   constructor(props){
     super(props);
