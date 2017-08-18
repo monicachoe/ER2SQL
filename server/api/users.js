@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Database} = require('../db/models')
+
 module.exports = router
 
 router.get('/', (req, res, next) => {
@@ -12,3 +13,36 @@ router.get('/', (req, res, next) => {
     .then(users => res.json(users))
     .catch(next)
 })
+
+//POST: Route to create database by each user.
+router.post('/:userId/databases/:dbName', (req, res, next) => {
+  console.log('route: ', req.params.userId, req.params.dbName);
+  Database.findOrCreate( {where: {
+    userId: req.params.userId,
+    name: req.params.dbName
+  }})
+  .spread( (db, created) => {
+    if (!created){
+      throw new Error(`Database ${req.params.dbName} already exists`);
+    }
+    else {
+      console.log(db);
+      res.send(db);
+    }
+  })
+  .catch(next);
+});
+
+//GET: Route to get databases of logged-in user
+// /api/users/1/databases
+// OR
+// /api/databases?userId=1
+router.get('/:userId/databases', (req, res, next) => {
+  Database.findAll({where: {
+    userId: req.params.userId
+  }})
+  .then( (databases) => {
+    res.send(databases);
+  })
+  .catch(next);
+});

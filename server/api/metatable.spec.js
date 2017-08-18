@@ -5,7 +5,7 @@ const app = require('../index')
 const { Table } = require('../db/models')
 
 
-describe('Table routes', () => {
+describe('MetaTable routes', () => {
 
   beforeEach(() => {
     return db.sync({force: true})
