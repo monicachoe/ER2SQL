@@ -6,15 +6,15 @@ import { logout } from '../store'
 
 export const StoredTables = (props) => {
     const { tables } = props
-    // const tables = [{id: 2 , name: 'Name', columns: [1, 2, 3]}]
     var columnNames;
     return (
         <div>
-            { 
-                (tables) && tables.map((table) => {
+            {
+                (tables) && tables.map((table, idx) => {
                     (table) ? columnNames = (table.fields) : columnNames = false
                     return (
-                        <table key={table.id} style={{ width: 25 + 'px' }}>
+                        <table key={idx} style={{ width: 25 + 'px' }}>
+                            <tbody>
                             <tr>
                                 <th>{table.name}</th>
                             </tr>
@@ -23,11 +23,12 @@ export const StoredTables = (props) => {
                                 columnNames.map((column) => {
                                     return (
                                         <tr key={column}>
-                                            <td key="column">{column}</td>
+                                            <td name="column" key={column}>{column}</td>
                                         </tr>
                                     )
                                 })
                             }
+                        </tbody>
                         </table>
                     )
                 }
@@ -44,4 +45,4 @@ const mapState = (state) => {
     }
 }
 
-export default connect(mapState)(StoredTables) 
+export default connect(mapState)(StoredTables)

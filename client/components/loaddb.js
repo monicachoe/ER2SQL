@@ -14,7 +14,7 @@ class LoadDb extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.database !== this.props.database){
+    if((Object.keys(nextProps.database).length !== 0) && (nextProps.database !== this.props.database)){
       this.props.getMetatables(nextProps.database.id);
     }
   }
