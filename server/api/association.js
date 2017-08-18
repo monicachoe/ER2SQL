@@ -37,11 +37,25 @@ router.post('/', (req, res, next) => {
   }
 });
 
-
+// one to one
 // ALTER TABLE blackblue16s
 // ADD blackblue7test int;
 // ALTER TABLE blackblue16s
 // ADD FOREIGN KEY (blackblue7test) REFERENCES blackblue17s(id);
 
-// blackblue15s
-// blackblue16s
+// one to many
+
+// many to one
+
+// many to many
+// join table??
+// create table movie_category_junction
+// (
+//   movie_id int,
+//   category_id int,
+//   CONSTRAINT movie_cat_pk PRIMARY KEY (movie_id, category_id),
+//   CONSTRAINT FK_movie 
+//       FOREIGN KEY (movie_id) REFERENCES movie (movie_id),
+//   CONSTRAINT FK_category 
+//       FOREIGN KEY (category_id) REFERENCES category (category_id)
+// );
