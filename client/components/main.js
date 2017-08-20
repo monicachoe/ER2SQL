@@ -15,7 +15,7 @@ import {default as StoredTables} from './StoredTables'
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-    const { children, handleClick, isLoggedIn } = props
+    const { children, handleClick, isLoggedIn, temp, metatable } = props
 
     return (
         <div id="main" className="container-fluid">
@@ -46,8 +46,9 @@ const Main = (props) => {
                         ? <CreateLoad />
                         : <div />
                 }
-                <StoredTables/>
-                <TempTable className="Boxes"/>
+                {
+                  (temp.length) ? <TempTable/> : <StoredTables/>
+                }
             </div>
         </div>
     )
@@ -59,7 +60,8 @@ const Main = (props) => {
 const mapState = (state) => {
     return {
         isLoggedIn: !!state.user.id,
-        metatable: state.metatable
+        metatable: state.metatable,
+        temp: state.temp
     }
 }
 

@@ -24,6 +24,7 @@ body {
     width: 640px; 
     border: 2px solid black;
     margin: 15px;
+    border-radius: 15px;
 }
 
 td, th {  
@@ -62,7 +63,7 @@ td {
    align-items: center;
    width: 150px;
   }
-  .boxes{
+  .box{
     display:flex;
     flex-direction: row;
   }
