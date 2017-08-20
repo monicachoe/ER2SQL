@@ -45,6 +45,12 @@ class Sidebar extends Component {
             showCreateAssociation: true
         })
     }
+    // showAssociationForm(e){
+    //     e.preventDefault();
+    //     this.setState({
+    //         showAssociation: !this.state.showAssociation
+    //     })
+    // }
     // showBothForm(evt){
     //     evt.preventDefault()
     //     if(this.state.showLoad){
@@ -59,7 +65,6 @@ class Sidebar extends Component {
         return (
             <div>
                 <h1>Options</h1>
-                <button onClick={this.showRemoveTableForm}>RemoveTable</button>
                 <button onClick={this.showCreateTableForm}>Create Table</button>
                 <button onClick={this.showCreateAssociationForm}>Create Association</button>
                 {this.state.showCreateTable ? <CreateTable /> : null}
@@ -75,8 +80,6 @@ const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
 const mapDisptachProps = (dispatch) => {
   return {
     getUserDatabases(userId){
-      console.log('userId: ', userId);
-      console.log("dispatched from sidebar")
       dispatch(getUserDatabases())
     }
   }

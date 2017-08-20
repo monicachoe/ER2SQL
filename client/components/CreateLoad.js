@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {getUserDatabases} from '../store'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, AddAssociation} from './index';
+import {CreateTable, Field, CreateDB, RemoveTable, LoadDB} from './index';
 
 class CreateLoad extends Component {
     constructor(props) {
@@ -21,9 +21,7 @@ class CreateLoad extends Component {
         evt.preventDefault()
         this.setState({
             showCreate: true,
-            showLoad: false,
-            showCreateTable: false,
-            showRemoveTable: false
+            showLoad: false
         })
     }
 
@@ -31,9 +29,7 @@ class CreateLoad extends Component {
         evt.preventDefault()
         this.setState({
             showCreate: false,
-            showLoad: true,
-            showCreateTable: false,
-            showRemoveTable: false
+            showLoad: true
         })
         this.props.getUserDatabases(this.props.user.id);
     }
@@ -66,7 +62,6 @@ const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
 const mapDisptachProps = (dispatch) => {
   return {
     getUserDatabases(userId){
-      console.log('userId: ', userId);
       dispatch(getUserDatabases(userId))
     }
   }

@@ -16,9 +16,9 @@ const addAssociation = (association) => ({type : ADD_ASSOCIATION, association})
  */
 // Make axios request too!!! --> post to database
 // Assuming that posting to metatable returns the tableId!!!!!
-export const createAssociation = (dbname, id1, id2, assocType) =>
+export const createAssociation = (dbName, src, target, assocType, fkName) =>
   dispatch => {
-  axios.post('/api/association', {dbname, id1, id2, assocType})
+  axios.post('/api/association', {dbName, src, target, assocType, fkName})
   .then(res => res.data)
   .then(res => dispatch(addAssociation(res)))
   .catch(err => console.log(err));
