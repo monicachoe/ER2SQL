@@ -6,8 +6,9 @@ import temp from './temp';
 import metatable from './metatable';
 import database from './database';
 import userdbs from './userDatabases';
+import updateTableName from './updateTableName'
 
-const reducer = combineReducers({user, temp, metatable, database, userdbs});
+const reducer = combineReducers({user, temp, metatable, database, userdbs, updateTableName});
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}));
 const store = createStore(reducer, middleware);
 
@@ -17,3 +18,4 @@ export * from './temp';
 export * from './metatable';
 export * from './database';
 export * from './userDatabases';
+export * from './updateTableName';

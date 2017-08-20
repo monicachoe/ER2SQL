@@ -7,45 +7,54 @@ class UpdateTableName extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			newName: ''
+			newName: props.tableName
 		}
 		this.handleChange = this.handleChange.bind(this)
+		this.handleSubmit = this.handleSubmit.bind(this)
 	}
+
 	handleChange (event){
 		this.setstate({newName: event.target.value})
 	}
+
+	handleSubmit (event){
+		event.preventDefault();
+		let table = event.target.value
+		this.props.updateNameToTable(table)
+	}
+
 	render(){
 		var tables = props.tables;
-	var handleSubmit = props.handleSubmit;
-	return(
+		return(
 	    <div>
 	    	<form onSubmit={handleSubmit}>
 	    		<label>
 	    			Table Name :
 	    			<select name='tableName'>
 	    				<option>-</option>
+	    				{
+	    					tables.map((tab) => {return (<option key={tab.id}>tab.name</option>)})
+	    				}
 	    			</select>
-
+	    			<input style="text" value={this.state.newName} onChange={this.handleChange} />
 	    		</label>
-	    		<input  />
 	    	</form>
 	    </div>
 	    )
-}
-	   }
+		}
+	 }
 
 const mapStateToProps = function(state, ownProps){
 	return {
 		tables: state.temp,
+		tableName: state.tableName
 	}
 }
 
 const mapDispatchToProps = function(dispatch){
 	return {
-		handleSubmit(event){
-			event.preventDefault();
-			let tableName = event.target.name.value;
-			dispatch(updateNameToTable(tableName));
+		updateNameToTable(table){
+			dispatch(updateNameToTable(table));
 		}
 	}
 }
