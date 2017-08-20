@@ -83,7 +83,7 @@ export default function (state = temp, action) {
     case REMOVE_TABLE:
       return state.filter(each => each.tableName !== action.tableName);
     case UPDATE_TABLE_NAME:
-      return  action.table;
+      return  [...state, action.table];
     case REMOVE:
       return [];
     default:

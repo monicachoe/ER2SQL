@@ -4,7 +4,7 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, CreateDB, LoadDb, Box, CreateTable, RemoveTable} from './components'
+import {Main, Login, Signup, UserHome, CreateDB, LoadDb, Box, CreateTable, RemoveTable, UpdateTableName} from './components'
 import {me, getUserDatabases} from './store'
 
 /**

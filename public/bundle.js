@@ -8488,6 +8488,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
@@ -8502,33 +8504,65 @@ var _store2 = _interopRequireDefault(_store);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function UpdateTableName(props) {
-	var tables = props.tables;
-	var handleSubmit = props.handleSubmit;
-	return _react2.default.createElement(
-		'div',
-		null,
-		_react2.default.createElement(
-			'form',
-			{ onSubmit: handleSubmit },
-			_react2.default.createElement(
-				'label',
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UpdateTableName = function (_Component) {
+	_inherits(UpdateTableName, _Component);
+
+	function UpdateTableName(props) {
+		_classCallCheck(this, UpdateTableName);
+
+		var _this = _possibleConstructorReturn(this, (UpdateTableName.__proto__ || Object.getPrototypeOf(UpdateTableName)).call(this, props));
+
+		_this.state = {
+			newName: ''
+		};
+		_this.handleChange = _this.handleChange.bind(_this);
+		return _this;
+	}
+
+	_createClass(UpdateTableName, [{
+		key: 'handleChange',
+		value: function handleChange(event) {
+			this.setstate({ newName: event.target.value });
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var tables = props.tables;
+			var handleSubmit = props.handleSubmit;
+			return _react2.default.createElement(
+				'div',
 				null,
-				'Table Name :',
 				_react2.default.createElement(
-					'select',
-					{ name: 'tableName' },
+					'form',
+					{ onSubmit: handleSubmit },
 					_react2.default.createElement(
-						'option',
+						'label',
 						null,
-						'-'
-					)
+						'Table Name :',
+						_react2.default.createElement(
+							'select',
+							{ name: 'tableName' },
+							_react2.default.createElement(
+								'option',
+								null,
+								'-'
+							)
+						)
+					),
+					_react2.default.createElement('input', null)
 				)
-			),
-			_react2.default.createElement('input', { type: 'submit' })
-		)
-	);
-}
+			);
+		}
+	}]);
+
+	return UpdateTableName;
+}(_react.Component);
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
 	return {
@@ -8595,15 +8629,13 @@ var Sidebar = function (_Component) {
 
         _this.state = {
             showCreateTable: false,
-            showRemoveTable: false,
-            showUpdateTable: false
+            showRemoveTable: false
             // ,
             // showAssociation: false
 
             // this.showBothForm = this.showBothForm.bind(this)
         };_this.showCreateTableForm = _this.showCreateTableForm.bind(_this);
         _this.showRemoveTableForm = _this.showRemoveTableForm.bind(_this);
-        _this.showUpdateTableName = _this.showUpdateTableName.bind(_this);
         // this.showAssociationForm = this.showAssociationForm.bind(this);
         return _this;
     }
@@ -8614,8 +8646,7 @@ var Sidebar = function (_Component) {
             e.preventDefault();
             this.setState({
                 showCreateTable: true,
-                showRemoveTable: false,
-                showUpdateTable: false
+                showRemoveTable: false
                 // ,
                 // showAssociation: false
             });
@@ -8626,8 +8657,7 @@ var Sidebar = function (_Component) {
             e.preventDefault();
             this.setState({
                 showCreateTable: false,
-                showRemoveTable: true,
-                showUpdateTable: false
+                showRemoveTable: true
                 // ,
                 // showAssociation: false
             });
@@ -8638,8 +8668,7 @@ var Sidebar = function (_Component) {
             e.preventDefault();
             this.setState({
                 showCreateTable: false,
-                showRemoveTable: false,
-                showUpdateTable: true
+                showRemoveTable: false
             });
         }
         // showAssociationForm(e){
@@ -8680,14 +8709,9 @@ var Sidebar = function (_Component) {
                     { onClick: this.showRemoveTableForm },
                     'Remove Table'
                 ),
-                _react2.default.createElement(
-                    'button',
-                    { onClick: this.showUpdateTableName },
-                    'Update Table Name'
-                ),
                 this.state.showCreateTable ? _react2.default.createElement(_index.CreateTable, null) : null,
                 this.state.showRemoveTable ? _react2.default.createElement(_index.RemoveTable, null) : null,
-                this.state.showUpdateTable ? _react2.default.createElement(_index.UpdateTableName, null) : null
+                _react2.default.createElement(_index.UpdateTableName, null)
             );
         }
     }]);
@@ -16334,7 +16358,7 @@ exports.default = function () {
         return each.tableName !== action.tableName;
       });
     case UPDATE_TABLE_NAME:
-      return action.table;
+      return [].concat(_toConsumableArray(state), [action.table]);
     case REMOVE:
       return [];
     default:

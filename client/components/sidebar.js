@@ -10,15 +10,13 @@ class Sidebar extends Component {
         super(props)
         this.state = {
             showCreateTable: false,
-            showRemoveTable: false,
-            showUpdateTable: false
+            showRemoveTable: false
             // ,
             // showAssociation: false
         }
         // this.showBothForm = this.showBothForm.bind(this)
         this.showCreateTableForm = this.showCreateTableForm.bind(this);
         this.showRemoveTableForm = this.showRemoveTableForm.bind(this);
-        this.showUpdateTableName = this.showUpdateTableName.bind(this);
         // this.showAssociationForm = this.showAssociationForm.bind(this);
     }
 
@@ -27,7 +25,6 @@ class Sidebar extends Component {
         this.setState({
             showCreateTable: true,
             showRemoveTable: false,
-            showUpdateTable: false
             // ,
             // showAssociation: false
         })
@@ -38,7 +35,6 @@ class Sidebar extends Component {
         this.setState({
             showCreateTable: false,
             showRemoveTable: true,
-            showUpdateTable: false
             // ,
             // showAssociation: false
         })
@@ -49,7 +45,6 @@ class Sidebar extends Component {
         this.setState({
             showCreateTable: false,
             showRemoveTable: false,
-            showUpdateTable: true
         })
     }
     // showAssociationForm(e){
@@ -74,10 +69,9 @@ class Sidebar extends Component {
                 <h1>Options</h1>
                 <button onClick={this.showCreateTableForm}>Create Table</button>
                 <button onClick={this.showRemoveTableForm}>Remove Table</button>
-                <button onClick={this.showUpdateTableName}>Update Table Name</button>
                 {this.state.showCreateTable ? <CreateTable /> : null}
                 {this.state.showRemoveTable ? <RemoveTable /> : null}
-                {this.state.showUpdateTable ? <UpdateTableName /> : null}
+                <UpdateTableName />
             </div>
         )
     }
