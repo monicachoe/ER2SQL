@@ -79,6 +79,7 @@ router.post('/', (req, res, next) => {
                   PRIMARY KEY ("${fkName1}","${fkName2}"))`)
     .then( result => {
       console.log("m:n ", result);
+
       res.send("m:n succeeded");
     })
   }
