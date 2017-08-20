@@ -15,6 +15,7 @@ export const TempTable = (props) => {
                     (table.table.fields) ? columnNames = Object.keys(table.table.fields) : columnNames = false
                     return (
                         <table key= {table.tableId} style={{ width: 25 + 'px' }}>
+                            <tbody>
                             <tr>
                                 <th>{table.table.tableName}</th>
                             </tr>
@@ -28,6 +29,7 @@ export const TempTable = (props) => {
                                     )
                                 })
                             }
+                            </tbody>
                         </table>
                     )
                 }
