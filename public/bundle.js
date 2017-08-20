@@ -4359,6 +4359,21 @@ Object.defineProperty(exports, 'CreateLoad', {
   }
 });
 
+var _DisplayTable = __webpack_require__(831);
+
+Object.defineProperty(exports, 'StoredTables', {
+  enumerable: true,
+  get: function get() {
+    return _DisplayTable.StoredTables;
+  }
+});
+Object.defineProperty(exports, 'TempTables', {
+  enumerable: true,
+  get: function get() {
+    return _DisplayTable.TempTables;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
@@ -8387,11 +8402,9 @@ var CreateLoad = function (_Component) {
         _this.state = {
             showCreate: false,
             showLoad: false
-
         };
         _this.showCreateForm = _this.showCreateForm.bind(_this);
         _this.showLoadForm = _this.showLoadForm.bind(_this);
-        // this.showBothForm = this.showBothForm.bind(this)
         return _this;
     }
 
@@ -8414,19 +8427,6 @@ var CreateLoad = function (_Component) {
             });
             this.props.getUserDatabases(this.props.user.id);
         }
-        //Remove this check once we have our home page not showing
-        // createdb/ loaddb options before logging in
-        // showBothForm(evt){
-        //     evt.preventDefault()
-        //     if(this.state.showLoad){
-        //         this.state
-        //     }
-        //     this.setState({
-        //         showLoad: !this.state.showLoad,
-        //         showCreate: !this.state.showCreate
-        //     })
-        // }
-
     }, {
         key: 'render',
         value: function render() {
@@ -8458,7 +8458,7 @@ var mapStateToProps = function mapStateToProps(_ref) {
     return { user: user, userdbs: userdbs };
 };
 
-var mapDisptachProps = function mapDisptachProps(dispatch) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         getUserDatabases: function getUserDatabases(userId) {
             dispatch((0, _store.getUserDatabases)(userId));
@@ -8466,7 +8466,7 @@ var mapDisptachProps = function mapDisptachProps(dispatch) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDisptachProps)(CreateLoad);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CreateLoad);
 
 /***/ }),
 /* 77 */
@@ -14938,9 +14938,10 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Field = function Field(props) {
-    var types = ['string', 'text', 'float', 'date', 'boolean', 'enum', 'array'];
-    var handleChange = props.handleChange;
-    var id = props.id;
+    var types = ['String', 'Text', 'Float', 'Date', 'Boolean', 'Enum', 'Array'];
+    var handleChange = props.handleChange,
+        id = props.id;
+
     return _react2.default.createElement(
         'div',
         null,
@@ -15210,7 +15211,7 @@ function RemoveTable(props) {
   );
 }
 
-var mapStateToProps = function mapStateToProps(state, ownProps) {
+var mapStateToProps = function mapStateToProps(state) {
   return {
     tables: state.temp,
     database: state.database
@@ -15231,161 +15232,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RemoveTable);
 
 /***/ }),
-/* 148 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.StoredTables = undefined;
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(7);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactRedux = __webpack_require__(12);
-
-var _reactRouterDom = __webpack_require__(22);
-
-var _store = __webpack_require__(9);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var StoredTables = exports.StoredTables = function StoredTables(props) {
-    var tables = props.tables;
-
-    var columnNames;
-    return _react2.default.createElement(
-        'div',
-        null,
-        tables && tables.map(function (table, idx) {
-            table ? columnNames = table.fields : columnNames = false;
-            return _react2.default.createElement(
-                'table',
-                { key: idx, style: { width: 25 + 'px' } },
-                _react2.default.createElement(
-                    'tbody',
-                    null,
-                    _react2.default.createElement(
-                        'tr',
-                        null,
-                        _react2.default.createElement(
-                            'th',
-                            null,
-                            table.name
-                        )
-                    ),
-                    columnNames && columnNames.map(function (column) {
-                        return _react2.default.createElement(
-                            'tr',
-                            { key: column },
-                            _react2.default.createElement(
-                                'td',
-                                { name: 'column', key: column },
-                                column
-                            )
-                        );
-                    })
-                )
-            );
-        })
-    );
-};
-
-var mapState = function mapState(state) {
-    return {
-        tables: state.metatable
-    };
-};
-
-exports.default = (0, _reactRedux.connect)(mapState)(StoredTables);
-
-/***/ }),
-/* 149 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.TempTable = undefined;
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(7);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactRedux = __webpack_require__(12);
-
-var _reactRouterDom = __webpack_require__(22);
-
-var _store = __webpack_require__(9);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var TempTable = exports.TempTable = function TempTable(props) {
-    var tables = props.tables;
-
-    var columnNames;
-
-    return _react2.default.createElement(
-        'div',
-        null,
-        tables && tables.map(function (table) {
-            table.table.fields ? columnNames = Object.keys(table.table.fields) : columnNames = false;
-            return _react2.default.createElement(
-                'table',
-                { key: table.tableId, style: { width: 25 + 'px' } },
-                _react2.default.createElement(
-                    'tbody',
-                    null,
-                    _react2.default.createElement(
-                        'tr',
-                        null,
-                        _react2.default.createElement(
-                            'th',
-                            null,
-                            table.table.tableName
-                        )
-                    ),
-                    columnNames && columnNames.map(function (column) {
-                        return _react2.default.createElement(
-                            'tr',
-                            { key: column },
-                            _react2.default.createElement(
-                                'td',
-                                { key: 'column' },
-                                column
-                            )
-                        );
-                    })
-                )
-            );
-        })
-    );
-};
-
-var mapState = function mapState(state) {
-    return {
-        tables: state.temp
-    };
-};
-
-exports.default = (0, _reactRedux.connect)(mapState)(TempTable);
-
-/***/ }),
+/* 148 */,
+/* 149 */,
 /* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15411,9 +15259,6 @@ var _store = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- * COMPONENT
- */
 var AuthForm = function AuthForm(props) {
   var name = props.name,
       displayName = props.displayName,
@@ -15495,13 +15340,6 @@ var AuthForm = function AuthForm(props) {
   );
 };
 
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
 var mapLogin = function mapLogin(state) {
   return {
     name: 'login',
@@ -15537,9 +15375,6 @@ var mapDispatch = function mapDispatch(dispatch) {
 var Login = exports.Login = (0, _reactRedux.connect)(mapLogin, mapDispatch)(AuthForm);
 var Signup = exports.Signup = (0, _reactRedux.connect)(mapSignup, mapDispatch)(AuthForm);
 
-/**
- * PROP TYPES
- */
 AuthForm.propTypes = {
   name: _propTypes2.default.string.isRequired,
   displayName: _propTypes2.default.string.isRequired,
@@ -15684,7 +15519,7 @@ var LoadDb = function (_Component) {
     var _this = _possibleConstructorReturn(this, (LoadDb.__proto__ || Object.getPrototypeOf(LoadDb)).call(this, props));
 
     _this.state = {
-      'dbName': ''
+      dbName: ''
     };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
@@ -15710,7 +15545,7 @@ var LoadDb = function (_Component) {
 
       evt.preventDefault();
       var selectedDb = this.props.userdbs.filter(function (eachDb) {
-        if (eachDb.name === _this2.state.dbName) return eachDb;
+        return eachDb.name === _this2.state.dbName;
       });
       this.props.loadDatabase(selectedDb[0]);
     }
@@ -15731,6 +15566,11 @@ var LoadDb = function (_Component) {
           _react2.default.createElement(
             'select',
             { name: 'load', onChange: this.handleChange },
+            _react2.default.createElement(
+              'option',
+              null,
+              '-'
+            ),
             this.props.userdbs && this.props.userdbs.map(function (eachDB) {
               return _react2.default.createElement(
                 'option',
@@ -15760,7 +15600,7 @@ var mapStateToProps = function mapStateToProps(_ref) {
   return { user: user, userdbs: userdbs, database: database, metatable: metatable };
 };
 
-var mapDisptachProps = function mapDisptachProps(dispatch) {
+var mapDispatch = function mapDispatch(dispatch) {
   return {
     loadDatabase: function loadDatabase(selectedDb) {
       dispatch((0, _store.loadDatabase)(selectedDb));
@@ -15771,7 +15611,7 @@ var mapDisptachProps = function mapDisptachProps(dispatch) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDisptachProps)(LoadDb);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatch)(LoadDb);
 
 /***/ }),
 /* 153 */
@@ -15798,21 +15638,7 @@ var _reactRouterDom = __webpack_require__(22);
 
 var _store = __webpack_require__(9);
 
-var _TempTable = __webpack_require__(149);
-
-var _TempTable2 = _interopRequireDefault(_TempTable);
-
-var _sidebar = __webpack_require__(77);
-
-var _sidebar2 = _interopRequireDefault(_sidebar);
-
-var _CreateLoad = __webpack_require__(76);
-
-var _CreateLoad2 = _interopRequireDefault(_CreateLoad);
-
-var _StoredTables = __webpack_require__(148);
-
-var _StoredTables2 = _interopRequireDefault(_StoredTables);
+var _index = __webpack_require__(35);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15834,7 +15660,7 @@ var Main = function Main(props) {
         _react2.default.createElement(
             'div',
             { className: 'child1' },
-            _react2.default.createElement(_sidebar2.default, null)
+            _react2.default.createElement(_index.Sidebar, null)
         ),
         _react2.default.createElement(
             'div',
@@ -15877,9 +15703,9 @@ var Main = function Main(props) {
             ),
             _react2.default.createElement('hr', null),
             children,
-            isLoggedIn ? _react2.default.createElement(_CreateLoad2.default, null) : _react2.default.createElement('div', null),
-            _react2.default.createElement(_StoredTables2.default, null),
-            _react2.default.createElement(_TempTable2.default, { className: 'Boxes' })
+            isLoggedIn ? _react2.default.createElement(_index.CreateLoad, null) : _react2.default.createElement('div', null),
+            _react2.default.createElement(_index.StoredTables, null),
+            _react2.default.createElement(_index.TempTables, { className: 'Boxes' })
         )
     );
 };
@@ -16248,24 +16074,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-/**
- * ACTION TYPES
- */
+/** ACTION TYPES **/
 var ADD_TABLE = 'ADD_TABLE';
 var ADD_FIELD = 'ADD_FIELD';
 var REMOVE_TABLE = 'REMOVE_TABLE';
 var REMOVE = 'REMOVE';
 
-/**
- * INITIAL STATE
- */
-// temp = [{tableName: table1, fields: {all fields}}, {tableName: table2, fields: {all fields}}]
-// look into changing it to object with array {listOfTable : []}
+/** INITIAL STATE **/
 var temp = [];
 
-/**
- * ACTION CREATORS
- */
+/** ACTION CREATORS **/
 var addTable = function addTable(table) {
   return { type: ADD_TABLE, table: table };
 };
@@ -16278,11 +16096,8 @@ var removeTable = function removeTable(tableName) {
 var remove = function remove() {
   return { type: REMOVE };
 };
-/**
- * THUNK CREATORS
- */
-// Make axios request too!!! --> post to database
-// Assuming that posting to metatable returns the tableId!!!!! 
+
+/** THUNK CREATORS **/
 var addTableToTemp = exports.addTableToTemp = function addTableToTemp(table) {
   return function (dispatch) {
     var tableId = void 0,
@@ -16294,7 +16109,7 @@ var addTableToTemp = exports.addTableToTemp = function addTableToTemp(table) {
     }).then(function (res) {
       return _axios2.default.post('/api/tables', { tableName: tableName, 'fields': table.fields });
     }).then(function () {
-      return dispatch(addTable({ table: table, tableId: tableId }));
+      return dispatch(addTable({ name: table.tableName, fields: Object.keys(table.fields), databaseId: table.database.id, tableId: tableId }));
     });
   };
 };
@@ -16323,9 +16138,7 @@ var clearTemp = exports.clearTemp = function clearTemp() {
   };
 };
 
-/**
- * REDUCER
- */
+/** REDUCER **/
 
 /***/ }),
 /* 159 */
@@ -32982,6 +32795,595 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */,
+/* 380 */,
+/* 381 */,
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */,
+/* 416 */,
+/* 417 */,
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */,
+/* 423 */,
+/* 424 */,
+/* 425 */,
+/* 426 */,
+/* 427 */,
+/* 428 */,
+/* 429 */,
+/* 430 */,
+/* 431 */,
+/* 432 */,
+/* 433 */,
+/* 434 */,
+/* 435 */,
+/* 436 */,
+/* 437 */,
+/* 438 */,
+/* 439 */,
+/* 440 */,
+/* 441 */,
+/* 442 */,
+/* 443 */,
+/* 444 */,
+/* 445 */,
+/* 446 */,
+/* 447 */,
+/* 448 */,
+/* 449 */,
+/* 450 */,
+/* 451 */,
+/* 452 */,
+/* 453 */,
+/* 454 */,
+/* 455 */,
+/* 456 */,
+/* 457 */,
+/* 458 */,
+/* 459 */,
+/* 460 */,
+/* 461 */,
+/* 462 */,
+/* 463 */,
+/* 464 */,
+/* 465 */,
+/* 466 */,
+/* 467 */,
+/* 468 */,
+/* 469 */,
+/* 470 */,
+/* 471 */,
+/* 472 */,
+/* 473 */,
+/* 474 */,
+/* 475 */,
+/* 476 */,
+/* 477 */,
+/* 478 */,
+/* 479 */,
+/* 480 */,
+/* 481 */,
+/* 482 */,
+/* 483 */,
+/* 484 */,
+/* 485 */,
+/* 486 */,
+/* 487 */,
+/* 488 */,
+/* 489 */,
+/* 490 */,
+/* 491 */,
+/* 492 */,
+/* 493 */,
+/* 494 */,
+/* 495 */,
+/* 496 */,
+/* 497 */,
+/* 498 */,
+/* 499 */,
+/* 500 */,
+/* 501 */,
+/* 502 */,
+/* 503 */,
+/* 504 */,
+/* 505 */,
+/* 506 */,
+/* 507 */,
+/* 508 */,
+/* 509 */,
+/* 510 */,
+/* 511 */,
+/* 512 */,
+/* 513 */,
+/* 514 */,
+/* 515 */,
+/* 516 */,
+/* 517 */,
+/* 518 */,
+/* 519 */,
+/* 520 */,
+/* 521 */,
+/* 522 */,
+/* 523 */,
+/* 524 */,
+/* 525 */,
+/* 526 */,
+/* 527 */,
+/* 528 */,
+/* 529 */,
+/* 530 */,
+/* 531 */,
+/* 532 */,
+/* 533 */,
+/* 534 */,
+/* 535 */,
+/* 536 */,
+/* 537 */,
+/* 538 */,
+/* 539 */,
+/* 540 */,
+/* 541 */,
+/* 542 */,
+/* 543 */,
+/* 544 */,
+/* 545 */,
+/* 546 */,
+/* 547 */,
+/* 548 */,
+/* 549 */,
+/* 550 */,
+/* 551 */,
+/* 552 */,
+/* 553 */,
+/* 554 */,
+/* 555 */,
+/* 556 */,
+/* 557 */,
+/* 558 */,
+/* 559 */,
+/* 560 */,
+/* 561 */,
+/* 562 */,
+/* 563 */,
+/* 564 */,
+/* 565 */,
+/* 566 */,
+/* 567 */,
+/* 568 */,
+/* 569 */,
+/* 570 */,
+/* 571 */,
+/* 572 */,
+/* 573 */,
+/* 574 */,
+/* 575 */,
+/* 576 */,
+/* 577 */,
+/* 578 */,
+/* 579 */,
+/* 580 */,
+/* 581 */,
+/* 582 */,
+/* 583 */,
+/* 584 */,
+/* 585 */,
+/* 586 */,
+/* 587 */,
+/* 588 */,
+/* 589 */,
+/* 590 */,
+/* 591 */,
+/* 592 */,
+/* 593 */,
+/* 594 */,
+/* 595 */,
+/* 596 */,
+/* 597 */,
+/* 598 */,
+/* 599 */,
+/* 600 */,
+/* 601 */,
+/* 602 */,
+/* 603 */,
+/* 604 */,
+/* 605 */,
+/* 606 */,
+/* 607 */,
+/* 608 */,
+/* 609 */,
+/* 610 */,
+/* 611 */,
+/* 612 */,
+/* 613 */,
+/* 614 */,
+/* 615 */,
+/* 616 */,
+/* 617 */,
+/* 618 */,
+/* 619 */,
+/* 620 */,
+/* 621 */,
+/* 622 */,
+/* 623 */,
+/* 624 */,
+/* 625 */,
+/* 626 */,
+/* 627 */,
+/* 628 */,
+/* 629 */,
+/* 630 */,
+/* 631 */,
+/* 632 */,
+/* 633 */,
+/* 634 */,
+/* 635 */,
+/* 636 */,
+/* 637 */,
+/* 638 */,
+/* 639 */,
+/* 640 */,
+/* 641 */,
+/* 642 */,
+/* 643 */,
+/* 644 */,
+/* 645 */,
+/* 646 */,
+/* 647 */,
+/* 648 */,
+/* 649 */,
+/* 650 */,
+/* 651 */,
+/* 652 */,
+/* 653 */,
+/* 654 */,
+/* 655 */,
+/* 656 */,
+/* 657 */,
+/* 658 */,
+/* 659 */,
+/* 660 */,
+/* 661 */,
+/* 662 */,
+/* 663 */,
+/* 664 */,
+/* 665 */,
+/* 666 */,
+/* 667 */,
+/* 668 */,
+/* 669 */,
+/* 670 */,
+/* 671 */,
+/* 672 */,
+/* 673 */,
+/* 674 */,
+/* 675 */,
+/* 676 */,
+/* 677 */,
+/* 678 */,
+/* 679 */,
+/* 680 */,
+/* 681 */,
+/* 682 */,
+/* 683 */,
+/* 684 */,
+/* 685 */,
+/* 686 */,
+/* 687 */,
+/* 688 */,
+/* 689 */,
+/* 690 */,
+/* 691 */,
+/* 692 */,
+/* 693 */,
+/* 694 */,
+/* 695 */,
+/* 696 */,
+/* 697 */,
+/* 698 */,
+/* 699 */,
+/* 700 */,
+/* 701 */,
+/* 702 */,
+/* 703 */,
+/* 704 */,
+/* 705 */,
+/* 706 */,
+/* 707 */,
+/* 708 */,
+/* 709 */,
+/* 710 */,
+/* 711 */,
+/* 712 */,
+/* 713 */,
+/* 714 */,
+/* 715 */,
+/* 716 */,
+/* 717 */,
+/* 718 */,
+/* 719 */,
+/* 720 */,
+/* 721 */,
+/* 722 */,
+/* 723 */,
+/* 724 */,
+/* 725 */,
+/* 726 */,
+/* 727 */,
+/* 728 */,
+/* 729 */,
+/* 730 */,
+/* 731 */,
+/* 732 */,
+/* 733 */,
+/* 734 */,
+/* 735 */,
+/* 736 */,
+/* 737 */,
+/* 738 */,
+/* 739 */,
+/* 740 */,
+/* 741 */,
+/* 742 */,
+/* 743 */,
+/* 744 */,
+/* 745 */,
+/* 746 */,
+/* 747 */,
+/* 748 */,
+/* 749 */,
+/* 750 */,
+/* 751 */,
+/* 752 */,
+/* 753 */,
+/* 754 */,
+/* 755 */,
+/* 756 */,
+/* 757 */,
+/* 758 */,
+/* 759 */,
+/* 760 */,
+/* 761 */,
+/* 762 */,
+/* 763 */,
+/* 764 */,
+/* 765 */,
+/* 766 */,
+/* 767 */,
+/* 768 */,
+/* 769 */,
+/* 770 */,
+/* 771 */,
+/* 772 */,
+/* 773 */,
+/* 774 */,
+/* 775 */,
+/* 776 */,
+/* 777 */,
+/* 778 */,
+/* 779 */,
+/* 780 */,
+/* 781 */,
+/* 782 */,
+/* 783 */,
+/* 784 */,
+/* 785 */,
+/* 786 */,
+/* 787 */,
+/* 788 */,
+/* 789 */,
+/* 790 */,
+/* 791 */,
+/* 792 */,
+/* 793 */,
+/* 794 */,
+/* 795 */,
+/* 796 */,
+/* 797 */,
+/* 798 */,
+/* 799 */,
+/* 800 */,
+/* 801 */,
+/* 802 */,
+/* 803 */,
+/* 804 */,
+/* 805 */,
+/* 806 */,
+/* 807 */,
+/* 808 */,
+/* 809 */,
+/* 810 */,
+/* 811 */,
+/* 812 */,
+/* 813 */,
+/* 814 */,
+/* 815 */,
+/* 816 */,
+/* 817 */,
+/* 818 */,
+/* 819 */,
+/* 820 */,
+/* 821 */,
+/* 822 */,
+/* 823 */,
+/* 824 */,
+/* 825 */,
+/* 826 */,
+/* 827 */,
+/* 828 */,
+/* 829 */,
+/* 830 */,
+/* 831 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.TempTables = exports.StoredTables = exports.DisplayTables = undefined;
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(7);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRedux = __webpack_require__(12);
+
+var _reactRouterDom = __webpack_require__(22);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DisplayTables = exports.DisplayTables = function DisplayTables(props) {
+    var tables = props.tables;
+
+    var columnNames;
+    return _react2.default.createElement(
+        'div',
+        null,
+        tables && tables.map(function (table, idx) {
+            table ? columnNames = table.fields : columnNames = false;
+            return _react2.default.createElement(
+                'table',
+                { key: idx, style: { width: 25 + 'px' } },
+                _react2.default.createElement(
+                    'tbody',
+                    null,
+                    _react2.default.createElement(
+                        'tr',
+                        null,
+                        _react2.default.createElement(
+                            'th',
+                            null,
+                            table.name
+                        )
+                    ),
+                    columnNames && columnNames.map(function (column) {
+                        return _react2.default.createElement(
+                            'tr',
+                            { key: column },
+                            _react2.default.createElement(
+                                'td',
+                                { name: 'column', key: column },
+                                column
+                            )
+                        );
+                    })
+                )
+            );
+        })
+    );
+};
+
+var mapTempState = function mapTempState(state) {
+    return { tables: state.temp };
+};
+
+var mapStoredState = function mapStoredState(state) {
+    return { tables: state.metatable };
+};
+
+var StoredTables = exports.StoredTables = (0, _reactRedux.connect)(mapStoredState)(DisplayTables);
+var TempTables = exports.TempTables = (0, _reactRedux.connect)(mapTempState)(DisplayTables);
 
 /***/ })
 /******/ ]);

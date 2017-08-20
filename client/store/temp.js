@@ -1,32 +1,21 @@
 import axios from 'axios';
 
-/**
- * ACTION TYPES
- */
+/** ACTION TYPES **/
 const ADD_TABLE = 'ADD_TABLE';
 const ADD_FIELD = 'ADD_FIELD';
 const REMOVE_TABLE = 'REMOVE_TABLE';
 const REMOVE = 'REMOVE';
 
-/**
- * INITIAL STATE
- */
-// temp = [{tableName: table1, fields: {all fields}}, {tableName: table2, fields: {all fields}}]
-// look into changing it to object with array {listOfTable : []}
+/** INITIAL STATE **/
 const temp = [];
 
-/**
- * ACTION CREATORS
- */
+/** ACTION CREATORS **/
 const addTable = table => ({type: ADD_TABLE, table});
 const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field});
 const removeTable = (tableName) => ({type: REMOVE_TABLE, tableName});
 const remove = () => ({type: REMOVE});
-/**
- * THUNK CREATORS
- */
-// Make axios request too!!! --> post to database
-// Assuming that posting to metatable returns the tableId!!!!! 
+
+/** THUNK CREATORS **/
 export const addTableToTemp = (table) =>
   dispatch => {
     let tableId, tableName;
@@ -36,7 +25,7 @@ export const addTableToTemp = (table) =>
       tableName = table.database.name + tableId
       return res.data})
     .then(res => axios.post('/api/tables', {tableName, 'fields' : table.fields}))
-    .then(() => dispatch(addTable({table, tableId})));
+    .then(() => dispatch(addTable({name: table.tableName, fields: Object.keys(table.fields), databaseId: table.database.id, tableId})));
   }
 
 export const addFieldToTable = (curTable, name, attributes) => 
@@ -54,9 +43,7 @@ export const clearTemp = () =>
   dispatch =>
     dispatch(remove());
 
-/**
- * REDUCER
- */
+/** REDUCER **/
 export default function (state = temp, action) {
   switch (action.type) {
     case ADD_TABLE: 

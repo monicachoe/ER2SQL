@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
-function getSequelizeType(type){
-    let d = {'string': Sequelize.STRING, 'text': Sequelize.TEXT, 'float': Sequelize.FLOAT, 'date': Sequelize.DATE, 'boolean': Sequelize.BOOLEAN, 'enum': Sequelize.ENUM, 'array': Sequelize.ARRAY};
+function toSequelize(type){
+    let d = {'String': Sequelize.STRING, 'Text': Sequelize.TEXT, 'Float': Sequelize.FLOAT, 'Date': Sequelize.DATE, 'Boolean': Sequelize.BOOLEAN, 'Enum': Sequelize.ENUM, 'Array': Sequelize.ARRAY};
     return d[type];
 }
 
@@ -10,12 +10,11 @@ function formatFields(fields){
     for (var field of keys){
         let attribute = fields[field]; 
         let seqType = attribute['type']
-        fields[field] = Object.assign({}, attribute, {type: getSequelizeType(seqType)})
+        fields[field] = Object.assign({}, attribute, {type: toSequelize(seqType)})
     }
     return fields;
 }
 
 module.exports = {
-    getSequelizeType,
     formatFields
 };
