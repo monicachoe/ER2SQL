@@ -69,3 +69,15 @@ router.delete('/:tableId', (req, res, next) => {
 // router.get('/:databaseId/tables', (req, res, next) => {
 
 // })
+
+//Table will have name and databaseId. In update we are changing 
+//name of one of the tables
+
+router.put('/:tableId/:tableName', (req, res, next) => {
+  var tableId = req.params.tableId;
+  var tableName = req.params.tableName;
+  Table.findById(tableId)
+  .then((table) => table.update({name: tableName}))
+  .then((table) => {res.json(table)})
+  .catch(next)
+})

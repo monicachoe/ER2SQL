@@ -6,6 +6,7 @@ import axios from 'axios';
 const ADD_TABLE = 'ADD_TABLE';
 const ADD_FIELD = 'ADD_FIELD';
 const REMOVE_TABLE = 'REMOVE_TABLE';
+const UPDATE_TABLE_NAME = 'UPDATE_TABLE_NAME';
 const REMOVE = 'REMOVE';
 
 /**
@@ -21,6 +22,7 @@ const temp = [];
 const addTable = table => ({type: ADD_TABLE, table});
 const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field});
 const removeTable = (tableName) => ({type: REMOVE_TABLE, tableName});
+const updateTableName = (tableName) => ({type: UPDATE_TABLE_NAME, tableName});
 const remove = () => ({type: REMOVE});
 /**
  * THUNK CREATORS
@@ -50,6 +52,11 @@ export const deleteTable = (tableName, tableId) =>
       .then(() => axios.delete(`/api/metatable/${tableId}`))
       .catch(err => console.log(err))
 
+export const updateNameToTable = (tableName, tableId) =>
+    dispatch =>
+    axios.update(`api/metatable/${tableId}/${tableName}`)
+    .then(res => dispatch(updateTableName(res.data)));
+
 export const clearTemp = () =>
   dispatch =>
     dispatch(remove());
@@ -68,6 +75,8 @@ export default function (state = temp, action) {
       return [...otherTables, table];
     case REMOVE_TABLE:
       return state.filter(each => each.tableName !== action.tableName);
+    case UPDATE_TABLE_NAME:
+      return state.filter(each => each,tableName === action.tableName);
     case REMOVE:
       return [];
     default:

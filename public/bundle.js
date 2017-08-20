@@ -16207,7 +16207,7 @@ var clearMetatable = exports.clearMetatable = function clearMetatable() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.clearTemp = exports.deleteTable = exports.addFieldToTable = exports.addTableToTemp = undefined;
+exports.clearTemp = exports.updateNameToTable = exports.deleteTable = exports.addFieldToTable = exports.addTableToTemp = undefined;
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : temp;
@@ -16229,6 +16229,10 @@ exports.default = function () {
       return state.filter(function (each) {
         return each.tableName !== action.tableName;
       });
+    case UPDATE_TABLE_NAME:
+      return state.filter(function (each) {
+        return each;
+      }, tableName === action.tableName);
     case REMOVE:
       return [];
     default:
@@ -16250,6 +16254,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 var ADD_TABLE = 'ADD_TABLE';
 var ADD_FIELD = 'ADD_FIELD';
 var REMOVE_TABLE = 'REMOVE_TABLE';
+var UPDATE_TABLE_NAME = 'UPDATE_TABLE_NAME';
 var REMOVE = 'REMOVE';
 
 /**
@@ -16270,6 +16275,9 @@ var addField = function addField(curTable, field) {
 };
 var removeTable = function removeTable(tableName) {
   return { type: REMOVE_TABLE, tableName: tableName };
+};
+var updateTableName = function updateTableName(tableName) {
+  return { type: UPDATE_TABLE_NAME, tableName: tableName };
 };
 var remove = function remove() {
   return { type: REMOVE };
@@ -16309,6 +16317,14 @@ var deleteTable = exports.deleteTable = function deleteTable(tableName, tableId)
       return _axios2.default.delete('/api/metatable/' + tableId);
     }).catch(function (err) {
       return console.log(err);
+    });
+  };
+};
+
+var updateNameToTable = exports.updateNameToTable = function updateNameToTable(tableName, tableId) {
+  return function (dispatch) {
+    return _axios2.default.update('api/metatable/' + tableId + '/' + tableName).then(function (res) {
+      return dispatch(updateTableName(res.data));
     });
   };
 };
