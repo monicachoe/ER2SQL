@@ -7,6 +7,7 @@ import {default as TempTable} from './TempTable'
 import {default as Sidebar} from './sidebar'
 import { default as CreateLoad } from './CreateLoad'
 import {default as StoredTables} from './StoredTables'
+import {default as UpdateTableName} from './UpdateTableName';
 
 /**
  * COMPONENT
