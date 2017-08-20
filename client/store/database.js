@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {getMetatables} from './index';
 
 /* ------------   ACTION TYPES     ------------------ */
 
@@ -39,7 +40,9 @@ export const createDatabase = (dbName, userId) => dispatch => {
        .catch(err => console.error(`Creating databse ${dbName} unsuccessfull`, err));
 }
 
+// Chaining loadDatabe to loadMetatables!! 
 export const loadDatabase = (selectedDb) => dispatch => {
+  // dispatch(getMetatables(selectedDb.id));
   dispatch(load(selectedDb));
 }
 

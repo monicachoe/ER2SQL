@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { loadDatabase } from '../store';
+import { loadDatabase, getMetatables } from '../store';
 
 class LoadDb extends Component {
 
@@ -13,6 +13,12 @@ class LoadDb extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.database !== this.props.database){
+      this.props.getMetatables(nextProps.database.id);
+    }
+  }
+
   handleChange(evt){
     this.setState({dbName: evt.target.value})
   }
@@ -22,7 +28,7 @@ class LoadDb extends Component {
     let selectedDb = this.props.userdbs.filter((eachDb) => {
       if (eachDb.name === this.state.dbName ) return eachDb;
     })
-    this.props.loadDatabase(selectedDb);
+    this.props.loadDatabase(selectedDb[0]);
   }
 
   render (){
@@ -42,13 +48,17 @@ class LoadDb extends Component {
   }
 }
 
-const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
+const mapStateToProps = ({user, userdbs, database, metatable}) => ({user, userdbs, database, metatable});
 
 const mapDisptachProps = (dispatch) => {
   return {
     loadDatabase(selectedDb){
       dispatch(loadDatabase(selectedDb));
+    },
+    getMetatables(databaseId){
+      dispatch(getMetatables(databaseId));
     }
+
   }
 }
 
