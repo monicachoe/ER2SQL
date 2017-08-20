@@ -31,6 +31,7 @@ class CreateLoad extends Component {
             showLoad: true
         })
         this.props.getUserDatabases(this.props.user.id);
+        this.props.clearTables();
     }
 
     render() {

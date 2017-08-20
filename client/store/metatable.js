@@ -66,9 +66,7 @@ export const clearMetatable = () => dispatch => {
 //// FROM TEMP
 
 export const addTableToTemp = (table) =>
-  
   dispatch => {
-    console.log('INSIDE DISPATCH', table)
     let tableId, tableName;
     axios.post('/api/metatable', {'tableName' : table.tableName, 'databaseId' : table.database.id})
     .then(res => {
@@ -76,7 +74,7 @@ export const addTableToTemp = (table) =>
       tableName = table.database.name + tableId
       return res.data})
     .then(res => axios.post('/api/tables', {tableName, 'fields' : table.fields}))
-    .then(() => dispatch(addTable({table, tableId})));
+    .then(() => dispatch(addTable({name: table.tableName, fields: Object.keys(table.fields), databaseId: table.database.id, tableId})));
   }
 
 export const addFieldToTable = (curTable, name, attributes) => 
@@ -118,3 +116,5 @@ export default function (state = defaultTables, action) {
       return state
   }
 }
+
+
