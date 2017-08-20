@@ -11,10 +11,12 @@ function UpdateTableName (props){
 	    	<form onSubmit={handleSubmit}>
 	    		<label>
 	    			Table Name :
-	    			<select name='tableName'><option>-</option>
-	    			{Object.keys(tables).map(each => <option key={each}>table[each].tableName</option>)}
+	    			<select name='tableName'>
+	    				<option>-</option>
 	    			</select>
+
 	    		</label>
+	    		<input type="submit" />
 	    	</form>
 	    </div>
 	    )

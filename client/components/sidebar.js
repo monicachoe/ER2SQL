@@ -11,13 +11,14 @@ class Sidebar extends Component {
         this.state = {
             showCreateTable: false,
             showRemoveTable: false,
-            showUpdateTableName: false
+            showUpdateTable: false
             // ,
             // showAssociation: false
         }
         // this.showBothForm = this.showBothForm.bind(this)
         this.showCreateTableForm = this.showCreateTableForm.bind(this);
         this.showRemoveTableForm = this.showRemoveTableForm.bind(this);
+        this.showUpdateTableName = this.showUpdateTableName.bind(this);
         // this.showAssociationForm = this.showAssociationForm.bind(this);
     }
 
@@ -26,7 +27,7 @@ class Sidebar extends Component {
         this.setState({
             showCreateTable: true,
             showRemoveTable: false,
-            showUpdateTableName: false
+            showUpdateTable: false
             // ,
             // showAssociation: false
         })
@@ -37,7 +38,7 @@ class Sidebar extends Component {
         this.setState({
             showCreateTable: false,
             showRemoveTable: true,
-            showUpdateTableName: false
+            showUpdateTable: false
             // ,
             // showAssociation: false
         })
@@ -48,7 +49,7 @@ class Sidebar extends Component {
         this.setState({
             showCreateTable: false,
             showRemoveTable: false,
-            showUpdateTableName: true
+            showUpdateTable: true
         })
     }
     // showAssociationForm(e){
@@ -76,7 +77,7 @@ class Sidebar extends Component {
                 <button onClick={this.showUpdateTableName}>Update Table Name</button>
                 {this.state.showCreateTable ? <CreateTable /> : null}
                 {this.state.showRemoveTable ? <RemoveTable /> : null}
-                {this.state.showUpdateTableName ? <UpdateTableName /> : null}
+                {this.state.showUpdateTable ? <UpdateTableName /> : null}
             </div>
         )
     }

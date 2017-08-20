@@ -61,7 +61,7 @@ export const updateNameToTable = (newName, tableId) =>
         table.push(res)
         return table
       })
-      .then((updatedtable) => dispatch(updateTableName(updatedtable)));
+      .then((updatedtable) => dispatch(updateTableName(updatedtable)))
       )}
 
 export const clearTemp = () =>
