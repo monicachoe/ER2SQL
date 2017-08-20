@@ -1662,18 +1662,6 @@ Object.keys(_user).forEach(function (key) {
   });
 });
 
-var _temp = __webpack_require__(157);
-
-Object.keys(_temp).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _temp[key];
-    }
-  });
-});
-
 var _metatable = __webpack_require__(156);
 
 Object.keys(_metatable).forEach(function (key) {
@@ -1722,6 +1710,8 @@ var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
 var _user2 = _interopRequireDefault(_user);
 
+var _temp = __webpack_require__(157);
+
 var _temp2 = _interopRequireDefault(_temp);
 
 var _metatable2 = _interopRequireDefault(_metatable);
@@ -1737,6 +1727,7 @@ var middleware = (0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reduxLog
 var store = (0, _redux.createStore)(reducer, middleware);
 
 exports.default = store;
+// export * from './temp';
 
 /***/ }),
 /* 16 */
@@ -5644,6 +5635,15 @@ Object.defineProperty(exports, 'CreateLoad', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_CreateLoad).default;
+  }
+});
+
+var _SchemaPage = __webpack_require__(366);
+
+Object.defineProperty(exports, 'SchemaPage', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_SchemaPage).default;
   }
 });
 
@@ -13729,7 +13729,8 @@ var Routes = function (_Component) {
             isLoggedIn && _react2.default.createElement(
               _reactRouterDom.Switch,
               null,
-              _react2.default.createElement(_reactRouterDom.Route, { path: '/home', component: _components.UserHome })
+              _react2.default.createElement(_reactRouterDom.Route, { path: '/home', component: _components.UserHome }),
+              _react2.default.createElement(_reactRouterDom.Route, { path: '/schema', component: _components.SchemaPage })
             ),
             _react2.default.createElement(_reactRouterDom.Route, { component: _components.Login })
           )
@@ -13740,11 +13741,6 @@ var Routes = function (_Component) {
 
   return Routes;
 }(_react.Component);
-
-/**
- * CONTAINER
- */
-
 
 var mapState = function mapState(state) {
   return {
@@ -15177,6 +15173,7 @@ var CreateDB = function (_Component) {
     value: function handleSubmit(evt) {
       evt.preventDefault();
       this.props.createDB(this.state.dbName, this.props.user.id);
+      this.props.clearTables();
     }
   }, {
     key: 'render',
@@ -15215,6 +15212,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     createDB: function createDB(dbName, userID) {
       dispatch((0, _store.createDatabase)(dbName, userID));
+    },
+    clearTables: function clearTables() {
+      dispatch((0, _store.clearTemp)());
     }
   };
 };
@@ -15410,20 +15410,15 @@ var Main = function Main(props) {
         { id: 'main', className: 'container-fluid' },
         _react2.default.createElement(
             'div',
-            { className: 'child1' },
-            _react2.default.createElement(_sidebar2.default, null)
-        ),
-        _react2.default.createElement(
-            'div',
-            { className: 'child2' },
-            _react2.default.createElement(
-                'h1',
-                null,
-                'SimpleQL'
-            ),
+            null,
             _react2.default.createElement(
                 'nav',
-                null,
+                { className: 'nav' },
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    'SimpleQL'
+                ),
                 isLoggedIn ? _react2.default.createElement(
                     'div',
                     null,
@@ -15436,6 +15431,11 @@ var Main = function Main(props) {
                         'a',
                         { href: '#', onClick: handleClick },
                         'Logout'
+                    ),
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { to: '/schema' },
+                        'Schema'
                     )
                 ) : _react2.default.createElement(
                     'div',
@@ -15453,9 +15453,7 @@ var Main = function Main(props) {
                 )
             ),
             _react2.default.createElement('hr', null),
-            children,
-            isLoggedIn ? _react2.default.createElement(_CreateLoad2.default, null) : _react2.default.createElement('div', null),
-            temp.length ? _react2.default.createElement(_TempTable2.default, null) : _react2.default.createElement(_StoredTables2.default, null)
+            children
         )
     );
 };
@@ -15600,24 +15598,28 @@ var Sidebar = function (_Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'sidebar' },
                 _react2.default.createElement(
-                    'h1',
-                    null,
-                    'Options'
-                ),
-                _react2.default.createElement(
-                    'button',
-                    { onClick: this.showCreateTableForm },
-                    'Create Table'
-                ),
-                _react2.default.createElement(
-                    'button',
-                    { onClick: this.showRemoveTableForm },
-                    'RemoveTable'
-                ),
-                this.state.showCreateTable ? _react2.default.createElement(_index.CreateTable, null) : null,
-                this.state.showRemoveTable ? _react2.default.createElement(_index.RemoveTable, null) : null
+                    'div',
+                    { className: 'buttons' },
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Options'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { onClick: this.showCreateTableForm },
+                        'Create Table'
+                    ),
+                    _react2.default.createElement(
+                        'button',
+                        { onClick: this.showRemoveTableForm },
+                        'RemoveTable'
+                    ),
+                    this.state.showCreateTable ? _react2.default.createElement(_index.CreateTable, null) : null,
+                    this.state.showRemoveTable ? _react2.default.createElement(_index.RemoveTable, null) : null
+                )
             );
         }
     }]);
@@ -15831,7 +15833,7 @@ var clearDatabase = exports.clearDatabase = function clearDatabase() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.clearMetatable = exports.getMetatables = undefined;
+exports.clearTemp = exports.deleteTable = exports.addFieldToTable = exports.addTableToTemp = exports.clearMetatable = exports.getMetatables = undefined;
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultTables;
@@ -15842,6 +15844,21 @@ exports.default = function () {
       return action.tables;
     case REMOVE:
       return [];
+    case ADD_TABLE:
+      return [].concat(_toConsumableArray(state), [action.table]);
+    case ADD_FIELD:
+      var table = state.filter(function (each) {
+        return each.tableName === action.curTable;
+      })[0];
+      var otherTables = state.filter(function (each) {
+        return each.tableName !== action.curTable;
+      });
+      table.fields[action.name] = action.attributes;
+      return [].concat(_toConsumableArray(otherTables), [table]);
+    case REMOVE_TABLE:
+      return state.filter(function (each) {
+        return each.tableName !== action.tableName;
+      });
     default:
       return state;
   }
@@ -15859,12 +15876,18 @@ var _index = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 /**
  * ACTION TYPES
  */
 var GET_TABLES = 'GET_TABLES';
 var GET_COLUMNS = 'GET_COLUMNS';
 var REMOVE = 'REMOVE';
+
+var ADD_TABLE = 'ADD_TABLE';
+var ADD_FIELD = 'ADD_FIELD';
+var REMOVE_TABLE = 'REMOVE_TABLE';
 
 /**
  * INITIAL STATE
@@ -15879,6 +15902,15 @@ var getTables = function getTables(tables) {
 };
 var remove = function remove() {
   return { type: REMOVE };
+};
+var addTable = function addTable(table) {
+  return { type: ADD_TABLE, table: table };
+};
+var addField = function addField(curTable, field) {
+  return { type: ADD_FIELD, curTable: curTable, field: field };
+};
+var removeTable = function removeTable(tableName) {
+  return { type: REMOVE_TABLE, tableName: tableName };
 };
 
 /**
@@ -15917,92 +15949,8 @@ var clearMetatable = exports.clearMetatable = function clearMetatable() {
   };
 };
 
-/**
- * REDUCER
- */
+//// FROM TEMP
 
-/***/ }),
-/* 157 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.clearTemp = exports.deleteTable = exports.addFieldToTable = exports.addTableToTemp = undefined;
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : temp;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case ADD_TABLE:
-      return [].concat(_toConsumableArray(state), [action.table]);
-    case ADD_FIELD:
-      var table = state.filter(function (each) {
-        return each.tableName === action.curTable;
-      })[0];
-      var otherTables = state.filter(function (each) {
-        return each.tableName !== action.curTable;
-      });
-      table.fields[action.name] = action.attributes;
-      return [].concat(_toConsumableArray(otherTables), [table]);
-    case REMOVE_TABLE:
-      return state.filter(function (each) {
-        return each.tableName !== action.tableName;
-      });
-    case REMOVE:
-      return [];
-    default:
-      return state;
-  }
-};
-
-var _axios = __webpack_require__(23);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-/**
- * ACTION TYPES
- */
-var ADD_TABLE = 'ADD_TABLE';
-var ADD_FIELD = 'ADD_FIELD';
-var REMOVE_TABLE = 'REMOVE_TABLE';
-var REMOVE = 'REMOVE';
-
-/**
- * INITIAL STATE
- */
-// temp = [{tableName: table1, fields: {all fields}}, {tableName: table2, fields: {all fields}}]
-// look into changing it to object with array {listOfTable : []}
-var temp = [];
-
-/**
- * ACTION CREATORS
- */
-var addTable = function addTable(table) {
-  return { type: ADD_TABLE, table: table };
-};
-var addField = function addField(curTable, field) {
-  return { type: ADD_FIELD, curTable: curTable, field: field };
-};
-var removeTable = function removeTable(tableName) {
-  return { type: REMOVE_TABLE, tableName: tableName };
-};
-var remove = function remove() {
-  return { type: REMOVE };
-};
-/**
- * THUNK CREATORS
- */
-// Make axios request too!!! --> post to database
-// Assuming that posting to metatable returns the tableId!!!!! 
 var addTableToTemp = exports.addTableToTemp = function addTableToTemp(table) {
   return function (dispatch) {
     var tableId = void 0,
@@ -16046,6 +15994,89 @@ var clearTemp = exports.clearTemp = function clearTemp() {
 /**
  * REDUCER
  */
+
+/***/ }),
+/* 157 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// import axios from 'axios';
+
+// /**
+//  * ACTION TYPES
+//  */
+// const ADD_TABLE = 'ADD_TABLE';
+// const ADD_FIELD = 'ADD_FIELD';
+// const REMOVE_TABLE = 'REMOVE_TABLE';
+// const REMOVE = 'REMOVE';
+
+// /**
+//  * INITIAL STATE
+//  */
+// // temp = [{tableName: table1, fields: {all fields}}, {tableName: table2, fields: {all fields}}]
+// // look into changing it to object with array {listOfTable : []}
+// const temp = [];
+
+// /**
+//  * ACTION CREATORS
+//  */
+// const addTable = table => ({type: ADD_TABLE, table});
+// const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field});
+// const removeTable = (tableName) => ({type: REMOVE_TABLE, tableName});
+// const remove = () => ({type: REMOVE});
+// /**
+//  * THUNK CREATORS
+//  */
+// // Make axios request too!!! --> post to database
+// // Assuming that posting to metatable returns the tableId!!!!! 
+// export const addTableToTemp = (table) =>
+//   dispatch => {
+//     let tableId, tableName;
+//     axios.post('/api/metatable', {'tableName' : table.tableName, 'databaseId' : table.database.id})
+//     .then(res => {
+//       tableId = res.data.id;
+//       tableName = table.database.name + tableId
+//       return res.data})
+//     .then(res => axios.post('/api/tables', {tableName, 'fields' : table.fields}))
+//     .then(() => dispatch(addTable({table, tableId})));
+//   }
+
+// export const addFieldToTable = (curTable, name, attributes) => 
+//   dispatch =>
+//     dispatch(addField(curTable, name, attributes));
+
+// export const deleteTable = (tableName, tableId) => 
+//     dispatch =>
+//     axios.delete(`/api/tables/${tableName}`)
+//       .then(res => dispatch(removeTable(tableName)))
+//       .then(() => axios.delete(`/api/metatable/${tableId}`))
+//       .catch(err => console.log(err))
+
+// export const clearTemp = () =>
+//   dispatch =>
+//     dispatch(remove());
+
+// /**
+//  * REDUCER
+//  */
+// export default function (state = temp, action) {
+//   switch (action.type) {
+//     case ADD_TABLE: 
+//       return [...state, action.table];
+//     case ADD_FIELD:
+//       let table = state.filter(each => each.tableName === action.curTable)[0];
+//       let otherTables = state.filter(each => each.tableName !== action.curTable);
+//       table.fields[action.name] = action.attributes;
+//       return [...otherTables, table];
+//     case REMOVE_TABLE:
+//       return state.filter(each => each.tableName !== action.tableName);
+//     case REMOVE:
+//       return [];
+//     default:
+//       return state
+//   }
+// }
+
 
 /***/ }),
 /* 158 */
@@ -17214,7 +17245,7 @@ exports = module.exports = __webpack_require__(163)();
 
 
 // module
-exports.push([module.i, "body {\n  font-family: sans-serif; }\n  body a {\n    text-decoration: none; }\n  body label {\n    display: block; }\n  body nav a {\n    display: inline-block;\n    margin: 1em; }\n  body form div {\n    margin: 1em;\n    display: inline-block; }\n  body table {\n    color: #333;\n    font-family: Helvetica, Arial, sans-serif;\n    width: 640px;\n    border: 2px solid black;\n    margin: 15px;\n    border-radius: 15px; }\n  body td, body th {\n    border: 1px solid transparent;\n    /* No more visible border */\n    height: 30px;\n    transition: all 0.3s;\n    /* Simple transition for hover effect */ }\n  body th {\n    background: #DFDFDF;\n    /* Darken header a bit */\n    font-weight: bold; }\n  body td {\n    background: #FAFAFA;\n    text-align: center; }\n  body .container-fluid {\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n    height: 100vh; }\n  body .child1 {\n    width: 20%; }\n  body .child2 {\n    width: 80%; }\n  body .login {\n    border: 2px solid black;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-content: center;\n    align-items: center;\n    width: 150px; }\n  body .box {\n    display: flex;\n    flex-direction: row; }\n", ""]);
+exports.push([module.i, "body {\n  font-family: sans-serif; }\n  body a {\n    text-decoration: none; }\n  body label {\n    display: block; }\n  body nav {\n    display: flex;\n    flex-basis: row; }\n  body nav a {\n    display: inline-block;\n    margin: 1em; }\n  body form div {\n    margin: 1em;\n    display: inline-block; }\n  body table {\n    color: #333;\n    font-family: Helvetica, Arial, sans-serif;\n    width: 640px;\n    border: 2px solid black;\n    margin: 15px;\n    border-radius: 15px; }\n  body td, body th {\n    border: 1px solid transparent;\n    /* No more visible border */\n    height: 30px;\n    transition: all 0.3s;\n    /* Simple transition for hover effect */ }\n  body th {\n    background: #DFDFDF;\n    /* Darken header a bit */\n    font-weight: bold; }\n  body td {\n    background: #FAFAFA;\n    text-align: center; }\n  body .schema {\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n    height: 100vh; }\n  body .schild1 {\n    width: 20%;\n    height: 100vh; }\n  body .schild2 {\n    width: 80%;\n    height: 100vh; }\n  body .login {\n    border: 2px solid black;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-content: center;\n    align-items: center;\n    width: 150px; }\n  body .box {\n    display: flex;\n    flex-direction: row; }\n  body .sidebar {\n    background-color: lightblue;\n    height: 100vh;\n    display: flex;\n    padding: 0 15px;\n    position: static;\n    left: 0px;\n    border-radius: 10px; }\n  body .sidebar h1 {\n    background-color: gray; }\n  body .buttons {\n    display: flex;\n    flex-direction: column; }\n", ""]);
 
 // exports
 
@@ -33028,6 +33059,83 @@ var mapState = function mapState(state) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapState)(StoredTables);
+
+/***/ }),
+/* 366 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.SchemaPage = undefined;
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(7);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRedux = __webpack_require__(14);
+
+var _sidebar = __webpack_require__(152);
+
+var _sidebar2 = _interopRequireDefault(_sidebar);
+
+var _TempTable = __webpack_require__(364);
+
+var _TempTable2 = _interopRequireDefault(_TempTable);
+
+var _StoredTables = __webpack_require__(365);
+
+var _StoredTables2 = _interopRequireDefault(_StoredTables);
+
+var _CreateLoad = __webpack_require__(319);
+
+var _CreateLoad2 = _interopRequireDefault(_CreateLoad);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * COMPONENT
+ */
+var SchemaPage = exports.SchemaPage = function SchemaPage(props) {
+    var isLoggedIn = props.isLoggedIn;
+
+    return _react2.default.createElement(
+        'div',
+        { className: 'schema' },
+        _react2.default.createElement(
+            'div',
+            { className: 'schild1' },
+            _react2.default.createElement(_sidebar2.default, null)
+        ),
+        _react2.default.createElement(
+            'div',
+            { className: 'schild2' },
+            isLoggedIn ? _react2.default.createElement(_CreateLoad2.default, null) : _react2.default.createElement('div', null),
+            _react2.default.createElement(_TempTable2.default, null),
+            _react2.default.createElement(_StoredTables2.default, null)
+        )
+    );
+};
+
+/**
+ * CONTAINER
+ */
+var mapState = function mapState(state) {
+    return {
+        isLoggedIn: !!state.user.id,
+        metatable: state.metatable,
+        temp: state.temp
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapState)(SchemaPage);
 
 /***/ })
 /******/ ]);

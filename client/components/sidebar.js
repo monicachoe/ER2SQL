@@ -57,12 +57,14 @@ class Sidebar extends Component {
     // }
     render() {
         return (
-            <div>
+            <div className = 'sidebar'>
+                <div className = 'buttons'>
                 <h1>Options</h1>
                 <button onClick={this.showCreateTableForm}>Create Table</button>
                 <button onClick={this.showRemoveTableForm}>RemoveTable</button>
                 {this.state.showCreateTable ? <CreateTable /> : null}
                 {this.state.showRemoveTable ? <RemoveTable /> : null}
+                </div>
             </div>
         )
     }

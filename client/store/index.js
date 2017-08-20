@@ -13,7 +13,7 @@ const store = createStore(reducer, middleware);
 
 export default store;
 export * from './user';
-export * from './temp';
+// export * from './temp';
 export * from './metatable';
 export * from './database';
 export * from './userDatabases';

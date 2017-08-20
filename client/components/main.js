@@ -19,18 +19,18 @@ const Main = (props) => {
 
     return (
         <div id="main" className="container-fluid">
-            <div className="child1">
-                <Sidebar />
-            </div>
-            <div className="child2">
-                <h1>SimpleQL</h1>
-                <nav>
+
+            <div>
+                
+                <nav className = 'nav'>
+                  <h1>SimpleQL</h1>
                     {
                         isLoggedIn
                             ? <div>
                                 {/* The navbar will show these links after you log in */}
                                 <Link to='/home'>Home</Link>
                                 <a href='#' onClick={handleClick}>Logout</a>
+                                <Link to='/schema'>Schema</Link>
                             </div>
                             : <div>
                                 {/* The navbar will show these links before you log in */}
@@ -41,14 +41,7 @@ const Main = (props) => {
                 </nav>
                 <hr />
                 {children}
-                {
-                    isLoggedIn
-                        ? <CreateLoad />
-                        : <div />
-                }
-                {
-                  (temp.length) ? <TempTable/> : <StoredTables/>
-                }
+
             </div>
         </div>
     )
