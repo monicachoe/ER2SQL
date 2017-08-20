@@ -19,7 +19,6 @@ class CreateDB extends Component {
   handleSubmit(evt){
     evt.preventDefault();
     this.props.createDB(this.state.dbName, this.props.user.id);
-    this.props.clearTables();
   }
   render(){
     return (
@@ -40,9 +39,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createDB(dbName, userID){
       dispatch(createDatabase(dbName, userID));
-    },
-    clearTables(){
-      dispatch(clearTemp())
     }
   }
 }

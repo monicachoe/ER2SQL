@@ -5,6 +5,7 @@ import Sidebar from './sidebar'
 import TempTable from './TempTable'
 import StoredTables from './StoredTables'
 import CreateLoad from './CreateLoad'
+import DisplayTable from './DisplayTable'
 /**
  * COMPONENT
  */
@@ -21,9 +22,7 @@ export const SchemaPage = (props) => {
                         ? <CreateLoad />
                         : <div />
                 }
-    
-                  <TempTable/> 
-                  <StoredTables/>
+                <DisplayTable/>
                 
         </div>
     </div>

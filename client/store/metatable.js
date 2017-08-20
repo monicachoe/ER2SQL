@@ -66,7 +66,9 @@ export const clearMetatable = () => dispatch => {
 //// FROM TEMP
 
 export const addTableToTemp = (table) =>
+  
   dispatch => {
+    console.log('INSIDE DISPATCH', table)
     let tableId, tableName;
     axios.post('/api/metatable', {'tableName' : table.tableName, 'databaseId' : table.database.id})
     .then(res => {
@@ -105,6 +107,7 @@ export default function (state = defaultTables, action) {
     case ADD_TABLE: 
       return [...state, action.table];
     case ADD_FIELD:
+      console.log('inside add field', action)
       let table = state.filter(each => each.tableName === action.curTable)[0];
       let otherTables = state.filter(each => each.tableName !== action.curTable);
       table.fields[action.name] = action.attributes;

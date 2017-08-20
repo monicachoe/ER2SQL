@@ -3,10 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout, clearDatabase, clearUserDbs, clearMetatable, clearTemp} from '../store'
-import {default as TempTable} from './TempTable'
-import {default as Sidebar} from './sidebar'
-import { default as CreateLoad } from './CreateLoad'
-import {default as StoredTables} from './StoredTables'
+import {StoredTables, TempTables, CreateLoad, Sidebar} from './index'
 
 /**
  * COMPONENT
@@ -41,7 +38,6 @@ const Main = (props) => {
                 </nav>
                 <hr />
                 {children}
-
             </div>
         </div>
     )
@@ -66,7 +62,7 @@ const mapDispatch = (dispatch) => {
       dispatch(clearDatabase());
       dispatch(clearMetatable());
       dispatch(clearTemp());
-      dispatch(logout())
+      dispatch(logout());
     }
   }
 }

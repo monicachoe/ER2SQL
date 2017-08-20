@@ -4,8 +4,8 @@ const Database = require('./database');
 
 Table.belongsTo(Database);
 Database.belongsTo(User);
-User.hasMany(Database); // userInstance.getDatabases()
-Database.hasMany(Table); // databaseInstance.getTables()
+User.hasMany(Database);
+Database.hasMany(Table);
 
 module.exports = {
   User,
