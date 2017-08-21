@@ -23,7 +23,7 @@ export const SchemaPage = (props) => {
                         : <div />
                 }
                 <DisplayTable/>
-                
+
         </div>
     </div>
   )

@@ -62,17 +62,6 @@ class Association extends Component {
   }
 }
 
-// const Association = (props) => {
-//   let tables = props.tables;
-//   let assocTypes = ['one to one', 'one to many', 'many to one', 'many to many'];
-//   console.log('tables: ', tables);
-//   let handleSubmit = props.handleSubmit;
-//   let handleChange = props.handleChange;
-//   let foreignKey = '';
-//   return (
-
-//   )
-// }
 
 const mapState = (state) => {
   return {

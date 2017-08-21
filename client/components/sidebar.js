@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {getUserDatabases} from '../store'
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, Association} from './index';
+import {CreateTable, RemoveTable, Association, LoadData} from './index';
 
 class Sidebar extends Component {
     constructor(props) {
@@ -11,12 +9,14 @@ class Sidebar extends Component {
         this.state = {
             showCreateTable: false,
             showRemoveTable: false,
-            showCreateAssociation: false
+            showCreateAssociation: false,
+            showLoadData: false
         }
         // this.showBothForm = this.showBothForm.bind(this)
         this.showCreateTableForm = this.showCreateTableForm.bind(this);
         this.showRemoveTableForm = this.showRemoveTableForm.bind(this);
         this.showCreateAssociationForm = this.showCreateAssociationForm.bind(this);
+        this.showLoadData = this.showLoadData.bind(this);
     }
 
     showCreateTableForm(e) {
@@ -51,16 +51,12 @@ class Sidebar extends Component {
             showAssociation: !this.state.showAssociation
         })
     }
-    // showBothForm(evt){
-    //     evt.preventDefault()
-    //     if(this.state.showLoad){
-    //         this.state
-    //     }
-    //     this.setState({
-    //         showLoad: !this.state.showLoad,
-    //         showCreate: !this.state.showCreate
-    //     })
-    // }
+
+    showLoadData(){
+        this.setState({
+            showLoadData: !this.state.showLoadData
+        })
+    }
     render() {
         return (
             <div className = 'sidebar'>
@@ -68,9 +64,12 @@ class Sidebar extends Component {
                 <h1>Options</h1>
                 <button onClick={this.showCreateTableForm}>Create Table</button>
                 <button onClick={this.showCreateAssociationForm}>Create Association</button>
+                <button onClick={this.showLoadData}>Load Data</button>
                 {this.state.showCreateTable ? <CreateTable /> : null}
                 {this.state.showRemoveTable ? <RemoveTable /> : null}
                 {this.state.showCreateAssociation ? <Association /> : null}
+                {this.state.showLoadData ? <LoadData /> : null}
+                </div>
             </div>
         )
     }
