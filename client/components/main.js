@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout, clearDatabase, clearUserDbs, clearMetatable, clearTemp} from '../store'
-import {StoredTables, TempTables, CreateLoad, Sidebar} from './index'
+import {StoredTables, TempTables, CreateLoad, Sidebar, ShowModal} from './index'
 
 /**
  * COMPONENT
@@ -31,12 +31,11 @@ const Main = (props) => {
                             </div>
                             : <div>
                                 {/* The navbar will show these links before you log in */}
-                                <Link to='/login'>Login</Link>
+                                <a href ='#'> <ShowModal className='showModal'/></a>
                                 <Link to='/signup'>Sign Up</Link>
                             </div>
                     }
                 </nav>
-                <hr />
                 {children}
             </div>
         </div>
@@ -50,7 +49,6 @@ const mapState = (state) => {
     return {
         isLoggedIn: !!state.user.id,
         metatable: state.metatable,
-        temp: state.temp
     }
 }
 

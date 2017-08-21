@@ -10,3 +10,5 @@ export {default as Sidebar} from './sidebar';
 export {default as CreateLoad} from './CreateLoad';
 export {default as SchemaPage} from './SchemaPage'
 export {StoredTables, TempTables} from './DisplayTable';
+export {default as Modal} from './Modal'
+export {default as ShowModal} from './ShowModal'

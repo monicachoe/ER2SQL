@@ -16,19 +16,34 @@ font-family: 'Cabin', sans-serif;
     display: flex;
     flex-basis: row;
     font-size: 40px;
+    letter-spacing: 5px;
+    background: #FEC6C6;
+    color:white;
+    text-decoration: none;
+    text-transform: uppercase;
+    align-items: center;
+    justify-content: center;
+  }
+  nav h1{
+    margin: 30px;
   }
   nav a {
     display: inline-block;
-    margin: 1em;
-    font-size: 40px;
+    max-width: 50%;
+    font-size: 30px;
+    color:white;
+    text-decoration: none;
+    text-transform: uppercase;
+    justify-content: center;
+    margin: 25px;
   }
   form div {
     margin: 1em;
     display: inline-block;
   }
   table {  
-    color: #333;
-    font-family: Helvetica, Arial, sans-serif;
+    color: black;
+    font-family: 'Cabin', sans-serif;
     width: 640px; 
     border: 2px solid black;
     margin: 15px;
@@ -42,7 +57,7 @@ td, th {
 }
 
 th {  
-    background: #DFDFDF;  /* Darken header a bit */
+    background: white;  /* Darken header a bit */
     font-weight: bold;
 }
 
@@ -63,7 +78,7 @@ td {
   .schild2{
     width:80%;
     height:100vh;
-    background-image: url('https://i.stack.imgur.com/oM0m0.png');
+    background-image: url('http://www.powerpointhintergrund.com/uploads/presentation-background-grids-25.gif');
   }
   .login {
    border: 2px solid black;
@@ -93,6 +108,28 @@ td {
   .buttons{
     display: flex;
     flex-direction: column;
+  }
+
+  .button{
+    color:black;
+    border: none;
+  }
+  .header{
+    width:100%;
+  }
+  .modal{
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .ShowModal{
+    font-size:20px;
+    color:black;
+    display:flex;
+    justify-content: center;
+    align-content: center;
   }
     
 

@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {getUserDatabases} from '../store'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {CreateTable, Field, CreateDB, RemoveTable, LoadDB} from './index';
+import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, Modal} from './index';
+import {default as ShowModal} from './ShowModal'
 
 class Sidebar extends Component {
     constructor(props) {
@@ -59,12 +60,13 @@ class Sidebar extends Component {
         return (
             <div className = 'sidebar'>
                 <div className = 'buttons'>
-                <h1>Options</h1>
+                <h1 className= 'header'>Options</h1>
                 <button onClick={this.showCreateTableForm}>Create Table</button>
                 <button onClick={this.showRemoveTableForm}>RemoveTable</button>
                 {this.state.showCreateTable ? <CreateTable /> : null}
                 {this.state.showRemoveTable ? <RemoveTable /> : null}
                 </div>
+                <ShowModal/>
             </div>
         )
     }

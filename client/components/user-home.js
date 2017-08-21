@@ -1,16 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import {CreateLoad} from './index'
 
 /**
  * COMPONENT
  */
 export const UserHome = (props) => {
-  const {email} = props
-
+  const { name, db } = props
+  console.log('DATABASE HERE', db)
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      {
+        (db.length)
+          ? <div>
+            <h1>Welcome {name}</h1>
+            <h1>You Have : {db.length} databases </h1>
+          </div>
+          : <div>
+            <h1>Welcome {name}</h1>
+            <h1>You don't have any databases yet. Create one! </h1>
+          </div>
+
+      }
+      <CreateLoad/>
     </div>
   )
 }
@@ -20,7 +33,8 @@ export const UserHome = (props) => {
  */
 const mapState = (state) => {
   return {
-    email: state.user.email
+    name: state.user.name,
+    db: state.userdbs
   }
 }
 

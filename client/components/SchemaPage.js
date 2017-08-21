@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import Sidebar from './sidebar'
-import TempTable from './TempTable'
-import StoredTables from './StoredTables'
 import CreateLoad from './CreateLoad'
 import DisplayTable from './DisplayTable'
 /**
@@ -19,11 +17,12 @@ export const SchemaPage = (props) => {
         <div className = 'schild2'>
                 {
                     isLoggedIn
-                        ? <CreateLoad />
+                        ?   <CreateLoad />  
+                            
                         : <div />
+
                 }
                 <DisplayTable/>
-                
         </div>
     </div>
   )
