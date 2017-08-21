@@ -8502,8 +8502,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(4);
@@ -8536,7 +8534,9 @@ var UpdateTableName = function (_Component) {
 
 		_this.state = {
 			newName: '',
-			tableId: 0
+			tableId: 0,
+			name: '',
+			databaseName: ''
 		};
 		_this.handleChange1 = _this.handleChange1.bind(_this);
 		_this.handleChange2 = _this.handleChange2.bind(_this);
@@ -8548,9 +8548,12 @@ var UpdateTableName = function (_Component) {
 		key: 'handleChange1',
 		value: function handleChange1(event) {
 			console.log("eve", event.target.value);
-			var ans = Number(event.target.value);
-			console.log("y", typeof ans === 'undefined' ? 'undefined' : _typeof(ans));
-			this.setState({ tableId: ans });
+			var str = event.target.value.split(" ");
+			var num = Number(str[0]);
+			var nam = str[1];
+			var datab = str[2];
+			//console.log("y", typeof(ans))
+			this.setState({ tableId: num, name: nam, databaseName: datab });
 		}
 	}, {
 		key: 'handleChange2',
@@ -8567,7 +8570,7 @@ var UpdateTableName = function (_Component) {
 			// console.log("event target", event.target)
 			// let splitName = event.target.tableName.value.split(" ");
 			//   let tableName = splitName[0]+splitName[1]+'s';
-			this.props.updateN(this.state.newName, this.state.tableId);
+			this.props.updateN(this.state.newName, this.state.tableId, this.state.name, this.state.databaseName);
 		}
 	}, {
 		key: 'render',
@@ -8597,7 +8600,11 @@ var UpdateTableName = function (_Component) {
 								return _react2.default.createElement(
 									'option',
 									{ key: each },
-									tables[each].tableId
+									tables[each].tableId,
+									'   ',
+									tables[each].table.tableName,
+									'  ',
+									tables[each].table.database.name
 								);
 							})
 						),
@@ -8627,8 +8634,8 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	return {
-		updateN: function updateN(newName, tableId) {
-			dispatch((0, _store.updateNameToTable)(newName, tableId));
+		updateN: function updateN(newName, tableId, name, databaseName) {
+			dispatch((0, _store.updateNameToTable)(newName, tableId, name, databaseName));
 		}
 	};
 };
@@ -16564,12 +16571,15 @@ var updateTableName = function updateTableName(table) {
  * THUNK CREATORS
  */
 
-var updateNameToTable = exports.updateNameToTable = function updateNameToTable(newName, tableId) {
+var updateNameToTable = exports.updateNameToTable = function updateNameToTable(newName, tableId, tableName, databaseName) {
   return function (dispatch) {
-    console.log("h", newName, tableId);
-    return _axios2.default.put('api/metatable/' + tableId, { "name": newName }).then(function (res) {
+    return _axios2.default.put('api/tables/' + tableId + '/' + databaseName, { "name": newName }).then(function (res) {
       console.log("h", res);
       dispatch(updateTableName(res.data));
+    }).then(function () {
+      return _axios2.default.put('api/metatable/' + tableId, { "name": newName });
+    }).catch(function (err) {
+      return console.log(err);
     });
   };
 };

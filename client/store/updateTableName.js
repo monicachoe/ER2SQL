@@ -18,16 +18,16 @@ const updateTableName = (table) => ({type: UPDATE_TABLE_NAME, table});
  * THUNK CREATORS
  */
 
-export const updateNameToTable = (newName, tableId) =>
-    dispatch => {
-      console.log("h", newName, tableId)
-      return(
-      axios.put(`api/metatable/${tableId}`,{"name": newName})
+export const updateNameToTable = (newName, tableId, tableName, databaseName) =>
+    dispatch => 
+      axios.put(`api/tables/${tableId}/${databaseName}`,{"name": newName})
       .then((res) => {
         console.log("h", res)
         dispatch(updateTableName(res.data))
       })
-      )}
+      .then(() => axios.put(`api/metatable/${tableId}`,{"name": newName}))
+      .catch(err => console.log(err))
+    
 
 /**
  * REDUCER

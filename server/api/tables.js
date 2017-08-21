@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Sequelize = require('sequelize');
 const {db, client} = require('../db');
+const { Table, Database } = require('../db/models')
 module.exports = router;
 
 // req.body : array of objects
@@ -27,6 +28,29 @@ router.delete('/:tablename', (req, res, next) => {
       res.end();
     });
 });
+
+// router.put('/:tableId', (req, res, next) => {
+//   var tableId = req.params.tableId;
+//   var tableName = req.body.name;
+//   var tablename = Table.findOne({where: {id: tableId}})
+//   client.query(`Alter table ${tablename.name+tableId+'s'} to ${tableName}`, function (err, result) {
+//     if (err) return next(err);
+//         res.end();
+//   })
+// })
+
+router.put('/:tableId/:databaseName', (req, res, next) => {
+    var body = req.body;
+    var tablenam = req.params.tableId;
+    var databaseName = req.params.databaseName;
+    var actualName = databaseName + tablenam + "s"
+    console.log("tab", actualName, "nnn", body)
+    client.query(`ALTER TABLE ${actualName} RENAME TO ${body.name}`, function (err, result) {
+      if (err) return next(err);
+      res.end();
+    });
+});
+
 
 function getSequelizeType(type){
     let d = {'string': Sequelize.STRING, 'text': Sequelize.TEXT, 'float': Sequelize.FLOAT, 'date': Sequelize.DATE, 'boolean': Sequelize.BOOLEAN, 'enum': Sequelize.ENUM, 'array': Sequelize.ARRAY};

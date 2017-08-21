@@ -9,7 +9,9 @@ class UpdateTableName extends Component {
 		super(props);
 		this.state = {
 			newName: '',
-			tableId: 0
+			tableId: 0,
+			name: '',
+			databaseName: ''
 		}
 		this.handleChange1 = this.handleChange1.bind(this)
 		this.handleChange2 = this.handleChange2.bind(this)
@@ -18,9 +20,12 @@ class UpdateTableName extends Component {
 
 	handleChange1(event){
 		console.log("eve", event.target.value)
-		var ans = Number(event.target.value);
-		console.log("y", typeof(ans))
-		this.setState({tableId: ans})
+		var str = (event.target.value).split(" ");
+		var num = Number(str[0]);
+		var nam = str[1];
+		var datab = str[2]
+		//console.log("y", typeof(ans))
+		this.setState({tableId: num, name: nam, databaseName: datab})
 	}
 
 	handleChange2 (event){
@@ -35,7 +40,7 @@ class UpdateTableName extends Component {
 		// console.log("event target", event.target)
 		// let splitName = event.target.tableName.value.split(" ");
   //   let tableName = splitName[0]+splitName[1]+'s';
-		this.props.updateN(this.state.newName, this.state.tableId)
+		this.props.updateN(this.state.newName, this.state.tableId, this.state.name, this.state.databaseName )
 	}
 
 	render(){
@@ -52,7 +57,7 @@ class UpdateTableName extends Component {
 	    				{
 	    					Object.keys(tables).map(each => 
 	    					  <option key={each}>
-	    					  	{tables[each].tableId}
+	    					  	{tables[each].tableId}   {tables[each].table.tableName}  {tables[each].table.database.name} 
 	    					  </option>
 	    					)
 	    				}
@@ -77,8 +82,8 @@ const mapStateToProps = function(state){
 
 const mapDispatchToProps = function(dispatch){
 	return {
-		updateN(newName, tableId){
-			dispatch(updateNameToTable(newName, tableId));
+		updateN(newName, tableId, name, databaseName){
+			dispatch(updateNameToTable(newName, tableId, name, databaseName));
 		}
 	}
 }
