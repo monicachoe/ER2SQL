@@ -9,7 +9,7 @@ export const TempTable = (props) => {
     var columnNames;
 
     return (
-        <div>
+        <div className = 'box'>
             {
                 tables && tables.map((table) => {
                     (table.table.fields) ? columnNames = Object.keys(table.table.fields) : columnNames = false

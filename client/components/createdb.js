@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {createDatabase} from '../store'
+import {createDatabase, clearTemp} from '../store'
 
 class CreateDB extends Component {
   constructor(props){

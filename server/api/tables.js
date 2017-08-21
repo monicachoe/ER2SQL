@@ -2,20 +2,13 @@ const router = require('express').Router();
 const Sequelize = require('sequelize');
 const {db, client} = require('../db');
 const { Table, Database } = require('../db/models')
+const utils = require('../../utils');
 module.exports = router;
-
-// req.body : array of objects
-// each object represents one table
-// ex/ [{tableName : '1', 
-//          fields : {name : {type: String, validations: ...}, 
-//                    quantity : {type : integer, validations: ...}}}, 
-//      {tableName : '2', 
-//          fields : {name : {type: String, validations: ...}, ...}]
 
 router.post('/', (req, res, next) => {
     let table = req.body;
     let tableName = table.tableName.toString();
-    let fields = formatFields(table.fields);
+    let fields = utils.formatFields(table.fields);
     const createdTable = db.define(tableName, fields);
     db.sync()
     .then(()=>res.status(200).send(`OK. Table ${tableName} created.`));
@@ -25,7 +18,7 @@ router.delete('/:tablename', (req, res, next) => {
     var table = req.params.tablename
     client.query(`DROP TABLE ${table}`, function (err, result) {
       if (err) return next(err);
-      res.end();
+      res.send(`OK. Table ${table} deleted.`);
     });
 });
 
@@ -39,30 +32,19 @@ router.delete('/:tablename', (req, res, next) => {
 //   })
 // })
 
-router.put('/:tableId/:databaseName', (req, res, next) => {
+router.put('/:tablenam/:databaseName', (req, res, next) => {
     var body = req.body;
-    var tablenam = req.params.tableId;
-    var databaseName = req.params.databaseName;
-    var actualName = databaseName + tablenam + "s"
-    console.log("tab", actualName, "nnn", body)
-    client.query(`ALTER TABLE ${actualName} RENAME TO ${body.name}`, function (err, result) {
-      if (err) return next(err);
-      res.end();
-    });
+    var tablenam = req.params.tablenam;
+    var data = req.params.databaseName;
+    Table.findOne({where: {name: tablenam}})
+    .then((table) => { 
+        console.log("h", table.id, data)
+        var ans = data+(table.id).toString()+'s'
+        console.log("ans", ans)
+        client.query(`ALTER TABLE ${ans} RENAME TO ${body.name}`, function (err, result) {
+        if (err) return next(err);
+            res.end();
+        })
+    })
 });
 
-
-function getSequelizeType(type){
-    let d = {'string': Sequelize.STRING, 'text': Sequelize.TEXT, 'float': Sequelize.FLOAT, 'date': Sequelize.DATE, 'boolean': Sequelize.BOOLEAN, 'enum': Sequelize.ENUM, 'array': Sequelize.ARRAY};
-    return d[type];
-}
-
-function formatFields(fields){
-    let keys = Object.keys(fields);
-    for (var field of keys){
-        let attribute = fields[field]; 
-        let seqType = attribute['type']
-        fields[field] = Object.assign({}, attribute, {type: getSequelizeType(seqType)})
-    }
-    return fields;
-}

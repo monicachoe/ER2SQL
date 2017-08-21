@@ -21,9 +21,9 @@ class UpdateTableName extends Component {
 	handleChange1(event){
 		console.log("eve", event.target.value)
 		var str = (event.target.value).split(" ");
-		var num = Number(str[0]);
-		var nam = str[1];
-		var datab = str[2]
+		var num = Number(str[1]);
+		var nam = str[0];
+		var datab = this.props.database.name
 		//console.log("y", typeof(ans))
 		this.setState({tableId: num, name: nam, databaseName: datab})
 	}
@@ -57,7 +57,7 @@ class UpdateTableName extends Component {
 	    				{
 	    					Object.keys(tables).map(each => 
 	    					  <option key={each}>
-	    					  	{tables[each].tableId}   {tables[each].table.tableName}  {tables[each].table.database.name} 
+	    					  	{tables[each].name} {tables[each].tableId}
 	    					  </option>
 	    					)
 	    				}
@@ -72,9 +72,9 @@ class UpdateTableName extends Component {
 	 }
 
 const mapStateToProps = function(state){
-	console.log("props", state.temp)
+	console.log("props", state.metatable, "there", state.updateTableName, "data", state.database)
 	return {
-		tables: state.temp,
+		tables: state.metatable,
 		table: state.table,
 		database: state.database
 	}
