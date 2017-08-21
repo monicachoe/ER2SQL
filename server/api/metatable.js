@@ -75,6 +75,7 @@ router.delete('/:tableId', (req, res, next) => {
 
 router.put('/:tableId', (req, res, next) => {
   var tableId = req.params.tableId;
+  console.log("stop", req.body)
   var tableName = req.body.name;
   Table.findById(tableId)
   .then((table) => table.update({name: tableName}))

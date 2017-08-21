@@ -8533,7 +8533,8 @@ var UpdateTableName = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (UpdateTableName.__proto__ || Object.getPrototypeOf(UpdateTableName)).call(this, props));
 
 		_this.state = {
-			newName: props.tableName
+			tableName: props.tableName,
+			id: props.tableId
 		};
 		_this.handleChange = _this.handleChange.bind(_this);
 		_this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -8543,7 +8544,8 @@ var UpdateTableName = function (_Component) {
 	_createClass(UpdateTableName, [{
 		key: 'handleChange',
 		value: function handleChange(event) {
-			this.setstate({ newName: event.target.value });
+			console.log("handle", event.target.value);
+			this.setstate({ tableName: event.target.value });
 		}
 	}, {
 		key: 'handleSubmit',
@@ -8555,13 +8557,14 @@ var UpdateTableName = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var tables = props.tables;
+			var tables = this.props.tables;
+			console.log("table", tables);
 			return _react2.default.createElement(
 				'div',
 				null,
 				_react2.default.createElement(
 					'form',
-					{ onSubmit: handleSubmit },
+					{ onSubmit: this.handleSubmit },
 					_react2.default.createElement(
 						'label',
 						null,
@@ -8574,16 +8577,17 @@ var UpdateTableName = function (_Component) {
 								null,
 								'-'
 							),
-							tables.map(function (tab) {
+							Object.keys(tables).map(function (each) {
 								return _react2.default.createElement(
 									'option',
-									{ key: tab.id },
-									'tab.name'
+									{ key: each },
+									tables[each].table.tableName
 								);
 							})
 						),
-						_react2.default.createElement('input', { style: 'text', value: this.state.newName, onChange: this.handleChange })
-					)
+						_react2.default.createElement('input', { type: 'text', value: this.state.tableName, onChange: this.handleChange })
+					),
+					_react2.default.createElement('input', { type: 'submit' })
 				)
 			);
 		}
@@ -8592,7 +8596,8 @@ var UpdateTableName = function (_Component) {
 	return UpdateTableName;
 }(_react.Component);
 
-var mapStateToProps = function mapStateToProps(state, ownProps) {
+var mapStateToProps = function mapStateToProps(state) {
+	console.log("props", state.temp);
 	return {
 		tables: state.temp,
 		tableName: state.tableName
@@ -8656,13 +8661,15 @@ var Sidebar = function (_Component) {
 
         _this.state = {
             showCreateTable: false,
-            showRemoveTable: false
+            showRemoveTable: false,
+            showUpdateTable: false
             // ,
             // showAssociation: false
 
             // this.showBothForm = this.showBothForm.bind(this)
         };_this.showCreateTableForm = _this.showCreateTableForm.bind(_this);
         _this.showRemoveTableForm = _this.showRemoveTableForm.bind(_this);
+        _this.showUpdateTableName = _this.showUpdateTableName.bind(_this);
         // this.showAssociationForm = this.showAssociationForm.bind(this);
         return _this;
     }
@@ -8673,7 +8680,8 @@ var Sidebar = function (_Component) {
             e.preventDefault();
             this.setState({
                 showCreateTable: true,
-                showRemoveTable: false
+                showRemoveTable: false,
+                showUpdateTable: false
                 // ,
                 // showAssociation: false
             });
@@ -8684,7 +8692,8 @@ var Sidebar = function (_Component) {
             e.preventDefault();
             this.setState({
                 showCreateTable: false,
-                showRemoveTable: true
+                showRemoveTable: true,
+                showUpdateTable: false
                 // ,
                 // showAssociation: false
             });
@@ -8695,7 +8704,8 @@ var Sidebar = function (_Component) {
             e.preventDefault();
             this.setState({
                 showCreateTable: false,
-                showRemoveTable: false
+                showRemoveTable: false,
+                showUpdateTable: true
             });
         }
         // showAssociationForm(e){
@@ -8736,9 +8746,14 @@ var Sidebar = function (_Component) {
                     { onClick: this.showRemoveTableForm },
                     'Remove Table'
                 ),
+                _react2.default.createElement(
+                    'button',
+                    { onClick: this.showUpdateTableName },
+                    'Update Table Name'
+                ),
                 this.state.showCreateTable ? _react2.default.createElement(_index.CreateTable, null) : null,
                 this.state.showRemoveTable ? _react2.default.createElement(_index.RemoveTable, null) : null,
-                _react2.default.createElement(_index.UpdateTableName, null)
+                this.state.showUpdateTable ? _react2.default.createElement(_index.UpdateTableName, null) : null
             );
         }
     }]);
@@ -16496,7 +16511,7 @@ exports.default = function () {
 
   switch (action.type) {
     case UPDATE_TABLE_NAME:
-      return action.table.name;
+      return action.table;
     default:
       return state;
   }
@@ -16516,7 +16531,7 @@ var UPDATE_TABLE_NAME = 'UPDATE_TABLE_NAME';
 /**
  * INITIAL STATE
  */
-var tableName = {};
+var table = {};
 
 /**
  * ACTION CREATORS

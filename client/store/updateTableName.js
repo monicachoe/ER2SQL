@@ -8,7 +8,7 @@ const UPDATE_TABLE_NAME = 'UPDATE_TABLE_NAME';
 /**
  * INITIAL STATE
  */
-const tableName = {};
+const table = {};
 
 /**
  * ACTION CREATORS
@@ -32,7 +32,7 @@ export const updateNameToTable = (newName, tableId) =>
 export default function (state = tableName, action) {
   switch (action.type) {
     case UPDATE_TABLE_NAME:
-      return  action.table.name;
+      return  action.table;
     default:
       return state
   }

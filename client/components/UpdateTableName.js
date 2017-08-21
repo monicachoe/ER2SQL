@@ -1,20 +1,23 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { withRouter, NavLink } from 'react-router-dom'; 
+import { withRouter } from 'react-router-dom'; 
 import store, {updateNameToTable} from '../store';
 
 class UpdateTableName extends Component {
+	
 	constructor(props){
 		super(props);
 		this.state = {
-			newName: props.tableName
+			tableName: props.tableName,
+			id: props.tableId
 		}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	handleChange (event){
-		this.setstate({newName: event.target.value})
+		console.log("handle", event.target.value)
+		this.setstate({tableName: event.target.value})
 	}
 
 	handleSubmit (event){
@@ -24,27 +27,30 @@ class UpdateTableName extends Component {
 	}
 
 	render(){
-		var tables = props.tables;
+		var tables = this.props.tables;
+		console.log("table", tables)
 		return(
 	    <div>
-	    	<form onSubmit={handleSubmit}>
+	    	<form onSubmit={this.handleSubmit}>
 	    		<label>
 	    			Table Name :
 	    			<select name='tableName'>
 	    				<option>-</option>
 	    				{
-	    					tables.map((tab) => {return (<option key={tab.id}>tab.name</option>)})
+	    					Object.keys(tables).map(each => <option key={each}>{tables[each].table.tableName}</option>)
 	    				}
 	    			</select>
-	    			<input style="text" value={this.state.newName} onChange={this.handleChange} />
+	    			<input type="text" value={this.state.tableName} onChange={this.handleChange} />
 	    		</label>
+	    		<input type="submit" />
 	    	</form>
 	    </div>
 	    )
 		}
 	 }
 
-const mapStateToProps = function(state, ownProps){
+const mapStateToProps = function(state){
+	console.log("props", state.temp)
 	return {
 		tables: state.temp,
 		tableName: state.tableName
