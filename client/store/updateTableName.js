@@ -20,16 +20,19 @@ const updateTableName = (table) => ({type: UPDATE_TABLE_NAME, table});
 
 export const updateNameToTable = (newName, tableId) =>
     dispatch => {
-      var table = [];
+      console.log("h", newName, tableId)
       return(
-      axios.put(`api/metatable/${tableId}`,newName)
-      .then((res) => dispatch(updateTableName(res.data)))
+      axios.put(`api/metatable/${tableId}`,{"name": newName})
+      .then((res) => {
+        console.log("h", res)
+        dispatch(updateTableName(res.data))
+      })
       )}
 
 /**
  * REDUCER
  */
-export default function (state = tableName, action) {
+export default function (state = table, action) {
   switch (action.type) {
     case UPDATE_TABLE_NAME:
       return  action.table;

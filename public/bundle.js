@@ -8502,6 +8502,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(4);
@@ -8533,31 +8535,45 @@ var UpdateTableName = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (UpdateTableName.__proto__ || Object.getPrototypeOf(UpdateTableName)).call(this, props));
 
 		_this.state = {
-			tableName: props.tableName,
-			id: props.tableId
+			newName: '',
+			tableId: 0
 		};
-		_this.handleChange = _this.handleChange.bind(_this);
+		_this.handleChange1 = _this.handleChange1.bind(_this);
+		_this.handleChange2 = _this.handleChange2.bind(_this);
 		_this.handleSubmit = _this.handleSubmit.bind(_this);
 		return _this;
 	}
 
 	_createClass(UpdateTableName, [{
-		key: 'handleChange',
-		value: function handleChange(event) {
+		key: 'handleChange1',
+		value: function handleChange1(event) {
+			console.log("eve", event.target.value);
+			var ans = Number(event.target.value);
+			console.log("y", typeof ans === 'undefined' ? 'undefined' : _typeof(ans));
+			this.setState({ tableId: ans });
+		}
+	}, {
+		key: 'handleChange2',
+		value: function handleChange2(event) {
 			console.log("handle", event.target.value);
-			this.setstate({ tableName: event.target.value });
+			this.setState({ newName: event.target.value });
 		}
 	}, {
 		key: 'handleSubmit',
 		value: function handleSubmit(event) {
 			event.preventDefault();
-			var table = event.target.value;
-			this.props.updateNameToTable(table);
+			//let table = event.target.value
+			// console.log("table", table)
+			// console.log("event target", event.target)
+			// let splitName = event.target.tableName.value.split(" ");
+			//   let tableName = splitName[0]+splitName[1]+'s';
+			this.props.updateN(this.state.newName, this.state.tableId);
 		}
 	}, {
 		key: 'render',
 		value: function render() {
 			var tables = this.props.tables;
+			var database = this.props.database;
 			console.log("table", tables);
 			return _react2.default.createElement(
 				'div',
@@ -8571,7 +8587,7 @@ var UpdateTableName = function (_Component) {
 						'Table Name :',
 						_react2.default.createElement(
 							'select',
-							{ name: 'tableName' },
+							{ value: this.state.tableId, onChange: this.handleChange1 },
 							_react2.default.createElement(
 								'option',
 								null,
@@ -8581,13 +8597,17 @@ var UpdateTableName = function (_Component) {
 								return _react2.default.createElement(
 									'option',
 									{ key: each },
-									tables[each].table.tableName
+									tables[each].tableId
 								);
 							})
 						),
-						_react2.default.createElement('input', { type: 'text', value: this.state.tableName, onChange: this.handleChange })
+						_react2.default.createElement('input', { type: 'text', value: this.state.newName, onChange: this.handleChange2 })
 					),
-					_react2.default.createElement('input', { type: 'submit' })
+					_react2.default.createElement(
+						'button',
+						{ type: 'submit' },
+						'Submit'
+					)
 				)
 			);
 		}
@@ -8600,14 +8620,15 @@ var mapStateToProps = function mapStateToProps(state) {
 	console.log("props", state.temp);
 	return {
 		tables: state.temp,
-		tableName: state.tableName
+		table: state.table,
+		database: state.database
 	};
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	return {
-		updateNameToTable: function updateNameToTable(table) {
-			dispatch((0, _store.updateNameToTable)(table));
+		updateN: function updateN(newName, tableId) {
+			dispatch((0, _store.updateNameToTable)(newName, tableId));
 		}
 	};
 };
@@ -16506,7 +16527,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.updateNameToTable = undefined;
 
 exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : tableName;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : table;
   var action = arguments[1];
 
   switch (action.type) {
@@ -16545,9 +16566,10 @@ var updateTableName = function updateTableName(table) {
 
 var updateNameToTable = exports.updateNameToTable = function updateNameToTable(newName, tableId) {
   return function (dispatch) {
-    var table = [];
-    return _axios2.default.put('api/metatable/' + tableId, newName).then(function (res) {
-      return dispatch(updateTableName(res.data));
+    console.log("h", newName, tableId);
+    return _axios2.default.put('api/metatable/' + tableId, { "name": newName }).then(function (res) {
+      console.log("h", res);
+      dispatch(updateTableName(res.data));
     });
   };
 };
