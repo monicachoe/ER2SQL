@@ -45,12 +45,12 @@ class Sidebar extends Component {
             showCreateAssociation: true
         })
     }
-    // showAssociationForm(e){
-    //     e.preventDefault();
-    //     this.setState({
-    //         showAssociation: !this.state.showAssociation
-    //     })
-    // }
+    showAssociationForm(e){
+        e.preventDefault();
+        this.setState({
+            showAssociation: !this.state.showAssociation
+        })
+    }
     // showBothForm(evt){
     //     evt.preventDefault()
     //     if(this.state.showLoad){
@@ -63,7 +63,8 @@ class Sidebar extends Component {
     // }
     render() {
         return (
-            <div>
+            <div className = 'sidebar'>
+                <div className = 'buttons'>
                 <h1>Options</h1>
                 <button onClick={this.showCreateTableForm}>Create Table</button>
                 <button onClick={this.showCreateAssociationForm}>Create Association</button>

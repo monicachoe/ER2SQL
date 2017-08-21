@@ -3,11 +3,10 @@ import {connect} from 'react-redux';
 import { loadDatabase, getMetatables } from '../store';
 
 class LoadDb extends Component {
-
   constructor(props){
     super(props);
     this.state = {
-      'dbName': '-'
+      'dbName': '-select-'
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -25,9 +24,7 @@ class LoadDb extends Component {
 
   handleSubmit (evt){
     evt.preventDefault();
-    let selectedDb = this.props.userdbs.filter((eachDb) => {
-      if (eachDb.name === this.state.dbName ) return eachDb;
-    })
+    let selectedDb = this.props.userdbs.filter((eachDb) => eachDb.name === this.state.dbName);
     this.props.loadDatabase(selectedDb[0]);
   }
 
@@ -37,7 +34,7 @@ class LoadDb extends Component {
         <form onSubmit= {this.handleSubmit}>
           <label htmlFor="load">Select database</label>
           <select name="load" onChange={this.handleChange}>
-            <option value={this.state.dbName}>{this.state.dbName}</option>
+            <option>{this.state.dbName}</option>
             {this.props.userdbs && this.props.userdbs.map(eachDB => {
               return (<option key={eachDB.id} value={eachDB.name}>{eachDB.name}</option>)
             })}
@@ -51,7 +48,7 @@ class LoadDb extends Component {
 
 const mapStateToProps = ({user, userdbs, database, metatable}) => ({user, userdbs, database, metatable});
 
-const mapDisptachProps = (dispatch) => {
+const mapDispatch = (dispatch) => {
   return {
     loadDatabase(selectedDb){
       dispatch(loadDatabase(selectedDb));
@@ -59,8 +56,7 @@ const mapDisptachProps = (dispatch) => {
     getMetatables(databaseId){
       dispatch(getMetatables(databaseId));
     }
-
   }
 }
 
-export default connect(mapStateToProps, mapDisptachProps)(LoadDb);
+export default connect(mapStateToProps, mapDispatch)(LoadDb);
