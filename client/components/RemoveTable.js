@@ -21,7 +21,7 @@ function RemoveTable (props){
       )
 }
 
-const mapStateToProps = function(state, ownProps){
+const mapStateToProps = function(state){
   return {
     tables : state.temp,
     database : state.database

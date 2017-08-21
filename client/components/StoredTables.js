@@ -8,7 +8,7 @@ export const StoredTables = (props) => {
     const { tables } = props
     var columnNames;
     return (
-        <div>
+        <div className = 'box'>
             {
                 (tables) && tables.map((table, idx) => {
                     (table) ? columnNames = (table.fields) : columnNames = false

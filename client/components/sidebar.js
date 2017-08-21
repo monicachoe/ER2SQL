@@ -63,13 +63,14 @@ class Sidebar extends Component {
     // }
     render() {
         return (
-            <div>
+            <div className = 'sidebar'>
+                <div className = 'buttons'>
                 <h1>Options</h1>
                 <button onClick={this.showCreateTableForm}>Create Table</button>
                 <button onClick={this.showCreateAssociationForm}>Create Association</button>
                 {this.state.showCreateTable ? <CreateTable /> : null}
                 {this.state.showRemoveTable ? <RemoveTable /> : null}
-                {this.state.showCreateAssociation ? <Association /> : null}
+                </div>
             </div>
         )
     }
