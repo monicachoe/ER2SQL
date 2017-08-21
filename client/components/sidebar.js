@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {getUserDatabases} from '../store'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, Modal, Association} from './index';
+import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, Modal, Association, CreateLoad} from './index';
 import {default as ShowModal} from './ShowModal'
 
 class Sidebar extends Component {
@@ -66,23 +66,21 @@ class Sidebar extends Component {
         return (
             <div className = 'sidebar'>
                 <div className = 'buttons'>
-                <h1 className= 'header'>Options</h1>
+                <h1>{this.props.database.name}</h1>
                 <button onClick={this.showCreateTableForm}>Create Table</button>
                 <button onClick={this.showCreateAssociationForm}>Create Association</button>
+                <button onClick={this.showRemoveTableForm}>Remove Table</button>
                 {this.state.showCreateTable ? <CreateTable /> : null}
                 {this.state.showRemoveTable ? <RemoveTable /> : null}
-<<<<<<< HEAD
-                </div>
-                <ShowModal/>
-=======
                 {this.state.showCreateAssociation ? <Association /> : null}
->>>>>>> 5e161dbc00f25c56e421981700876cd4fbb8510b
+                <CreateLoad/>
+                </div>
             </div>
         )
     }
 }
 
-const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
+const mapStateToProps = ({user, userdbs, database}) => ({user, userdbs, database});
 
 const mapDisptachProps = (dispatch) => {
   return {

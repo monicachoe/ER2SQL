@@ -12,7 +12,7 @@ function RemoveTable (props){
             <label>
               Table Name : 
               <select name='tableName'><option>-</option>
-                {Object.keys(tables).map(each => <option key={each}>{tables[each].table.database.name} {tables[each].tableId} {tables[each].table.tableName}</option>)}
+                {Object.keys(tables).map(each => <option key={each}>{tables[each].id} {tables[each].name}</option>)}
               </select>
             </label>
             <input type='submit' />
@@ -23,7 +23,7 @@ function RemoveTable (props){
 
 const mapStateToProps = function(state){
   return {
-    tables : state.temp,
+    tables : state.metatable,
     database : state.database
   }
 }

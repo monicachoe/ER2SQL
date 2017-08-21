@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {createAssociation} from '../store';
+import {createAssociation, getMetatables} from '../store';
 
 class Association extends Component {
   constructor(props){
@@ -18,6 +18,7 @@ class Association extends Component {
   }
 
   handleSubmit(e){
+    console.log('THE DATABASE', this.props.database.id)
     e.preventDefault();
     const dbName = this.props.database.name;
     const src = this.props.tables[e.target.table1.value];
@@ -26,6 +27,7 @@ class Association extends Component {
     this.setState({assocType: assocType});
     const fkName = this.state.foreignKey;
     this.props.createAssociation(dbName, src, target, assocType, fkName);
+    this.props.getMetatables(this.props.database.id)
   }
 
   render(){
@@ -85,6 +87,9 @@ const mapDispatch = (dispatch) => {
   return {
     createAssociation(dbName, src, target, assocType, fkName){
       dispatch(createAssociation(dbName, src, target, assocType, fkName));
+    },
+    getMetatables(dbId){
+      dispatch(getMetatables(dbId))
     }
   }
 };

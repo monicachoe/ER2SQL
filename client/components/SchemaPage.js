@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import Sidebar from './sidebar'
 import CreateLoad from './CreateLoad'
 import DisplayTable from './DisplayTable'
@@ -8,24 +8,19 @@ import DisplayTable from './DisplayTable'
  * COMPONENT
  */
 export const SchemaPage = (props) => {
-    const {isLoggedIn} = props
-  return (
-    <div className = 'schema'>
-        <div className = 'schild1'>
-            <Sidebar/>
-        </div>
-        <div className = 'schild2'>
-                {
-                    isLoggedIn
-                        ?   <CreateLoad />  
-                            
-                        : <div />
+    const { isLoggedIn } = props
+    return (
 
-                }
-                <DisplayTable/>
+        <div className='schema'>
+            <div className='schild1'>
+                <Sidebar />
+            </div>
+            <div className='schild2'>
+                <DisplayTable />
+            </div>
+
         </div>
-    </div>
-  )
+    )
 }
 
 /**

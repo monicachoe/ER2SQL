@@ -35,6 +35,7 @@ export const getMetatables = (databaseId) =>
     var tempRealTables = [];
     let promises = [];
     let realTables = []
+    console.log(databaseId)
     return (
       axios.get(`/api/metadatabase/${databaseId}/tables`)
         .then(res => {

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {createDatabase, clearTemp} from '../store'
 import {Link} from 'react-router-dom'
+import history from '../history'
 
 class CreateDB extends Component {
   constructor(props){
@@ -20,6 +21,7 @@ class CreateDB extends Component {
   handleSubmit(evt){
     evt.preventDefault();
     this.props.createDB(this.state.dbName, this.props.user.id);
+    history.push('/schema')
   }
   render(){
     return (
@@ -27,7 +29,7 @@ class CreateDB extends Component {
       <form onSubmit={this.handleSubmit}>
         <label>Enter the DB name:</label>
         <input name="db" type="text" value={this.state.dbName} onChange={this.handleChange}/>
-        <Link to='/schema'><button type="submit">Create DB</button></Link>
+        <button type="submit">Create DB</button>
       </form>
       </div>
     );
