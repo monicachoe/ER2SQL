@@ -7,17 +7,12 @@ import database from './database';
 import userdbs from './userDatabases';
 import association from './association';
 
-<<<<<<< HEAD
-const reducer = combineReducers({user, temp, metatable, database, userdbs, association});
-=======
-const reducer = combineReducers({user, metatable, database, userdbs});
->>>>>>> c6e3237db3ac7624af9685fc251d24b24a815f7d
+const reducer = combineReducers({user, metatable, database, userdbs, association});
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}));
 const store = createStore(reducer, middleware);
 
 export default store;
 export * from './user';
-// export * from './temp';
 export * from './metatable';
 export * from './database';
 export * from './userDatabases';
