@@ -40,7 +40,7 @@ export const getMetatables = (databaseId) =>
         .then(res => {
           let tables = res.data;
           tables.forEach((table) => {
-            tempRealTables.push({databaseId : table.databaseId, name : table.name})
+            tempRealTables.push({databaseId : table.databaseId, name : table.name, tableId: table.id})
             promises.push(axios.get(`/api/metatable/${table.id}/columns`))
           });
           return promises;

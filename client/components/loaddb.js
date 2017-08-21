@@ -8,7 +8,7 @@ class LoadDb extends Component {
   constructor(props){
     super(props);
     this.state = {
-      dbName: ''
+      'dbName': '-'
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -40,7 +40,11 @@ class LoadDb extends Component {
         <form onSubmit= {this.handleSubmit}>
           <label htmlFor="load">Select a database</label>
           <select name="load" onChange={this.handleChange}>
+<<<<<<< HEAD
             <option>-</option>
+=======
+            <option value={this.state.dbName}>{this.state.dbName}</option>
+>>>>>>> 5e161dbc00f25c56e421981700876cd4fbb8510b
             {this.props.userdbs && this.props.userdbs.map(eachDB => {
               return (<option key={eachDB.id} value={eachDB.name}>{eachDB.name}</option>)
             })}

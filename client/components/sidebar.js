@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {getUserDatabases} from '../store'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, Modal} from './index';
+import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, Modal, Association} from './index';
 import {default as ShowModal} from './ShowModal'
 
 class Sidebar extends Component {
@@ -11,23 +11,21 @@ class Sidebar extends Component {
         super(props)
         this.state = {
             showCreateTable: false,
-            showRemoveTable: false
-            // ,
-            // showAssociation: false
+            showRemoveTable: false,
+            showCreateAssociation: false
         }
         // this.showBothForm = this.showBothForm.bind(this)
         this.showCreateTableForm = this.showCreateTableForm.bind(this);
         this.showRemoveTableForm = this.showRemoveTableForm.bind(this);
-        // this.showAssociationForm = this.showAssociationForm.bind(this);
+        this.showCreateAssociationForm = this.showCreateAssociationForm.bind(this);
     }
 
     showCreateTableForm(e) {
         e.preventDefault();
         this.setState({
             showCreateTable: true,
-            showRemoveTable: false
-            // ,
-            // showAssociation: false
+            showRemoveTable: false,
+            showCreateAssociation: false
         })
     }
 
@@ -35,9 +33,17 @@ class Sidebar extends Component {
         e.preventDefault();
         this.setState({
             showCreateTable: false,
-            showRemoveTable: true
-            // ,
-            // showAssociation: false
+            showRemoveTable: true,
+            showCreateAssociation: false
+        })
+    }
+
+    showCreateAssociationForm(e){
+        e.preventDefault();
+        this.setState({
+            showCreateTable: false,
+            showRemoveTable: false,
+            showCreateAssociation: true
         })
     }
     // showAssociationForm(e){
@@ -62,11 +68,15 @@ class Sidebar extends Component {
                 <div className = 'buttons'>
                 <h1 className= 'header'>Options</h1>
                 <button onClick={this.showCreateTableForm}>Create Table</button>
-                <button onClick={this.showRemoveTableForm}>RemoveTable</button>
+                <button onClick={this.showCreateAssociationForm}>Create Association</button>
                 {this.state.showCreateTable ? <CreateTable /> : null}
                 {this.state.showRemoveTable ? <RemoveTable /> : null}
+<<<<<<< HEAD
                 </div>
                 <ShowModal/>
+=======
+                {this.state.showCreateAssociation ? <Association /> : null}
+>>>>>>> 5e161dbc00f25c56e421981700876cd4fbb8510b
             </div>
         )
     }
