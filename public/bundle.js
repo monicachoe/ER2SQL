@@ -8384,7 +8384,6 @@ var CreateLoad = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (CreateLoad.__proto__ || Object.getPrototypeOf(CreateLoad)).call(this, props));
 
-        console.log(props);
         _this.state = {
             showCreate: false,
             showLoad: false
@@ -15027,6 +15026,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _components = __webpack_require__(35);
 
+var _reactRedux = __webpack_require__(12);
+
 var _store = __webpack_require__(9);
 
 var _store2 = _interopRequireDefault(_store);
@@ -15054,7 +15055,8 @@ var CreateTable = function (_Component) {
         _this.state = {
             tableName: '',
             fields: [],
-            valid: false
+            fieldsValid: false,
+            tableNameValid: false
         };
         _this.handleClick = _this.handleClick.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -15068,7 +15070,7 @@ var CreateTable = function (_Component) {
             e.preventDefault();
             this.setState({
                 fields: [].concat(_toConsumableArray(this.state.fields), [{}]),
-                valid: false
+                fieldsValid: false
             });
         }
     }, {
@@ -15078,13 +15080,13 @@ var CreateTable = function (_Component) {
             if (e.target.name === 'tableName') {
                 this.setState({
                     tableName: e.target.value,
-                    valid: validator(this.state.fields)
+                    tableNameValid: tableNameValidator(e.target.value, this.props.tables)
                 });
             } else {
                 this.state.fields[e.target.id] = Object.assign({}, this.state.fields[e.target.id], _defineProperty({}, e.target.name, e.target.value));
                 this.setState({
                     fields: this.state.fields,
-                    valid: validator(this.state.fields)
+                    fieldsValid: fieldValidator(this.state.fields)
                 });
             }
         }
@@ -15093,8 +15095,7 @@ var CreateTable = function (_Component) {
         value: function handleSubmit(e) {
             e.preventDefault();
             var curFields = this.state.fields;
-            var curState = _store2.default.getState();
-            var table = { tableName: this.state.tableName, fields: {}, database: curState.database };
+            var table = { tableName: this.state.tableName, fields: {}, database: this.props.database };
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
             var _iteratorError = undefined;
@@ -15122,11 +15123,13 @@ var CreateTable = function (_Component) {
                 }
             }
 
-            _store2.default.dispatch((0, _store.addTableToTemp)(table));
+            this.props.submitHelper(table);
+            // store.dispatch(addTableToTemp(table));
             this.setState({
                 tableName: '',
                 fields: [],
-                valid: false
+                fieldsValid: false,
+                tableNameValid: false
             });
         }
     }, {
@@ -15149,13 +15152,18 @@ var CreateTable = function (_Component) {
                     { onClick: this.handleClick },
                     'Add Field'
                 ),
-                _react2.default.createElement('input', { type: 'submit', disabled: this.state.tableName.length === 0 || !this.state.valid }),
+                _react2.default.createElement('input', { type: 'submit', disabled: this.state.tableName.length === 0 || !this.state.fieldsValid || !this.state.tableNameValid }),
                 this.state.tableName.length === 0 ? _react2.default.createElement(
                     'p',
                     null,
                     'Please input table name'
                 ) : null,
-                !this.state.valid && this.state.fields.length !== 0 ? _react2.default.createElement(
+                !this.state.tableNameValid && this.state.tableName.length > 0 ? _react2.default.createElement(
+                    'p',
+                    null,
+                    'Tablename is invalid'
+                ) : null,
+                !this.state.fieldsValid && this.state.fields.length !== 0 ? _react2.default.createElement(
                     'p',
                     null,
                     'Name and type of column is required'
@@ -15171,7 +15179,7 @@ var CreateTable = function (_Component) {
     return CreateTable;
 }(_react.Component);
 
-function validator(fields) {
+function fieldValidator(fields) {
     var _iteratorNormalCompletion2 = true;
     var _didIteratorError2 = false;
     var _iteratorError2 = undefined;
@@ -15202,7 +15210,53 @@ function validator(fields) {
     return true;
 }
 
-exports.default = CreateTable;
+function tableNameValidator(tableName, tables) {
+    var _iteratorNormalCompletion3 = true;
+    var _didIteratorError3 = false;
+    var _iteratorError3 = undefined;
+
+    try {
+        for (var _iterator3 = tables[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+            var each = _step3.value;
+
+            if (tableName === each.name) {
+                return false;
+            }
+        }
+    } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                _iterator3.return();
+            }
+        } finally {
+            if (_didIteratorError3) {
+                throw _iteratorError3;
+            }
+        }
+    }
+
+    return true;
+}
+
+var mapState = function mapState(state) {
+    return {
+        tables: state.metatable,
+        database: state.database
+    };
+};
+
+var mapDispatch = function mapDispatch(dispatch) {
+    return {
+        submitHelper: function submitHelper(table) {
+            dispatch((0, _store.addTableToTemp)(table));
+        }
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(CreateTable);
 
 /***/ }),
 /* 147 */
@@ -15788,6 +15842,11 @@ var LoadDb = function (_Component) {
           _react2.default.createElement(
             'select',
             { name: 'load', onChange: this.handleChange },
+            _react2.default.createElement(
+              'option',
+              null,
+              '-'
+            ),
             this.props.userdbs && this.props.userdbs.map(function (eachDB) {
               return _react2.default.createElement(
                 'option',
@@ -16463,7 +16522,6 @@ var me = exports.me = function me() {
 var signup = exports.signup = function signup(name, email, password, method) {
   return function (dispatch) {
     return _axios2.default.post('/auth/' + method, { name: name, email: email, password: password }).then(function (res) {
-      console.log("data from signup backend", res.data);
       dispatch(getUser(res.data));
       _history2.default.push('/home');
     }).catch(function (error) {

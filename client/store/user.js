@@ -32,7 +32,6 @@ export const signup = (name, email, password, method) =>
   dispatch =>
     axios.post(`/auth/${method}`, { name, email, password })
       .then(res => {
-        console.log("data from signup backend", res.data);
         dispatch(getUser(res.data))
         history.push('/home')
       })

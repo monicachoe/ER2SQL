@@ -36,7 +36,7 @@ class LoadDb extends Component {
       <div>
         <form onSubmit= {this.handleSubmit}>
           <label htmlFor="load">Select database</label>
-          <select name="load" onChange={this.handleChange}>
+          <select name="load" onChange={this.handleChange}><option>-</option>
             {this.props.userdbs && this.props.userdbs.map(eachDB => {
               return (<option key={eachDB.id} value={eachDB.name}>{eachDB.name}</option>)
             })}

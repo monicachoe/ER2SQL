@@ -8,7 +8,6 @@ import {CreateTable, Field, CreateDB, RemoveTable, LoadDB} from './index';
 class CreateLoad extends Component {
     constructor(props) {
         super(props)
-        console.log(props);
         this.state = {
             showCreate: false,
             showLoad: false,
