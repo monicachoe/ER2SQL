@@ -22,6 +22,9 @@ class CreateDB extends Component {
     evt.preventDefault();
     this.props.createDB(this.state.dbName, this.props.user.id);
     history.push('/schema')
+    this.setState({
+      dbName : ''
+    });
   }
   render(){
     return (

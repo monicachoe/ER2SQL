@@ -20,6 +20,7 @@ class CreateLoad extends Component {
     }
 
     render() {
+        let error = this.props.error;
         return (
             <div className = 'ShowModal'>
                 <button onClick={this.showCreateForm}>Create Db</button>
@@ -27,13 +28,20 @@ class CreateLoad extends Component {
                     onClose={this.showCreateForm}>
                     <CreateDB/>
                     <button onClick ={this.showCreateForm}>DONE</button>
+                    {error && error.response && <div> {error.response.data} </div>}
                 </Modal>
             </div>
         )
     }
 }
 
-const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
+const mapStateToProps = state => {
+    return {
+        user : state.user,
+        userdbs : state.userdbs,
+        error : state.database.error
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -22,11 +22,11 @@ router.delete('/:tablename', (req, res, next) => {
     });
 });
 
-router.put('/:tablenam/:databaseName', (req, res, next) => {
+router.put('/:tablename/:databaseName', (req, res, next) => {
     var body = req.body;
-    var tablenam = req.params.tablenam;
+    var tablename = req.params.tablename;
     var data = req.params.databaseName;
-    Table.findOne({where: {name: tablenam}})
+    Table.findOne({where: {name: tablename}})
     .then((table) => {
         var ans = data+(table.id).toString()+'s'
         client.query(`ALTER TABLE ${ans} RENAME TO ${body.name}`, function (err, result) {

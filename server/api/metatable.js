@@ -27,7 +27,9 @@ router.post('/', (req, res, next) => {
   var name = req.body.tableName;
   var databaseId = req.body.databaseId;
   Table.create({ name, databaseId })
-    .then((table) => res.json(table))
+    .then((table) => {
+      res.send(table);
+    })
     .catch(next);
 });
 
@@ -36,7 +38,8 @@ router.get('/:tableId', (req, res, next) => {
   Table.findOne({ where: { id: tableId } })
     .then((table) => res.json(table))
     .catch(next)
-})
+});
+  
 router.get('/:tableId/columns', (req, res, next) => {
   var tableId = req.params.tableId;
   Table.findOne({ where: { id: tableId } })
@@ -44,10 +47,9 @@ router.get('/:tableId/columns', (req, res, next) => {
       Database.findOne({where: {id: table.databaseId}})
     )
     .then((db) =>
-        client.query(`SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '${db.name + tableId + 's'}'`)
+        client.query(`SELECT column_name, data_type FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '${db.name + tableId + 's'}'`)
     )
-    .then((columns) =>
-      columns.rows.map((column) => column['column_name'])
+    .then((columns) => columns.rows.map((column) => ({[column['column_name']] : column['data_type']}))
     )
     .then((columnNames) => res.json(columnNames))
     .catch(next)

@@ -10,6 +10,7 @@ router.post('/', (req, res, next) => {
   let targetName = dbName+target.tableId+'s';
   let assocType = req.body.assocType;
   let fkName = req.body.fkName;
+  let tableId = req.body.tableId;
 
   if (assocType === 'one to one'){
     fkName = (fkName === '') ? src.name + '_id' : fkName;
@@ -61,26 +62,13 @@ router.post('/', (req, res, next) => {
   else if (assocType==='many to many'){
     let fkName1 = src.name + '_id';
     let fkName2 = target.name + '_id';
-    // console.log(
-    //   `create table "${srcName}_${targetName}"
-    //               ("${fkName1}" INTEGER, "${fkName2}" INTEGER,
-    //               FOREIGN KEY("${fkName1}")
-    //               REFERENCES "${srcName}"(id),
-    //               FOREIGN KEY("${fkName2}")
-    //               REFERENCES "${targetName}"(id),
-    //               PRIMARY KEY ("${fkName1}","${fkName2}"))`
-    // );
-    client.query(`create table "${srcName}_${targetName}"
+    client.query(`create table "${dbName}${tableId}s"
                   ("${fkName1}" INTEGER, "${fkName2}" INTEGER,
                   FOREIGN KEY("${fkName1}")
                   REFERENCES "${srcName}"(id),
                   FOREIGN KEY("${fkName2}")
                   REFERENCES "${targetName}"(id),
                   PRIMARY KEY ("${fkName1}","${fkName2}"))`)
-    .then( result => {
-      console.log("m:n ", result);
-
-      res.send("m:n succeeded");
-    })
+    .then(result => res.send({tableName : `${srcName}_${targetName}`, column1 : `${fkName1}`, column2 : `${fkName2}`}))
   }
 });
