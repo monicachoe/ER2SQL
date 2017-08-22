@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {getUserDatabases, clearTemp} from '../store'
-import { Link } from 'react-router-dom';
-import axios from 'axios';
 import {CreateDB, LoadDB} from './index';
+import Modal from './Modal';
 
 class CreateLoad extends Component {
     constructor(props) {
         super(props)
         this.state = {
             showCreate: false,
-            showLoad: false,
+            showLoad: false
         }
         this.showCreateForm = this.showCreateForm.bind(this);
         this.showLoadForm = this.showLoadForm.bind(this);
@@ -18,8 +17,7 @@ class CreateLoad extends Component {
     showCreateForm(evt) {
         evt.preventDefault()
         this.setState({
-            showCreate: true,
-            showLoad: false
+            showCreate: !this.state.showCreate
         })
         this.props.clearTables();
     }
@@ -27,8 +25,7 @@ class CreateLoad extends Component {
     showLoadForm(evt) {
         evt.preventDefault()
         this.setState({
-            showCreate: false,
-            showLoad: true
+            showLoad: !this.state.showLoad
         })
         this.props.getUserDatabases(this.props.user.id);
         this.props.clearTables();
@@ -36,11 +33,14 @@ class CreateLoad extends Component {
 
     render() {
         return (
-            <div className = 'createLoad'>
+            <div className = 'ShowModal'>
                 <button onClick={this.showCreateForm}>Create Db</button>
                 <button onClick={this.showLoadForm}>Load DB</button>
-                {this.state.showLoad ? <LoadDB/> : <div/>}
-                {this.state.showCreate ? <CreateDB/> : <div/>}
+                <Modal className = 'modal' show= {this.state.showCreate}
+                    onClose={this.showCreateForm}>
+                    <CreateDB/>
+                    <button onClick ={this.showCreateForm}>DONE</button>
+                </Modal>
             </div>
         )
     }

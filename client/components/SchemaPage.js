@@ -8,7 +8,7 @@ import DisplayTable from './DisplayTable'
  * COMPONENT
  */
 export const SchemaPage = (props) => {
-    const { isLoggedIn } = props
+    const { isLoggedIn, metatable } = props
     return (
 
         <div className='schema'>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getUserDatabases } from '../store'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { CreateTable, Field, CreateDB, RemoveTable, LoadDB, Modal, Association, CreateLoad, LoadData, ShowModal, UpdateTableName } from './index';
+import { CreateTable, Field, CreateDB, RemoveTable, LoadDB, Modal, Association, CreateLoad, LoadData, ShowModal, UpdateTableName, ShowSQL } from './index';
 
 class Sidebar extends Component {
     constructor(props) {
@@ -98,18 +98,19 @@ class Sidebar extends Component {
             <div className='sidebar'>
                 <div className='buttons'>
                     <h1>{this.props.database.name}</h1>
-                    <button onClick={this.showCreateTableForm}>⊕ New Table</button>
-                    <button onClick={this.showCreateAssociationForm}>Create Association</button>
+                    <CreateLoad />
+                    <button onClick={this.showCreateTableForm}>⊕ NEW TABLE</button>
+                    <button onClick={this.showCreateAssociationForm}>⊕ ASSOCIATION</button>
                     <button onClick={this.showRemoveTableForm}>Remove Table</button>
                     <button onClick={this.showLoadData}>Load Data</button>
                     <button onClick={this.showUpdateTableName}>Update Table Name</button>
-                    <CreateLoad />
+                    <ShowSQL/>
                     {this.state.showCreateTable ? <CreateTable /> : null}
                     {this.state.showRemoveTable ? <RemoveTable /> : null}
                     {this.state.showCreateAssociation ? <Association /> : null}
                     {this.state.showLoadData ? <LoadData /> : null}
                     {this.state.showUpdateTable ? <UpdateTableName /> : null}
-
+                    
                 </div>
             </div>
         )
