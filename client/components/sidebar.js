@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {getUserDatabases} from '../store'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, UpdateTableName} from './index';
+import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, UpdateTableName, UpdateFieldName} from './index';
 
 class Sidebar extends Component {
     constructor(props) {
@@ -11,7 +11,8 @@ class Sidebar extends Component {
         this.state = {
             showCreateTable: false,
             showRemoveTable: false,
-            showUpdateTable: false
+            showUpdateTable: false,
+            showUpdateField: false
             // ,
             // showAssociation: false
         }
@@ -19,6 +20,7 @@ class Sidebar extends Component {
         this.showCreateTableForm = this.showCreateTableForm.bind(this);
         this.showRemoveTableForm = this.showRemoveTableForm.bind(this);
         this.showUpdateTableName = this.showUpdateTableName.bind(this);
+        this.showUpdateFieldName = this.showUpdateFieldName.bind(this);
         // this.showAssociationForm = this.showAssociationForm.bind(this);
     }
 
@@ -27,7 +29,8 @@ class Sidebar extends Component {
         this.setState({
             showCreateTable: true,
             showRemoveTable: false,
-            showUpdateTable: false
+            showUpdateTable: false,
+            showUpdateField: false
             // ,
             // showAssociation: false
         })
@@ -38,7 +41,8 @@ class Sidebar extends Component {
         this.setState({
             showCreateTable: false,
             showRemoveTable: true,
-            showUpdateTable: false
+            showUpdateTable: false,
+            showUpdateField: false
             // ,
             // showAssociation: false
         })
@@ -49,7 +53,18 @@ class Sidebar extends Component {
         this.setState({
             showCreateTable: false,
             showRemoveTable: false,
-            showUpdateTable: true
+            showUpdateTable: true,
+            showUpdateField: false
+        })
+    }
+
+    showUpdateFieldName(e) {
+        e.preventDefault();
+        this.setState({
+            showCreateTable: false,
+            showRemoveTable: false,
+            showUpdateTable: false,
+            showUpdateField: true
         })
     }
     // showAssociationForm(e){
@@ -76,9 +91,11 @@ class Sidebar extends Component {
                 <button onClick={this.showCreateTableForm}>Create Table</button>
                 <button onClick={this.showRemoveTableForm}>Remove Table</button>
                 <button onClick={this.showUpdateTableName}>Update Table Name</button>
+                <button onClick={this.showUpdateFieldName}>Update Field Name</button>
                 {this.state.showCreateTable ? <CreateTable /> : null}
                 {this.state.showRemoveTable ? <RemoveTable /> : null}
                 {this.state.showUpdateTable ? <UpdateTableName /> : null}
+                {this.state.showUpdateField ? <UpdateFieldName /> : null}
                 </div>
             </div>
         )
