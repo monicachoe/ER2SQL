@@ -17194,6 +17194,8 @@ var _axios = __webpack_require__(19);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _store = __webpack_require__(10);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -17216,12 +17218,25 @@ var addAssociation = function addAssociation(association) {
  */
 // Make axios request too!!! --> post to database
 // Assuming that posting to metatable returns the tableId!!!!!
+// export const createAssociation = (dbName, src, target, assocType, fkName) =>
+//   dispatch => {
+//   axios.post('/api/association', {dbName, src, target, assocType, fkName})
+//   .then(res => res.data)
+//   .then(res=>{
+//     return axios.post('/api/metatable', {'tableName' : res, 'databaseId': src.databaseId})
+//   })
+//   .then(res => dispatch(getMetatables(src.databaseId)))
+//   .catch(err => console.log(err));
+// }
+
 var createAssociation = exports.createAssociation = function createAssociation(dbName, src, target, assocType, fkName) {
   return function (dispatch) {
-    _axios2.default.post('/api/association', { dbName: dbName, src: src, target: target, assocType: assocType, fkName: fkName }).then(function (res) {
-      return res.data;
+    _axios2.default.post('/api/metatable', { 'tableName': src.name + '_' + target.name, 'databaseId': src.databaseId }).then(function (res) {
+      return res.data.id;
+    }).then(function (tableID) {
+      return _axios2.default.post('/api/association', { dbName: dbName, src: src, target: target, assocType: assocType, fkName: fkName, 'tableId': tableID });
     }).then(function (res) {
-      return dispatch(addAssociation(res));
+      return dispatch((0, _store.getMetatables)(src.databaseId));
     }).catch(function (err) {
       return console.log(err);
     });
