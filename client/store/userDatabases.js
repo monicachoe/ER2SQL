@@ -3,19 +3,19 @@ import axios from 'axios';
 
 /* ------------   ACTION TYPES     ------------------ */
 const LOAD_ALL_USER_DATABASES = 'LOAD_ALL_USER_DATABASES';
-const REMOVE = 'REMOVE';
+const REMOVE_DB = 'REMOVE_DB';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
 const load = (userDbs) => ({type: LOAD_ALL_USER_DATABASES, userDbs });
-const remove = () => ({type: REMOVE});
+const remove = () => ({type: REMOVE_DB});
 
 /* ------------       REDUCERS     ------------------ */
 export default function reducer(state = [], action){
   switch (action.type){
     case LOAD_ALL_USER_DATABASES:
       return action.userDbs;
-    case REMOVE:
+    case REMOVE_DB:
       return [];
     default:
       return state;
