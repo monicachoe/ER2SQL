@@ -24,6 +24,7 @@ class ShowModal extends Component {
         <Modal className = 'modal' show={this.state.isOpen}
           onClose={this.toggleModal}>
           <Login className = 'ShowModal'/>
+          <button onClick={this.toggleModal}>nevermind :(</button>
         </Modal>
       </div>
     );

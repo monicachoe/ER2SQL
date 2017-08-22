@@ -21,9 +21,9 @@ class RemoveTable extends Component{
 
   handleSubmit(evt){
     evt.preventDefault();
-    this.props.removeTable(this.state.tableName, this.state.tableId);
-    history.push('/schema')
-    this.props.getTables(this.props.database.id)
+    this.props.removeTable(this.state.tableName, this.state.tableId, this.props.database.id);
+    // history.push('/schema')
+    // this.props.getTables(this.props.database.id)
   }
   render() {
     return (
@@ -56,8 +56,8 @@ const mapStateToProps = function(state){
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeTable(tableName, tableId){
-      dispatch(deleteTable(tableName, Number(tableId)));
+    removeTable(tableName, tableId, databaseId){
+      dispatch(deleteTable(tableName, Number(tableId), databaseId));
     },
     getTables(databaseId){
       dispatch(getMetatables(databaseId))

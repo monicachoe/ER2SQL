@@ -37,7 +37,7 @@ class UserHome extends Component {
                 {
                   databases.map((db) =>
                     <div key = {db.id} className='dbImg'>
-                      <img src={'https://www.moh.io/box/mohiomap-boxbeta/images/privacy/database.svg'} />
+                      <img src={'https://d3pl14o4ufnhvd.cloudfront.net/v2/uploads/d847032d-b1d0-4a02-ae73-6ece9628a1b4/7862911875c02202a4fafd4b3fbce3fa559108b0_original.png'} />
                       <button onClick = {this.handleClick}>{db.name}</button>
                     </div>
                   )

@@ -9,33 +9,20 @@ class CreateLoad extends Component {
         super(props)
         this.state = {
             showCreate: false,
-            showLoad: false
         }
         this.showCreateForm = this.showCreateForm.bind(this);
-        this.showLoadForm = this.showLoadForm.bind(this);
     }
     showCreateForm(evt) {
         evt.preventDefault()
         this.setState({
             showCreate: !this.state.showCreate
         })
-        this.props.clearTables();
-    }
-
-    showLoadForm(evt) {
-        evt.preventDefault()
-        this.setState({
-            showLoad: !this.state.showLoad
-        })
-        this.props.getUserDatabases(this.props.user.id);
-        this.props.clearTables();
     }
 
     render() {
         return (
             <div className = 'ShowModal'>
                 <button onClick={this.showCreateForm}>Create Db</button>
-                <button onClick={this.showLoadForm}>Load DB</button>
                 <Modal className = 'modal' show= {this.state.showCreate}
                     onClose={this.showCreateForm}>
                     <CreateDB/>

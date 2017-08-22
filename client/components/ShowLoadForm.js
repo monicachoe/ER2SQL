@@ -1,32 +1,33 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {getUserDatabases, clearTemp} from '../store'
-import { CreateDB } from './index';
+import { LoadDB } from './index';
 import Modal from './Modal';
 
-class ShowCreateForm extends Component {
+class CreateLoad extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showCreate: false,
+            showLoad: false
         }
-        this.showCreateForm = this.showCreateForm.bind(this);
+        this.showLoadForm = this.showLoadForm.bind(this);
     }
-    showCreateForm(evt) {
+    showLoadForm(evt) {
         evt.preventDefault()
         this.setState({
-            showCreate: !this.state.showCreate
+            showLoad: !this.state.showLoad
         })
+        this.props.getUserDatabases(this.props.user.id);
     }
 
     render() {
         return (
             <div className = 'ShowModal'>
-                <button onClick={this.showCreateForm}>+ NEW DATABASE</button>
-                <Modal className = 'modal' show= {this.state.showCreate}
-                    onClose={this.showCreateForm}>
-                    <CreateDB/>
-                    <button onClick ={this.showCreateForm}>DONE</button>
+                <button onClick={this.showLoadForm}>Load Database</button>
+                <Modal className = 'modal' show= {this.state.showLoad}
+                    onClose={this.showLoadForm}>
+                    <LoadDB/>
+                    <button onClick ={this.showLoadForm}>DONE</button>
                 </Modal>
             </div>
         )
@@ -46,4 +47,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowCreateForm);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateLoad);

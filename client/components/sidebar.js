@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getUserDatabases } from '../store'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { CreateTable, Field, CreateDB, RemoveTable, LoadDB, Modal, Association, CreateLoad, LoadData, ShowModal, UpdateTableName, ShowSQL } from './index';
+import { CreateTable, Field, CreateDB, RemoveTable, LoadDB, Modal, Association, ShowCreateForm, ShowLoadForm, ShowLoadDataForm, LoadData, ShowModal, UpdateTableName, ShowSQL } from './index';
 
 class Sidebar extends Component {
     constructor(props) {
@@ -77,17 +77,18 @@ class Sidebar extends Component {
             <div className='sidebar'>
                 <div className='buttons'>
                     <h1>{this.props.database.name}</h1>
-                    <CreateLoad />
-                    <button onClick={this.showCreateTableForm}>⊕ NEW TABLE</button>
-                    <button onClick={this.showCreateAssociationForm}>⊕ ASSOCIATION</button>
-                    <button onClick={this.showRemoveTableForm}>Remove Table</button>
-                    <button onClick={this.showLoadData}>Load Data</button>
+                    <ShowCreateForm/>
+                    <ShowLoadForm/>
+                    <button onClick={this.showCreateTableForm}>+ NEW TABLE</button>
+                    <button onClick={this.showCreateAssociationForm}>+ ASSOCIATION</button>
+                    <button onClick={this.showRemoveTableForm}>REMOVE TABLE</button>
+                    <button onClick={this.showLoadData}>LOAD DATA</button>
                     <button onClick={this.showUpdateTableName}>Update Table Name</button>
                     <ShowSQL/>
                     {this.state.showCreateTable ? <CreateTable /> : null}
                     {this.state.showRemoveTable ? <RemoveTable /> : null}
                     {this.state.showCreateAssociation ? <Association /> : null}
-                    {this.state.showLoadData ? <LoadData /> : null}
+                    <ShowLoadDataForm/>
                     {this.state.showUpdateTable ? <UpdateTableName /> : null}
                     
                 </div>
