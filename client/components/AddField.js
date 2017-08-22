@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Field = (props) => {
-    const types = ['String', 'Text', 'Float', 'Date', 'Boolean', 'Enum', 'Array'];
+    const types = ['string', 'text', 'integer','float', 'date', 'boolean', 'enum', 'array'];
     const {handleChange, id} = props;
     return (
         <div>

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {getMetatables} from '../store';
 
 /**
  * ACTION TYPES
@@ -14,15 +15,21 @@ const addAssociation = (association) => ({type : ADD_ASSOCIATION, association})
 /**
  * THUNK CREATORS
  */
-// Make axios request too!!! --> post to database
-// Assuming that posting to metatable returns the tableId!!!!!
+
 export const createAssociation = (dbName, src, target, assocType, fkName) =>
   dispatch => {
-  axios.post('/api/association', {dbName, src, target, assocType, fkName})
-  .then(res => res.data)
-  .then(res => dispatch(addAssociation(res)))
-  .catch(err => console.log(err));
-}
+    if (assocType==='many to many'){
+      axios.post('/api/metatable', {'tableName' : src.name+'_'+target.name, 'databaseId': src.databaseId})
+      .then(res => res.data.id)
+      .then(tableID => axios.post('/api/association', {dbName, src, target, assocType, fkName, 'tableId': tableID}))
+      .then(res => dispatch(getMetatables(src.databaseId)))
+      .catch(err => console.log(err));
+    } else {
+      axios.post('/api/association', {dbName, src, target, assocType, fkName})
+      .then(res => res.data)
+      .catch(err => console.log(err));
+    }
+  }
 
 /**
  * REDUCER

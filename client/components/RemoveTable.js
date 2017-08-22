@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {deleteTable} from '../store';
+import {deleteTable, getMetatables} from '../store';
+import history from '../history'
 
 class RemoveTable extends Component{
   constructor(props){
@@ -21,6 +22,8 @@ class RemoveTable extends Component{
   handleSubmit(evt){
     evt.preventDefault();
     this.props.removeTable(this.state.tableName, this.state.tableId);
+    history.push('/schema')
+    this.props.getTables(this.props.database.id)
   }
   render() {
     return (
@@ -55,7 +58,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     removeTable(tableName, tableId){
       dispatch(deleteTable(tableName, Number(tableId)));
+    },
+    getTables(databaseId){
+      dispatch(getMetatables(databaseId))
     }
+
   }
 }
 

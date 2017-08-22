@@ -88,4 +88,4 @@ const mapDispatchToProps = function(dispatch){
 	}
 }
 
-	export default connect(mapStateToProps, mapDispatchToProps)(UpdateTableName);
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateTableName);

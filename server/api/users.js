@@ -30,7 +30,7 @@ router.post('/:userId/database/:dbName', (req, res, next) => {
   }})
   .spread( (db, created) => {
     if (!created){
-      throw new Error(`Database ${req.params.dbName} already exists`);
+      res.status(401).send(`Database ${req.params.dbName} already exists`)
     }
     else {
       res.send(db);

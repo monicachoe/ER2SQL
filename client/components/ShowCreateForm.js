@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {getUserDatabases, clearTemp} from '../store'
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import {CreateDB, LoadDB} from './index';
-import Modal from './Modal';
 
 class CreateLoad extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showCreate: false,
-            showLoad: false
+            isOpen: false
         }
         this.showCreateForm = this.showCreateForm.bind(this);
         this.showLoadForm = this.showLoadForm.bind(this);
@@ -17,7 +17,8 @@ class CreateLoad extends Component {
     showCreateForm(evt) {
         evt.preventDefault()
         this.setState({
-            showCreate: !this.state.showCreate
+            showCreate: !this.showCreate,
+            showLoad: 
         })
         this.props.clearTables();
     }
@@ -25,36 +26,26 @@ class CreateLoad extends Component {
     showLoadForm(evt) {
         evt.preventDefault()
         this.setState({
-            showLoad: !this.state.showLoad
+            showCreate: false,
+            showLoad: true
         })
         this.props.getUserDatabases(this.props.user.id);
         this.props.clearTables();
     }
 
     render() {
-        let error = this.props.error;
         return (
-            <div className = 'ShowModal'>
+            <div className = 'createLoad'>
                 <button onClick={this.showCreateForm}>Create Db</button>
                 <button onClick={this.showLoadForm}>Load DB</button>
-                <Modal className = 'modal' show= {this.state.showCreate}
-                    onClose={this.showCreateForm}>
-                    <CreateDB/>
-                    <button onClick ={this.showCreateForm}>DONE</button>
-                    {error && error.response && <div> {error.response.data} </div>}
-                </Modal>
+                {this.state.showLoad ? <LoadDB/> : <div/>}
+                {this.state.showCreate ? <CreateDB/> : <div/>}
             </div>
         )
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        user : state.user,
-        userdbs : state.userdbs,
-        error : state.database.error
-    }
-}
+const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
 
 const mapDispatchToProps = (dispatch) => {
   return {

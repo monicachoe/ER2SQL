@@ -31,7 +31,7 @@ class UserHome extends Component {
         {
           (databases.length)
             ? <div className = 'userHome'>
-              <h1>Welcome {this.props.user.name}</h1>
+              <h1>Welcome {this.props.user.name}, you have {databases.length} databases </h1>
               
               <div className='db'>
                 {
