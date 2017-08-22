@@ -1,24 +1,49 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { withRouter, NavLink } from 'react-router-dom'; 
-import store, {deleteTable} from '../store';
+import {deleteTable} from '../store';
 
-function RemoveTable (props){
-  let tables = props.tables;
-  let handleSubmit = props.handleSubmit;
-    return(
-        <div>
-          <form onSubmit={handleSubmit}>
-            <label>
-              Table Name : 
-              <select name='tableName'><option>-</option>
-                {Object.keys(tables).map(each => <option key={each}>{tables[each].id} {tables[each].name}</option>)}
-              </select>
-            </label>
-            <input type='submit' />
-          </form>
-        </div>
-      )
+class RemoveTable extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      tableName: '',
+      tableId: null
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(evt){
+    let tableName = this.props.database.name + evt.target.value + 's';
+    console.log("from handleChange: ", tableName);
+    this.setState({tableName: tableName, tableId: evt.target.value})
+  }
+
+  handleSubmit(evt){
+    evt.preventDefault();
+    console.log("from handleSubmit: ", this.state.tableName);
+    this.props.removeTable(this.state.tableName, this.state.tableId);
+  }
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="tableName">Table Name :</label>
+          <select name='tableName' onChange={this.handleChange}>
+            <option>-select-</option>
+            {this.props.tables && this.props.tables.map(table =>
+               (<option key={table.tableId} value={table.tableId}>
+                  {table.name}
+                </option>)
+            )}
+            </select>
+
+          <input type='submit' />
+        </form>
+      </div>
+    )
+  }
+
 }
 
 const mapStateToProps = function(state){
@@ -30,11 +55,8 @@ const mapStateToProps = function(state){
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleSubmit(e){
-      e.preventDefault();
-      let splitName = e.target.tableName.value.split(" ");
-      let tableName = splitName[0]+splitName[1]+'s';
-      dispatch(deleteTable(tableName, Number(splitName[1])));
+    removeTable(tableName, tableId){
+      dispatch(deleteTable(tableName, Number(tableId)));
     }
   }
 }

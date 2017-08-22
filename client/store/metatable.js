@@ -78,11 +78,11 @@ export const addTableToTemp = (table) =>
     .then(() => dispatch(addTable({name: table.tableName, fields: Object.keys(table.fields), databaseId: table.database.id, tableId})));
   }
 
-export const addFieldToTable = (curTable, name, attributes) => 
+export const addFieldToTable = (curTable, name, attributes) =>
   dispatch =>
     dispatch(addField(curTable, name, attributes));
 
-export const deleteTable = (tableName, tableId) => 
+export const deleteTable = (tableName, tableId) =>
     dispatch =>
     axios.delete(`/api/tables/${tableName}`)
       .then(res => dispatch(removeTable(tableName)))
@@ -103,7 +103,7 @@ export default function (state = defaultTables, action) {
       return action.tables
     case REMOVE:
       return []
-    case ADD_TABLE: 
+    case ADD_TABLE:
       return [...state, action.table];
     case ADD_FIELD:
       console.log('inside add field', action)

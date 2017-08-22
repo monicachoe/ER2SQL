@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {getUserDatabases} from '../store'
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, Modal, Association, CreateLoad} from './index';
-import {default as ShowModal} from './ShowModal'
+import {CreateTable, RemoveTable, Association} from './index';
 
 class Sidebar extends Component {
     constructor(props) {

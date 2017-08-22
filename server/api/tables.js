@@ -15,7 +15,7 @@ router.post('/', (req, res, next) => {
 
 router.delete('/:tablename', (req, res, next) => {
     var table = req.params.tablename
-    client.query(`DROP TABLE ${table}`, function (err, result) {
+    client.query(`DROP TABLE "${table}" CASCADE`, function (err, result) {
       if (err) return next(err);
       res.send(`OK. Table ${table} deleted.`);
     });
