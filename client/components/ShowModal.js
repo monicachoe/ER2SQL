@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Modal from './Modal';
-import {Login} from './auth-form'
+import {Login} from './AuthForm'
 
 class ShowModal extends Component {
   constructor(props) {

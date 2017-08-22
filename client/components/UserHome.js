@@ -27,11 +27,12 @@ class UserHome extends Component {
     var databases = this.props.userdbs
     return (
       <div>
+        <CreateLoad />
         {
           (databases.length)
             ? <div className = 'userHome'>
               <h1>Welcome {this.props.user.name}</h1>
-              <CreateLoad />
+              
               <div className='db'>
                 {
                   databases.map((db) =>
