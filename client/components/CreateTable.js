@@ -8,7 +8,7 @@ class CreateTable extends Component{
         this.state = {
             tableName : '',
             fields : [],
-            typeSelected : []
+            valid : false
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,35 +19,32 @@ class CreateTable extends Component{
         e.preventDefault();
         this.setState({
             fields : [...this.state.fields, {}],
-            typeSelected : [...this.state.typeSelected, false]
+            valid : false
         });
     }
 
     handleChange(e){
         e.preventDefault();
-        let name = e.target.name;
-        let value = e.target.value;
-        if (name==='type') {
-            this.state.typeSelected[e.target.id] = true;
+        if (e.target.name==='tableName') {
             this.setState({
-                typeSelected : this.state.typeSelected
-            })}
-        if (name==='tableName') {this.setState({tableName : value})}
+                tableName : e.target.value,
+                valid : validator(this.state.fields)
+            })
+        }
         else {
-            this.state.fields[e.target.id] = Object.assign({}, this.state.fields[e.target.id], {[name]: value});
+            this.state.fields[e.target.id] = Object.assign({}, this.state.fields[e.target.id], {[e.target.name]: e.target.value});
             this.setState({
-                fields : this.state.fields
+                fields : this.state.fields,
+                valid : validator(this.state.fields)
             })
         }
     }
     
     handleSubmit(e){
         e.preventDefault();
-        let tableName = this.state.tableName;
         let curFields = this.state.fields;
         let curState = store.getState();
-        let database = curState.database;
-        let table = {tableName, fields : {}, database};
+        let table = {tableName : this.state.tableName, fields : {}, database : curState.database};
         for (var field of curFields){
             let temp = field.columnName;
             delete field['columnName'];
@@ -57,7 +54,7 @@ class CreateTable extends Component{
         this.setState({
             tableName : '',
             fields : [],
-            typeSelected : []
+            valid : false
         });
     }
 
@@ -67,13 +64,23 @@ class CreateTable extends Component{
             <form onSubmit={this.handleSubmit}>
             <label>Table Name: <input type='text' name='tableName' onChange={this.handleChange} value={this.state.tableName}/></label>
             <button onClick={this.handleClick}>Add Field</button>
-            <input type='submit' disabled={(this.state.tableName.length === 0) || (this.state.typeSelected.length!==0 && this.state.typeSelected.filter(each => !each).length!==0)}/>
+            <input type='submit' disabled={(this.state.tableName.length === 0) || !this.state.valid}/>
             {(this.state.tableName.length === 0) ? <p>Please input table name</p> : null}
+            {(!this.state.valid && this.state.fields.length!==0) ? <p>Name and type of column is required</p> : null}
             <hr />
-            {fieldsArr.map(each => <AddField key={each} id={each} typeSelected={this.state.typeSelected[each]} handleChange={this.handleChange}/>)}
+            {fieldsArr.map(each => <AddField key={each} id={each} handleChange={this.handleChange}/>)}
             </form>
         );
     }
 }
+
+function validator(fields){
+        for (let each of fields){
+            if (each.columnName===undefined || each.columnName==='' || each.type===undefined || each.type==='-') {
+                return false
+            }
+        }
+        return true;
+    }
 
 export default CreateTable;

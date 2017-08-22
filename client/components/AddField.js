@@ -2,7 +2,7 @@ import React from 'react';
 
 const Field = (props) => {
     const types = ['string', 'text', 'float', 'date', 'boolean', 'enum', 'array'];
-    const {handleChange, id, typeSelected} = props;
+    const {handleChange, id} = props;
     return (
         <div>
             <label>Name: <input type='text' name='columnName' id={id} onChange={handleChange}/></label>
@@ -13,7 +13,6 @@ const Field = (props) => {
             </label>
             <label>Default Value: <input type='text' name='defaultValue' id={id} onChange={handleChange}/></label>
             <label>Validations: <select><option id={id} onChange={handleChange}>-</option></select></label>
-            {typeSelected ? null : <p>Choose column type</p>}
             <hr />
         </div>
     )

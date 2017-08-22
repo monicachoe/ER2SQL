@@ -14950,8 +14950,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Field = function Field(props) {
     var types = ['string', 'text', 'float', 'date', 'boolean', 'enum', 'array'];
     var handleChange = props.handleChange,
-        id = props.id,
-        typeSelected = props.typeSelected;
+        id = props.id;
 
     return _react2.default.createElement(
         'div',
@@ -15002,11 +15001,6 @@ var Field = function Field(props) {
                     '-'
                 )
             )
-        ),
-        typeSelected ? null : _react2.default.createElement(
-            'p',
-            null,
-            'Choose column type'
         ),
         _react2.default.createElement('hr', null)
     );
@@ -15060,7 +15054,7 @@ var CreateTable = function (_Component) {
         _this.state = {
             tableName: '',
             fields: [],
-            typeSelected: []
+            valid: false
         };
         _this.handleClick = _this.handleClick.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -15074,27 +15068,23 @@ var CreateTable = function (_Component) {
             e.preventDefault();
             this.setState({
                 fields: [].concat(_toConsumableArray(this.state.fields), [{}]),
-                typeSelected: [].concat(_toConsumableArray(this.state.typeSelected), [false])
+                valid: false
             });
         }
     }, {
         key: 'handleChange',
         value: function handleChange(e) {
             e.preventDefault();
-            var name = e.target.name;
-            var value = e.target.value;
-            if (name === 'type') {
-                this.state.typeSelected[e.target.id] = true;
+            if (e.target.name === 'tableName') {
                 this.setState({
-                    typeSelected: this.state.typeSelected
+                    tableName: e.target.value,
+                    valid: validator(this.state.fields)
                 });
-            }
-            if (name === 'tableName') {
-                this.setState({ tableName: value });
             } else {
-                this.state.fields[e.target.id] = Object.assign({}, this.state.fields[e.target.id], _defineProperty({}, name, value));
+                this.state.fields[e.target.id] = Object.assign({}, this.state.fields[e.target.id], _defineProperty({}, e.target.name, e.target.value));
                 this.setState({
-                    fields: this.state.fields
+                    fields: this.state.fields,
+                    valid: validator(this.state.fields)
                 });
             }
         }
@@ -15102,11 +15092,9 @@ var CreateTable = function (_Component) {
         key: 'handleSubmit',
         value: function handleSubmit(e) {
             e.preventDefault();
-            var tableName = this.state.tableName;
             var curFields = this.state.fields;
             var curState = _store2.default.getState();
-            var database = curState.database;
-            var table = { tableName: tableName, fields: {}, database: database };
+            var table = { tableName: this.state.tableName, fields: {}, database: curState.database };
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
             var _iteratorError = undefined;
@@ -15138,7 +15126,7 @@ var CreateTable = function (_Component) {
             this.setState({
                 tableName: '',
                 fields: [],
-                typeSelected: []
+                valid: false
             });
         }
     }, {
@@ -15161,17 +15149,20 @@ var CreateTable = function (_Component) {
                     { onClick: this.handleClick },
                     'Add Field'
                 ),
-                _react2.default.createElement('input', { type: 'submit', disabled: this.state.tableName.length === 0 || this.state.typeSelected.length !== 0 && this.state.typeSelected.filter(function (each) {
-                        return !each;
-                    }).length !== 0 }),
+                _react2.default.createElement('input', { type: 'submit', disabled: this.state.tableName.length === 0 || !this.state.valid }),
                 this.state.tableName.length === 0 ? _react2.default.createElement(
                     'p',
                     null,
                     'Please input table name'
                 ) : null,
+                !this.state.valid && this.state.fields.length !== 0 ? _react2.default.createElement(
+                    'p',
+                    null,
+                    'Name and type of column is required'
+                ) : null,
                 _react2.default.createElement('hr', null),
                 fieldsArr.map(function (each) {
-                    return _react2.default.createElement(_components.AddField, { key: each, id: each, typeSelected: _this2.state.typeSelected[each], handleChange: _this2.handleChange });
+                    return _react2.default.createElement(_components.AddField, { key: each, id: each, handleChange: _this2.handleChange });
                 })
             );
         }
@@ -15179,6 +15170,37 @@ var CreateTable = function (_Component) {
 
     return CreateTable;
 }(_react.Component);
+
+function validator(fields) {
+    var _iteratorNormalCompletion2 = true;
+    var _didIteratorError2 = false;
+    var _iteratorError2 = undefined;
+
+    try {
+        for (var _iterator2 = fields[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var each = _step2.value;
+
+            if (each.columnName === undefined || each.columnName === '' || each.type === undefined || each.type === '-') {
+                return false;
+            }
+        }
+    } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+            }
+        } finally {
+            if (_didIteratorError2) {
+                throw _iteratorError2;
+            }
+        }
+    }
+
+    return true;
+}
 
 exports.default = CreateTable;
 
