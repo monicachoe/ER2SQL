@@ -27,7 +27,9 @@ router.post('/', (req, res, next) => {
   var name = req.body.tableName;
   var databaseId = req.body.databaseId;
   Table.create({ name, databaseId })
-    .then((table) => res.status(204).json(table))
+    .then((table) => {
+      res.send(table);
+    })
     .catch(next);
 });
 
