@@ -6,12 +6,12 @@ import {load} from './index';
  * ACTION TYPES
  */
 const GET_TABLES = 'GET_TABLES'
-const GET_COLUMNS = 'GET_COLUMNS'
 const REMOVE = 'REMOVE'
 
 const ADD_TABLE = 'ADD_TABLE';
 const ADD_FIELD = 'ADD_FIELD';
 const REMOVE_TABLE = 'REMOVE_TABLE';
+const UPDATE_TABLENAME = 'UPDATE_TABLENAME';
 
 /**
  * INITIAL STATE
@@ -26,7 +26,7 @@ const remove = ()=> ({type: REMOVE});
 const addTable = table => ({type: ADD_TABLE, table});
 const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field});
 const removeTable = (tableName) => ({type: REMOVE_TABLE, tableName});
-
+const updateTableName = (curName, newName) => ({type: UPDATE_TABLENAME, curName, newName});
 /**
  * THUNK CREATORS
  */
@@ -63,8 +63,6 @@ export const clearMetatable = () => dispatch => {
   dispatch(remove());
 }
 
-//// FROM TEMP
-// fields : [{id : integer}, {name : string}]
 export const addTableToTemp = (table) =>
   dispatch => {
     let tableId, tableName;
@@ -96,10 +94,11 @@ export const deleteTable = (tableName, tableId) =>
       .then(() => axios.delete(`/api/metatable/${tableId}`))
       .catch(err => console.log(err))
 
-export const clearTemp = () =>
-  dispatch =>
-    dispatch(remove());
-
+export const putTablename = (curName, newName, databaseId) => 
+  dispatch => 
+    axios.put(`/api/metatable/${curName}`, {name : newName, databaseId})
+    .then(res => dispatch(updateTableName(curName, newName)))
+    .catch(err => console.log(err));
 
 /**
  * REDUCER
@@ -118,6 +117,16 @@ export default function (state = defaultTables, action) {
       let otherTables = state.filter(each => each.tableName !== action.curTable);
       table.fields[action.field.name] = action.attributes;
       return [...otherTables, table];
+    case UPDATE_TABLENAME:
+      let tables = [];
+      for (let table of state){
+        if (table.name === action.curName){
+          tables.push(Object.assign({}, table, {name : action.newName}));
+        } else {
+          tables.push(table);
+        }
+      }
+      return tables;
     case REMOVE_TABLE:
       return state.filter(each => each.tableName !== action.tableName);
     default:

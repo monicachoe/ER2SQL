@@ -14,6 +14,6 @@ export {default as Modal} from './Modal'
 export {default as ShowModal} from './ShowModal'
 export {default as SchemaPage} from './SchemaPage';
 export {default as LoadData} from './LoadDataToTables';
-export {default as UpdateTableName} from './UpdateTableName';
+export {default as UpdateTablename} from './UpdateTablename';
 export {default as GenerateSQL} from './GenerateSQL'
 export {default as ShowSQL} from './ShowSQL'

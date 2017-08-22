@@ -58,7 +58,6 @@ const mapDispatch = (dispatch) => {
       dispatch(clearUserDbs());
       dispatch(clearDatabase());
       dispatch(clearMetatable());
-      dispatch(clearTemp());
       dispatch(logout());
     }
   }
