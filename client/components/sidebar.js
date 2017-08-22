@@ -82,7 +82,6 @@ class Sidebar extends Component {
                     <button onClick={this.showCreateTableForm}>+ NEW TABLE</button>
                     <button onClick={this.showCreateAssociationForm}>+ ASSOCIATION</button>
                     <button onClick={this.showRemoveTableForm}>REMOVE TABLE</button>
-                    <button onClick={this.showLoadData}>LOAD DATA</button>
                     <button onClick={this.showUpdateTableName}>Update Table Name</button>
                     <ShowSQL/>
                     {this.state.showCreateTable ? <CreateTable /> : null}

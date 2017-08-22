@@ -49,6 +49,15 @@ font-family: 'Cabin', sans-serif;
     margin: 10px 45px;
     border-radius:5px;
 }
+caption{
+    border: 2px solid black; /* No more visible border */
+    height: 35px; 
+    transition: all 0.3s;
+    background: white;  /* Darken header a bit */
+    font-weight: bold;
+    font-size: 30px;
+    border-radius: 5px;
+}
 
 td, th {  
     border: 1px solid lightblue; /* No more visible border */
@@ -74,7 +83,7 @@ td {
     background-image: url('http://www.powerpointhintergrund.com/uploads/presentation-background-grids-25.gif');
   }
   .schild1{
-    width:300px;
+    width:350px;
     height:100vh;
   }
   .schild2{
@@ -95,9 +104,10 @@ td {
   .box{
     display:flex;
     flex-direction: row;
+    margin: 30px 0px;
   }
   .sidebar{
-    background-color:lightgray;
+    background-color:lightblue;
     height:80vh;
     display: flex;
     padding: 0 15px;
@@ -181,5 +191,8 @@ td {
     background: white;
     border: 2px solid black;
 
+  }
+  .tableName{
+    width:100%;
   }
 }
