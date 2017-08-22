@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 function toSequelize(type){
-    let d = {'String': Sequelize.STRING, 'Text': Sequelize.TEXT, 'Float': Sequelize.FLOAT, 'Date': Sequelize.DATE, 'Boolean': Sequelize.BOOLEAN, 'Enum': Sequelize.ENUM, 'Array': Sequelize.ARRAY};
+    let d = {'string': Sequelize.STRING, 'text': Sequelize.TEXT, 'integer': Sequelize.INTEGER,'float': Sequelize.FLOAT, 'date': Sequelize.DATE, 'boolean': Sequelize.BOOLEAN, 'enum': Sequelize.ENUM, 'array': Sequelize.ARRAY};
     return d[type];
 }
 

@@ -75,7 +75,7 @@ export const addTableToTemp = (table) =>
       tableName = table.database.name + tableId
       return res.data})
     .then(res => axios.post('/api/tables', {tableName, 'fields' : table.fields}))
-    .then(() => dispatch(addTable({name: table.tableName, fields: Object.keys(table.fields), databaseId: table.database.id, tableId})));
+    .then(() => dispatch(addTable({name: table.tableName, fields: ['id', ...Object.keys(table.fields), 'createdAt', 'updatedAt'], databaseId: table.database.id, tableId})));
   }
 
 export const addFieldToTable = (curTable, name, attributes) =>
@@ -109,7 +109,7 @@ export default function (state = defaultTables, action) {
       console.log('inside add field', action)
       let table = state.filter(each => each.tableName === action.curTable)[0];
       let otherTables = state.filter(each => each.tableName !== action.curTable);
-      table.fields[action.name] = action.attributes;
+      table.fields[action.field.name] = action.attributes;
       return [...otherTables, table];
     case REMOVE_TABLE:
       return state.filter(each => each.tableName !== action.tableName);
