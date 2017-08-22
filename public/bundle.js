@@ -16717,147 +16717,13 @@ exports.default = ShowModal;
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(9);
 
-var _reactRouterDom = __webpack_require__(21);
-
-var _store = __webpack_require__(8);
-
-var _store2 = _interopRequireDefault(_store);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var UpdateTableName = function (_Component) {
-	_inherits(UpdateTableName, _Component);
-
-	function UpdateTableName(props) {
-		_classCallCheck(this, UpdateTableName);
-
-		var _this = _possibleConstructorReturn(this, (UpdateTableName.__proto__ || Object.getPrototypeOf(UpdateTableName)).call(this, props));
-
-		_this.state = {
-			newName: '',
-			tableId: 0,
-			name: '',
-			databaseName: ''
-		};
-		_this.handleChange1 = _this.handleChange1.bind(_this);
-		_this.handleChange2 = _this.handleChange2.bind(_this);
-		_this.handleSubmit = _this.handleSubmit.bind(_this);
-		return _this;
-	}
-
-	_createClass(UpdateTableName, [{
-		key: 'handleChange1',
-		value: function handleChange1(event) {
-			console.log("eve", event.target.value);
-			var str = event.target.value.split(" ");
-			var num = Number(str[1]);
-			var nam = str[0];
-			var datab = this.props.database.name;
-			//console.log("y", typeof(ans))
-			this.setState({ tableId: num, name: nam, databaseName: datab });
-		}
-	}, {
-		key: 'handleChange2',
-		value: function handleChange2(event) {
-			console.log("handle", event.target.value);
-			this.setState({ newName: event.target.value });
-		}
-	}, {
-		key: 'handleSubmit',
-		value: function handleSubmit(event) {
-			event.preventDefault();
-			//let table = event.target.value
-			// console.log("table", table)
-			// console.log("event target", event.target)
-			// let splitName = event.target.tableName.value.split(" ");
-			//   let tableName = splitName[0]+splitName[1]+'s';
-			this.props.updateN(this.state.newName, this.state.tableId, this.state.name, this.state.databaseName);
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var tables = this.props.tables;
-			var database = this.props.database;
-			console.log("table", tables);
-			return _react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(
-					'form',
-					{ onSubmit: this.handleSubmit },
-					_react2.default.createElement(
-						'label',
-						null,
-						'Table Name :',
-						_react2.default.createElement(
-							'select',
-							{ value: this.state.tableId, onChange: this.handleChange1 },
-							_react2.default.createElement(
-								'option',
-								null,
-								'-'
-							),
-							Object.keys(tables).map(function (each) {
-								return _react2.default.createElement(
-									'option',
-									{ key: each },
-									tables[each].name,
-									' ',
-									tables[each].tableId
-								);
-							})
-						),
-						_react2.default.createElement('input', { type: 'text', value: this.state.newName, onChange: this.handleChange2 })
-					),
-					_react2.default.createElement(
-						'button',
-						{ type: 'submit' },
-						'Submit'
-					)
-				)
-			);
-		}
-	}]);
-
-	return UpdateTableName;
-}(_react.Component);
-
-var mapStateToProps = function mapStateToProps(state) {
-	console.log("props", state.metatable, "there", state.updateTableName, "data", state.database);
-	return {
-		tables: state.metatable,
-		table: state.table,
-		database: state.database
-	};
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	return {
-		updateN: function updateN(newName, tableId, name, databaseName) {
-			dispatch((0, _store.updateNameToTable)(newName, tableId, name, databaseName));
-		}
-	};
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UpdateTableName);
 
 /***/ }),
 /* 160 */
@@ -17533,7 +17399,6 @@ var getMetatables = exports.getMetatables = function getMetatables(databaseId) {
     var tempRealTables = [];
     var promises = [];
     var realTables = [];
-    console.log(databaseId);
     return _axios2.default.get('/api/metadatabase/' + databaseId + '/tables').then(function (res) {
       var tables = res.data;
       tables.forEach(function (table) {

@@ -38,7 +38,8 @@ router.get('/:tableId', (req, res, next) => {
   Table.findOne({ where: { id: tableId } })
     .then((table) => res.json(table))
     .catch(next)
-})
+});
+  
 router.get('/:tableId/columns', (req, res, next) => {
   var tableId = req.params.tableId;
   Table.findOne({ where: { id: tableId } })
