@@ -12,6 +12,7 @@ router.post('/upload/:tableName', (req, res, next) => {
      res.sendStatus(404);
     }
     else {
+        client.query(`ALTER TABLE "${req.params.tableName}" DROP column "createdAt", DROP column "updatedAt"`);
         var stream = client.query(copyFrom(`COPY "${req.params.tableName}" FROM STDIN CSV`));
         var fileStream = fs.createReadStream(path.resolve( __dirname, `../data/${req.params.tableName}.csv`));
         fileStream.on('error', (err) => console.log("error", err));
@@ -26,8 +27,6 @@ router.post('/upload/:tableName', (req, res, next) => {
         fileStream.pipe(stream);
     }
   })
-
-
 })
 
 module.exports = router;
