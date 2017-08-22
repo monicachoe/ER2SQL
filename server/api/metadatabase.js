@@ -18,7 +18,9 @@ router.post('/', (req, res, next) => {
     var userId = req.body.userId
     Database.create({ name, userId })
         .then(() => res.status(204).send(`created db with name ${name}, and userId ${userId}`))
-        .catch(next)
+        .catch(err => {
+            res.status(401).send(`Database ${name} already exists`)
+        })
 });
 
 router.get('/:databaseId/tables', (req, res, next) => {
