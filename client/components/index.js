@@ -9,7 +9,8 @@ export {default as AddField} from './AddField';
 export {default as RemoveTable} from './RemoveTable';
 export {default as Sidebar} from './Sidebar';
 export {default as CreateLoad} from './CreateLoad';
-export {default as SchemaPage} from './SchemaPage'
 export {StoredTables, TempTables} from './DisplayTable';
 export {default as Modal} from './Modal'
 export {default as ShowModal} from './ShowModal'
+export {default as SchemaPage} from './SchemaPage';
+export {default as LoadData} from './LoadDataToTables';

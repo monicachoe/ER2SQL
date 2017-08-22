@@ -8,7 +8,7 @@ class LoadDb extends Component {
   constructor(props){
     super(props);
     this.state = {
-      'dbName': '-'
+      'dbName': '-select-'
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);

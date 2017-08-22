@@ -3,8 +3,7 @@ import {connect} from 'react-redux';
 import {getUserDatabases} from '../store'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, Modal, Association, CreateLoad} from './index';
-import {default as ShowModal} from './ShowModal'
+import {CreateTable, Field, CreateDB, RemoveTable, LoadDB, Modal, Association, CreateLoad, LoadData, ShowModal} from './index';
 
 class Sidebar extends Component {
     constructor(props) {
@@ -12,12 +11,14 @@ class Sidebar extends Component {
         this.state = {
             showCreateTable: false,
             showRemoveTable: false,
-            showCreateAssociation: false
+            showCreateAssociation: false,
+            showLoadData: false
         }
         // this.showBothForm = this.showBothForm.bind(this)
         this.showCreateTableForm = this.showCreateTableForm.bind(this);
         this.showRemoveTableForm = this.showRemoveTableForm.bind(this);
         this.showCreateAssociationForm = this.showCreateAssociationForm.bind(this);
+        this.showLoadData = this.showLoadData.bind(this);
     }
 
     showCreateTableForm(e) {
@@ -46,34 +47,32 @@ class Sidebar extends Component {
             showCreateAssociation: true
         })
     }
-    // showAssociationForm(e){
-    //     e.preventDefault();
-    //     this.setState({
-    //         showAssociation: !this.state.showAssociation
-    //     })
-    // }
-    // showBothForm(evt){
-    //     evt.preventDefault()
-    //     if(this.state.showLoad){
-    //         this.state
-    //     }
-    //     this.setState({
-    //         showLoad: !this.state.showLoad,
-    //         showCreate: !this.state.showCreate
-    //     })
-    // }
+    showAssociationForm(e){
+        e.preventDefault();
+        this.setState({
+            showAssociation: !this.state.showAssociation
+        })
+    }
+
+    showLoadData(){
+        this.setState({
+            showLoadData: !this.state.showLoadData
+        })
+    }
     render() {
         return (
             <div className = 'sidebar'>
                 <div className = 'buttons'>
                 <h1>{this.props.database.name}</h1>
-                <button onClick={this.showCreateTableForm}>Create Table</button>
+                <button onClick={this.showCreateTableForm}>⊕ New Table</button>
                 <button onClick={this.showCreateAssociationForm}>Create Association</button>
                 <button onClick={this.showRemoveTableForm}>Remove Table</button>
+                <button onClick={this.showLoadData}>Load Data</button>
+                <CreateLoad/>
                 {this.state.showCreateTable ? <CreateTable /> : null}
                 {this.state.showRemoveTable ? <RemoveTable /> : null}
                 {this.state.showCreateAssociation ? <Association /> : null}
-                <CreateLoad/>
+                {this.state.showLoadData ? <LoadData /> : null}
                 </div>
             </div>
         )
