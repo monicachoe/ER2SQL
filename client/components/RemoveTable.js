@@ -15,13 +15,11 @@ class RemoveTable extends Component{
 
   handleChange(evt){
     let tableName = this.props.database.name + evt.target.value + 's';
-    console.log("from handleChange: ", tableName);
     this.setState({tableName: tableName, tableId: evt.target.value})
   }
 
   handleSubmit(evt){
     evt.preventDefault();
-    console.log("from handleSubmit: ", this.state.tableName);
     this.props.removeTable(this.state.tableName, this.state.tableId);
   }
   render() {
