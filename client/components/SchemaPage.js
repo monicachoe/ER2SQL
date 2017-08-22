@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Sidebar from './sidebar'
+import Sidebar from './Sidebar'
 import CreateLoad from './CreateLoad'
 import DisplayTable from './DisplayTable'
 /**
