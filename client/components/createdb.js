@@ -19,6 +19,9 @@ class CreateDB extends Component {
   handleSubmit(evt){
     evt.preventDefault();
     this.props.createDB(this.state.dbName, this.props.user.id);
+    this.setState({
+      dbName : ''
+    });
   }
   render(){
     return (

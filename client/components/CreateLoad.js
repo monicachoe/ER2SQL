@@ -8,10 +8,10 @@ import {CreateTable, Field, CreateDB, RemoveTable, LoadDB} from './index';
 class CreateLoad extends Component {
     constructor(props) {
         super(props)
+        console.log(props);
         this.state = {
             showCreate: false,
             showLoad: false,
-
         }
         this.showCreateForm = this.showCreateForm.bind(this)
         this.showLoadForm = this.showLoadForm.bind(this)
@@ -46,18 +46,26 @@ class CreateLoad extends Component {
     //     })
     // }
     render() {
+        let error = this.props.error;
         return (
             <div>
                 <button onClick={this.showCreateForm}>Create Db</button>
                 <button onClick={this.showLoadForm}>Load DB</button>
                 {this.state.showLoad ? <LoadDB/> : <div/>}
                 {this.state.showCreate ? <CreateDB/> : <div/>}
+                {error && error.response && <div> {error.response.data} </div>}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
+const mapStateToProps = state => {
+    return {
+        user : state.user,
+        userdbs : state.userdbs,
+        error : state.database.error
+    }
+}
 
 const mapDisptachProps = (dispatch) => {
   return {

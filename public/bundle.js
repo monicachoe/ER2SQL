@@ -8384,10 +8384,10 @@ var CreateLoad = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (CreateLoad.__proto__ || Object.getPrototypeOf(CreateLoad)).call(this, props));
 
+        console.log(props);
         _this.state = {
             showCreate: false,
             showLoad: false
-
         };
         _this.showCreateForm = _this.showCreateForm.bind(_this);
         _this.showLoadForm = _this.showLoadForm.bind(_this);
@@ -8430,6 +8430,7 @@ var CreateLoad = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
+            var error = this.props.error;
             return _react2.default.createElement(
                 'div',
                 null,
@@ -8444,7 +8445,14 @@ var CreateLoad = function (_Component) {
                     'Load DB'
                 ),
                 this.state.showLoad ? _react2.default.createElement(_index.LoadDB, null) : _react2.default.createElement('div', null),
-                this.state.showCreate ? _react2.default.createElement(_index.CreateDB, null) : _react2.default.createElement('div', null)
+                this.state.showCreate ? _react2.default.createElement(_index.CreateDB, null) : _react2.default.createElement('div', null),
+                error && error.response && _react2.default.createElement(
+                    'div',
+                    null,
+                    ' ',
+                    error.response.data,
+                    ' '
+                )
             );
         }
     }]);
@@ -8452,10 +8460,12 @@ var CreateLoad = function (_Component) {
     return CreateLoad;
 }(_react.Component);
 
-var mapStateToProps = function mapStateToProps(_ref) {
-    var user = _ref.user,
-        userdbs = _ref.userdbs;
-    return { user: user, userdbs: userdbs };
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        user: state.user,
+        userdbs: state.userdbs,
+        error: state.database.error
+    };
 };
 
 var mapDisptachProps = function mapDisptachProps(dispatch) {
@@ -15624,6 +15634,9 @@ var CreateDB = function (_Component) {
     value: function handleSubmit(evt) {
       evt.preventDefault();
       this.props.createDB(this.state.dbName, this.props.user.id);
+      this.setState({
+        dbName: ''
+      });
     }
   }, {
     key: 'render',
@@ -16066,6 +16079,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var CREATE = 'CREATE';
 var LOAD = 'LOAD';
 var REMOVE = 'REMOVE';
+var GET = 'GET';
 
 /* ------------   ACTION CREATORS     ------------------ */
 
@@ -16077,6 +16091,9 @@ var load = function load(userDb) {
 };
 var remove = function remove() {
   return { type: REMOVE };
+};
+var get = function get(database) {
+  return { type: GET, database: database };
 };
 
 /* ------------       REDUCERS     ------------------ */
@@ -16092,6 +16109,8 @@ function reducer() {
       return action.userDb;
     case REMOVE:
       return {};
+    case GET:
+      return action.database;
     default:
       return state;
   }
@@ -16103,8 +16122,8 @@ var createDatabase = exports.createDatabase = function createDatabase(dbName, us
   return function (dispatch) {
     _axios2.default.post('/api/users/' + userId + '/database/' + dbName).then(function (res) {
       dispatch(create(res.data));
-    }).catch(function (err) {
-      return console.error('Creating databse ' + dbName + ' unsuccessfull', err);
+    }).catch(function (error) {
+      return dispatch(get({ error: error }));
     });
   };
 };
