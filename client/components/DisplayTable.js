@@ -13,14 +13,18 @@ export const DisplayTables = (props) => {
                 (table) ? columnNames = (table.fields) : columnNames = false
                 return (
                     <table key={idx} style={{ width: 25 + 'px' }}>
+                        <caption>{table.name}</caption>
                         <tbody>
                             <tr>
-                                <th>{table.name}</th>
+                                <th>Name</th>
+                                <th>Type</th>
                             </tr>
                             {columnNames && columnNames.map((column) => {
+                                let name = Object.keys(column)[0];
                                 return (
-                                    <tr key={column}>
-                                        <td name="column" key={column}>{column}</td>
+                                    <tr key={name}>
+                                        <td name="column" key={name}>{name}</td>
+                                        <td name="type" key={column[name]}>{column[name]}</td>
                                     </tr>
                                 )
                             })}

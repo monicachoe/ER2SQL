@@ -46,10 +46,9 @@ router.get('/:tableId/columns', (req, res, next) => {
       Database.findOne({where: {id: table.databaseId}})
     )
     .then((db) =>
-        client.query(`SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '${db.name + tableId + 's'}'`)
+        client.query(`SELECT column_name, data_type FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '${db.name + tableId + 's'}'`)
     )
-    .then((columns) =>
-      columns.rows.map((column) => column['column_name'])
+    .then((columns) => columns.rows.map((column) => ({[column['column_name']] : column['data_type']}))
     )
     .then((columnNames) => res.json(columnNames))
     .catch(next)

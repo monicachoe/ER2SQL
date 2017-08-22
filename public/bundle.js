@@ -8865,6 +8865,11 @@ var DisplayTables = exports.DisplayTables = function DisplayTables(props) {
                 'table',
                 { key: idx, style: { width: 25 + 'px' } },
                 _react2.default.createElement(
+                    'caption',
+                    null,
+                    table.name
+                ),
+                _react2.default.createElement(
                     'tbody',
                     null,
                     _react2.default.createElement(
@@ -8873,17 +8878,28 @@ var DisplayTables = exports.DisplayTables = function DisplayTables(props) {
                         _react2.default.createElement(
                             'th',
                             null,
-                            table.name
+                            'Name'
+                        ),
+                        _react2.default.createElement(
+                            'th',
+                            null,
+                            'Type'
                         )
                     ),
                     columnNames && columnNames.map(function (column) {
+                        var name = Object.keys(column)[0];
                         return _react2.default.createElement(
                             'tr',
-                            { key: column },
+                            { key: name },
                             _react2.default.createElement(
                                 'td',
-                                { name: 'column', key: column },
-                                column
+                                { name: 'column', key: name },
+                                name
+                            ),
+                            _react2.default.createElement(
+                                'td',
+                                { name: 'type', key: column[name] },
+                                column[name]
                             )
                         );
                     })
@@ -15949,6 +15965,7 @@ var CreateTable = function (_Component) {
             var _this2 = this;
 
             var fieldsArr = [].concat(_toConsumableArray(Array(this.state.fields.length).keys()));
+            console.log('my tables : ', this.props.tables);
             return _react2.default.createElement(
                 'form',
                 { onSubmit: this.handleSubmit },
@@ -17471,6 +17488,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 /**
  * ACTION TYPES
  */
@@ -17544,7 +17563,7 @@ var clearMetatable = exports.clearMetatable = function clearMetatable() {
 };
 
 //// FROM TEMP
-
+// fields : [{id : integer}, {name : string}]
 var addTableToTemp = exports.addTableToTemp = function addTableToTemp(table) {
   return function (dispatch) {
     var tableId = void 0,
@@ -17556,7 +17575,35 @@ var addTableToTemp = exports.addTableToTemp = function addTableToTemp(table) {
     }).then(function (res) {
       return _axios2.default.post('/api/tables', { tableName: tableName, 'fields': table.fields });
     }).then(function () {
-      return dispatch(addTable({ name: table.tableName, fields: ['id'].concat(_toConsumableArray(Object.keys(table.fields)), ['createdAt', 'updatedAt']), databaseId: table.database.id, tableId: tableId }));
+      var fields = [{ 'id': 'integer' }];
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = Object.keys(table.fields)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var each = _step.value;
+
+          fields.push(_defineProperty({}, each, table.fields[each].type));
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      fields.push({ 'createdAt': 'timestamp with time zone' });
+      fields.push({ 'updatedAt': 'timestamp with time zone' });
+      dispatch(addTable({ name: table.tableName, fields: fields, databaseId: table.database.id, tableId: tableId }));
     });
   };
 };

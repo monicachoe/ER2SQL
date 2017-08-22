@@ -65,7 +65,7 @@ export const clearMetatable = () => dispatch => {
 }
 
 //// FROM TEMP
-
+// fields : [{id : integer}, {name : string}]
 export const addTableToTemp = (table) =>
   dispatch => {
     let tableId, tableName;
@@ -75,7 +75,15 @@ export const addTableToTemp = (table) =>
       tableName = table.database.name + tableId
       return res.data})
     .then(res => axios.post('/api/tables', {tableName, 'fields' : table.fields}))
-    .then(() => dispatch(addTable({name: table.tableName, fields: ['id', ...Object.keys(table.fields), 'createdAt', 'updatedAt'], databaseId: table.database.id, tableId})));
+    .then(() => {
+      let fields = [{'id':'integer'}];
+      for (let each of Object.keys(table.fields)){
+        fields.push({[each] : table.fields[each].type})
+      }
+      fields.push({'createdAt' : 'timestamp with time zone'});
+      fields.push({'updatedAt' : 'timestamp with time zone'});
+      dispatch(addTable({name: table.tableName, fields, databaseId: table.database.id, tableId}))
+    });
   }
 
 export const addFieldToTable = (curTable, name, attributes) =>
