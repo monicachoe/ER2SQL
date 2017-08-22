@@ -23,6 +23,14 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+router.post('/', (req, res, next) => {
+  var name = req.body.tableName;
+  var databaseId = req.body.databaseId;
+  Table.create({ name, databaseId })
+    .then((table) => res.status(204).json(table))
+    .catch(next);
+});
+
 router.get('/:tableId', (req, res, next) => {
   var tableId = req.params.tableId;
   Table.findOne({ where: { id: tableId } })
@@ -50,14 +58,6 @@ router.get('/:tableId/columns', (req, res, next) => {
 //     .then((table) => res.json(table))
 //     .catch(next)
 // })
-
-router.post('/', (req, res, next) => {
-  var name = req.body.tableName;
-  var databaseId = req.body.databaseId;
-  Table.create({ name: name, databaseId: databaseId })
-    .then((table) => res.json(table))
-    .catch(next);
-});
 
 router.delete('/:tableId', (req, res, next) => {
   var tableId = req.params.tableId
