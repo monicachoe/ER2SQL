@@ -90,6 +90,7 @@ td {
    align-content: center;
    align-items: center;
    width: 150px;
+   margin: auto;
   }
   .box{
     display:flex;
@@ -158,5 +159,8 @@ td {
     text-decoration: none;
     border-color: white;
     text-transform: uppercase;
+  }
+  .createLoad button{
+    font-size:40px;
   }
 }

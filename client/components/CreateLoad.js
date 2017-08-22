@@ -36,7 +36,7 @@ class CreateLoad extends Component {
 
     render() {
         return (
-            <div>
+            <div className = 'createLoad'>
                 <button onClick={this.showCreateForm}>Create Db</button>
                 <button onClick={this.showLoadForm}>Load DB</button>
                 {this.state.showLoad ? <LoadDB/> : <div/>}

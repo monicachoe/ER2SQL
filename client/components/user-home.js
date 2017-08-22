@@ -29,8 +29,9 @@ class UserHome extends Component {
       <div>
         {
           (databases.length)
-            ? <div>
+            ? <div className = 'userHome'>
               <h1>Welcome {this.props.user.name}</h1>
+              <CreateLoad />
               <div className='db'>
                 {
                   databases.map((db) =>
@@ -48,7 +49,6 @@ class UserHome extends Component {
             </div>
 
         }
-        <CreateLoad />
       </div>
     )
   }
