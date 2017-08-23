@@ -11,4 +11,5 @@ export {default as Sidebar} from './sidebar';
 export {default as CreateLoad} from './CreateLoad';
 export {default as SchemaPage} from './SchemaPage';
 export {default as LoadData} from './LoadDataToTables';
-export {StoredTables, TempTables} from './DisplayTable';
+export {default as TableData} from './TableData';
+export {DisplayTable} from './DisplayTable';

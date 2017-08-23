@@ -34,6 +34,7 @@
     "pgtools": "0.3.0",
     "prop-types": "^15.5.8",
     "react": "^15.4.2",
+    "react-data-grid": "2.0.58",
     "react-dom": "^15.4.2",
     "react-file-input": "0.2.5",
     "react-file-reader": "1.1.1",
