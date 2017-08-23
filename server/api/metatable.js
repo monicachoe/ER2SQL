@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Table, Database } = require('../db/models');
 const client = require('../db/client');
-const utils = require('../../utils');
+const utils = require('./utils');
 const {db} = require('../db');
 module.exports = router
 
@@ -38,13 +38,15 @@ router.delete('/:dbId/id/:tableId', (req, res, next) => {
   let dbId = req.params.dbId;
   let user = req.user;
   let tableName;
-  Database.findOne({where : {id : dbId, userId : user.id}})
-  .then(database => database.dataValues)
+  utils.validateDatabase(dbId, user.id)
+  // Database.findOne({where : {id : dbId, userId : user.id}})
+  // .then(database => database.dataValues)
   .then(database => {
     tableName = database.name;
-    return Table.findOne({where : {id : tableId, databaseId : database.id}})
+    return utils.validateTableById(tableId, database.id);
+    // return Table.findOne({where : {id : tableId, databaseId : database.id}})
   })
-  .then(table => table.dataValues)
+  // .then(table => table.dataValues)
   .then(table => {
     tableName += table.id.toString()+'s';
     return Table.destroy({where : {id : table.id}})

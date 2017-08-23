@@ -7,7 +7,6 @@ import database from './database';
 import userdbs from './userDatabases';
 import association from './association';
 import data from './data';
-import updateTableName from './updateTableName'
 
 const reducer = combineReducers({user, metatable, database, userdbs, association, data, updateTableName});
 
