@@ -37,13 +37,42 @@ router.post('/', (req, res, next) => {
       const created = db.define(tableName, fields);
       return db.sync();
     })
-    .then(()=> res.send(`ok. Table ${name} created.`))
+    .then(()=> res.send(`Ok. Table ${name} created.`))
     .catch(next);
 });
 
+router.delete('/:tableId', (req, res, next) => {
+  var tableId = req.params.tableId
+  Table.destroy({ where: { id: tableId } })
+    .then(() => res.status(204).send(`Succesfully deleted table ${tableId} `));
+})
+
+router.delete('/:dbId/:tableId', (req, res, next) => {
+  let tableId = req.params.tableId;
+  let dbId = req.params.dbId;
+  let user = req.user;
+  let tableName;
+  Database.findOne({where : {id : dbId, userId : user.id}})
+  .then(database => database.dataValues)
+  .then(database => {
+    tableName = database.name;
+    return Table.findOne({where : {id : tableId, databaseId : database.id}})
+  })
+  .then(table => table.dataValues)
+  .then(table => {
+    tableName += table.id.toString()+'s';
+    return Table.destroy({where : {id : table.id}})
+  })
+  .then(() => client.query(`DROP TABLE "${tableName}" CASCADE`, function (err, result) {
+      if (err) return next(err);
+      res.send(`OK. Table ${tableName} deleted.`);
+    }))
+  .catch(next);
+});
+
 router.get('/:tableId', (req, res, next) => {
-  var tableId = req.params.tableId;
-  Table.findOne({ where: { id: tableId } })
+  let tableId = req.params.tableId;
+  Table.findById(tableId)
     .then((table) => res.json(table))
     .catch(next)
 });
@@ -68,12 +97,6 @@ router.get('/:tableId/columns', (req, res, next) => {
 //     .then((table) => res.json(table))
 //     .catch(next)
 // })
-
-router.delete('/:tableId', (req, res, next) => {
-  var tableId = req.params.tableId
-  Table.destroy({ where: { id: tableId } })
-    .then(() => res.status(204).send(`Succesfully deleted table ${tableId} `));
-})
 
 // // get each table along with its columns for a particular db.
 // router.get('/:databaseId/tables', (req, res, next) => {

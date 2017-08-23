@@ -74,12 +74,10 @@ export const addFieldToTable = (curTable, name, attributes) =>
   dispatch =>
     dispatch(addField(curTable, name, attributes));
 
-export const deleteTable = (tableName, tableId, databaseId) =>
+export const deleteTable = (tableId, databaseId) =>
     dispatch =>
-    axios.delete(`/api/tables/${tableName}`)
-      // .then(res => dispatch(removeTable(tableName)))
-      .then((res) => axios.delete(`/api/metatable/${tableId}`))
-      .then(() => dispatch(getMetatables(databaseId))  )
+    axios.delete(`/api/metatable/${databaseId}/${tableId}`)
+      .then(() => dispatch(getMetatables(databaseId)))
       .catch(err => console.log(err))
 
 export const clearTemp = () =>
