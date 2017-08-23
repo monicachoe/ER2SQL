@@ -22,7 +22,6 @@ export const updateNameToField = (newName, oldName, tableName, databaseName) =>
     dispatch => 
       axios.put(`api/tables/${tableName}/${databaseName}/field`,{"new": newName, "old": oldName})
       .then((res) => {
-        console.log("res", res)
         dispatch(updateFieldName(res.data))
       })
       .catch(err => console.log(err))

@@ -15690,38 +15690,21 @@ var UpdateFieldName = function (_Component) {
 			var databaseId;
 			var tablename;
 			var databasename;
-			console.log("database", database);
-			console.log("tables", tables[0]);
-			// tables.filter(function(table) {
-			// 	if (table['fields'].includes(attribute)){
-			// 		tablename = table.name
-			// 		databaseId = table.databaseId
-			// 	}
-			// })
-			// database.filter(function(datab){
-			// 	if(datab.id === databaseId){
-			// 		databasename = database.name
-			// 	}
-			// })
 			var str = event.target.value.split(" : ");
 			var tablename = str[0];
 			var oldname = str[1];
-			console.log("event.target", event.target);
-			console.log("old", oldname);
+
 			this.setState({ oldName: oldname, tableName: tablename });
-			//console.log("state", this.state.databaseName, "name", database.name)
 		}
 	}, {
 		key: 'handleChange2',
 		value: function handleChange2(event) {
-			console.log("new", event.target.value);
 			this.setState({ newName: event.target.value });
 		}
 	}, {
 		key: 'handleSubmit',
 		value: function handleSubmit(event) {
 			event.preventDefault();
-			console.log("table", this.state.tableName, "old", this.state.oldName, "new", this.state.newName, this.props.database.name);
 			this.props.updateField(this.state.newName, this.state.oldName, this.state.tableName, this.props.database.name);
 			_history2.default.push('/schema');
 			this.props.getTables(this.props.database.id);
@@ -15730,7 +15713,6 @@ var UpdateFieldName = function (_Component) {
 		key: 'render',
 		value: function render() {
 			var tables = this.props.tables;
-			console.log("tables", tables);
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -16865,7 +16847,6 @@ var updateFieldName = function updateFieldName(field) {
 var updateNameToField = exports.updateNameToField = function updateNameToField(newName, oldName, tableName, databaseName) {
   return function (dispatch) {
     return _axios2.default.put('api/tables/' + tableName + '/' + databaseName + '/field', { "new": newName, "old": oldName }).then(function (res) {
-      console.log("res", res);
       dispatch(updateFieldName(res.data));
     }).catch(function (err) {
       return console.log(err);

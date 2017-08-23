@@ -24,36 +24,19 @@ class UpdateFieldName extends Component {
 		var databaseId 
 		var tablename
 		var databasename
-		console.log("database", database)
-		console.log("tables", tables[0])
-		// tables.filter(function(table) {
-		// 	if (table['fields'].includes(attribute)){
-		// 		tablename = table.name
-		// 		databaseId = table.databaseId
-		// 	}
-		// })
-		// database.filter(function(datab){
-		// 	if(datab.id === databaseId){
-		// 		databasename = database.name
-		// 	}
-		// })
 		var str = (event.target.value).split(" : ")
 		var tablename = str[0];
 		var oldname = str[1];
-console.log("event.target", event.target)
-		console.log("old",oldname)
+
 		this.setState({oldName: oldname, tableName: tablename})
-		//console.log("state", this.state.databaseName, "name", database.name)
 	}
 
 	handleChange2 (event){
-		console.log("new", event.target.value)
 		this.setState({newName: event.target.value})
 	}
 
 	handleSubmit (event){
 		event.preventDefault()
-		console.log("table", this.state.tableName, "old", this.state.oldName, "new", this.state.newName, this.props.database.name)
 		this.props.updateField(this.state.newName, this.state.oldName, this.state.tableName, this.props.database.name )
 		history.push('/schema')
     this.props.getTables(this.props.database.id)
@@ -61,7 +44,6 @@ console.log("event.target", event.target)
 
 	render(){
 		var tables = this.props.tables;
-		console.log("tables", tables)
 		return(
 		    <div>
 		    <form onSubmit={this.handleSubmit}>
