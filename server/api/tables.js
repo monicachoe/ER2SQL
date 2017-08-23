@@ -1,44 +1,41 @@
 const router = require('express').Router();
 const Sequelize = require('sequelize');
 const {db, client} = require('../db');
+const { Table, Database } = require('../db/models')
+const utils = require('../../utils');
 module.exports = router;
 
-// req.body : array of objects
-// each object represents one table
-// ex/ [{tableName : '1', 
-//          fields : {name : {type: String, validations: ...}, 
-//                    quantity : {type : integer, validations: ...}}}, 
-//      {tableName : '2', 
-//          fields : {name : {type: String, validations: ...}, ...}]
-
+// Connect metatable and table so frontend only hits one route
 router.post('/', (req, res, next) => {
     let table = req.body;
     let tableName = table.tableName.toString();
-    let fields = formatFields(table.fields);
+    let fields = utils.formatFields(table.fields);
     const createdTable = db.define(tableName, fields);
     db.sync()
-    .then(()=>res.status(200).send(`OK. Table ${tableName} created.`));
+    .then(()=>res.status(200).send(`OK. Table ${tableName} created.`))
+    .catch(err => next(err));
 });
+
 
 router.delete('/:tablename', (req, res, next) => {
     var table = req.params.tablename
-    client.query(`DROP TABLE ${table}`, function (err, result) {
+    client.query(`DROP TABLE "${table}" CASCADE`, function (err, result) {
       if (err) return next(err);
-      res.end();
+      res.send(`OK. Table ${table} deleted.`);
     });
 });
 
-function getSequelizeType(type){
-    let d = {'string': Sequelize.STRING, 'text': Sequelize.TEXT, 'float': Sequelize.FLOAT, 'date': Sequelize.DATE, 'boolean': Sequelize.BOOLEAN, 'enum': Sequelize.ENUM, 'array': Sequelize.ARRAY};
-    return d[type];
-}
+router.put('/:tablename/:databaseName', (req, res, next) => {
+    var body = req.body;
+    var tablename = req.params.tablename;
+    var data = req.params.databaseName;
+    Table.findOne({where: {name: tablename}})
+    .then((table) => {
+        var ans = data+(table.id).toString()+'s'
+        client.query(`ALTER TABLE ${ans} RENAME TO ${body.name}`, function (err, result) {
+        if (err) return next(err);
+            res.end();
+        })
+    })
+});
 
-function formatFields(fields){
-    let keys = Object.keys(fields);
-    for (var field of keys){
-        let attribute = fields[field]; 
-        let seqType = attribute['type']
-        fields[field] = Object.assign({}, attribute, {type: getSequelizeType(seqType)})
-    }
-    return fields;
-}

@@ -32,7 +32,6 @@ export const signup = (name, email, password, method) =>
   dispatch =>
     axios.post(`/auth/${method}`, { name, email, password })
       .then(res => {
-        console.log("data from signup backend", res.data);
         dispatch(getUser(res.data))
         history.push('/home')
       })
@@ -54,7 +53,7 @@ export const logout = () =>
     axios.post('/auth/logout')
       .then(res => {
         dispatch(removeUser())
-        history.push('/login')
+        history.push('/')
       })
       .catch(err => console.log(err))
 

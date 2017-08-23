@@ -14,6 +14,14 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+//GET: Route to get databases of logged-in user
+router.get('/databases', (req, res, next) => {
+  User.findById(req.user.id)
+  .then(user => user.getDatabases())
+  .then(databases => res.send(databases))
+  .catch(err => console.log(err));
+});
+
 //POST: Route to create database by each user.
 router.post('/:userId/database/:dbName', (req, res, next) => {
   Database.findOrCreate( {where: {
@@ -22,7 +30,7 @@ router.post('/:userId/database/:dbName', (req, res, next) => {
   }})
   .spread( (db, created) => {
     if (!created){
-      throw new Error(`Database ${req.params.dbName} already exists`);
+      res.status(401).send(`Database ${req.params.dbName} already exists`)
     }
     else {
       res.send(db);
@@ -44,14 +52,3 @@ router.post('/:userId/database/:dbName', (req, res, next) => {
 //   })
 //   .catch(next);
 // });
-
-//GET: Route to get databases of logged-in user
-router.get('/databases', (req, res, next) => {
-  Database.findAll({where: {
-    userId: req.user.id
-  }})
-  .then( (databases) => {
-    res.send(databases);
-  })
-  .catch(next);
-});

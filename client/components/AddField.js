@@ -1,9 +1,8 @@
 import React from 'react';
 
 const Field = (props) => {
-    const types = ['string', 'text', 'float', 'date', 'boolean', 'enum', 'array'];
-    const handleChange = props.handleChange;
-    const id=props.id;
+    const types = ['string', 'text', 'integer','float', 'date', 'boolean', 'enum', 'array'];
+    const {handleChange, id} = props;
     return (
         <div>
             <label>Name: <input type='text' name='columnName' id={id} onChange={handleChange}/></label>
