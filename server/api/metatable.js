@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
 router.delete('/:tableId', (req, res, next) => {
   var tableId = req.params.tableId
   Table.destroy({ where: { id: tableId } })
-    .then(() => res.status(204).send(`Succesfully deleted table ${tableId} `));
+    .then(() => res.status(204).send(`Successfully deleted table ${tableId} `));
 })
 
 router.delete('/:dbId/id/:tableId', (req, res, next) => {

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const client = require('../db/client');
-const { Table, Database } = require('../db/models');
+const {Table, Database} = require('../db/models');
+const {validateDatabase, validateTableById, validateTableByName, formatTableName, formatJoinTableName} = require('./utils');
 module.exports = router;
 
 router.post('/', (req, res, next) => {
@@ -12,28 +13,25 @@ router.post('/', (req, res, next) => {
   let user = req.user;
   let db, dbName, src, target, srcName, targetName, tableId;
 
-  Database.findOne({where : {id : uDb.id, userId : user.id}})
-  .then(database => database.dataValues)
+  validateDatabase(uDb.id, user.id)
   .then(database => {
     dbName = database.name;
     db = database;
-    return Table.findOne({where : {id : usrc.tableId, databaseId : db.id}})
+    return validateTableById(usrc.tableId, db.id);
   })
-  .then(srcTable => srcTable.dataValues)
   .then(srcTable => {
     src = srcTable;
-    srcName = db.name+srcTable.id+'s';
-    return Table.findOne({where : {id : utarget.tableId, databaseId : db.id}})
+    srcName = formatTableName(db, srcTable);
+    return validateTableById(utarget.tableId, db.id);
   })
-  .then(targetTable => targetTable.dataValues)
   .then(targetTable => {
     target = targetTable;
-    targetName = db.name+targetTable.id+'s';
+    targetName = formatTableName(db, targetTable);
     if (assocType === 'many to many'){
-      return Table.findOne({where : {name : src.name+'_'+target.name, databaseId : db.id}})
+      return validateTableByName(formatJoinTableName(src, target), db.id);
     }
   })
-  .then(joinTable => (assocType==='many to many') ? tableId = joinTable.dataValues.id : null)
+  .then(joinTable => (assocType==='many to many') ? tableId = joinTable.id : null)
   .then(() => {
     if (assocType === 'one to one'){
       fkName = (fkName === '') ? src.name + '_id' : fkName;
