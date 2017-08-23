@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'; 
-import store, {updateNameToField} from '../store';
+import store, {updateNameToField, getMetatables} from '../store';
 
 class UpdateFieldName extends Component {
 	constructor(props){
@@ -54,6 +54,7 @@ console.log("event.target", event.target)
 		event.preventDefault()
 		console.log("table", this.state.tableName, "old", this.state.oldName, "new", this.state.newName, this.props.database.name)
 		this.props.updateField(this.state.newName, this.state.oldName, this.state.tableName, this.props.database.name )
+		this.props.getMetatables(this.props.database.id)
 	}
 
 	render(){
@@ -97,7 +98,10 @@ const mapDispatchToProps = function(dispatch){
 	return {
 		updateField(newName, oldName, tableName, databaseName){
 			dispatch(updateNameToField(newName, oldName, tableName, databaseName))
-		}
+		},
+		getMetatables(databaseId){
+      dispatch(getMetatables(databaseId));
+    }
 	}
 }
 
