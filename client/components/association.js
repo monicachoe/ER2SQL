@@ -18,7 +18,6 @@ class Association extends Component {
   }
 
   handleSubmit(e){
-    console.log('THE DATABASE', this.props.database.id)
     e.preventDefault();
     const database = this.props.database;
     const src = this.props.tables[e.target.table1.value];

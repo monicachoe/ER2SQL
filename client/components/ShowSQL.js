@@ -18,7 +18,7 @@ class ShowModal extends Component {
   render() {
     return (
       <div className="ShowModal">
-         <button onClick={this.toggleModal}>Create Script</button>
+         <button onClick={this.toggleModal}>SQL QUERY</button>
         
 
         <Modal className = 'modal' show={this.state.isOpen}

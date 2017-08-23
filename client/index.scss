@@ -1,10 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Cabin');
 
+/// kabob - case ****** 
+// class
+
+//
+//class=sidebar-button
 
 body {
 font-family: 'Cabin', sans-serif;
 
   a {
+    font-size:40px;
+    color:#33ccff;
     text-decoration: none;
   }
 
@@ -15,27 +22,32 @@ font-family: 'Cabin', sans-serif;
   nav{
     display: flex;
     flex-basis: row;
-    font-size: 40px;
     letter-spacing: 5px;
-    background: #24455E;
-    color:white;
+    background: white;
+    color:#24455E;
     text-decoration: none;
-    text-transform: uppercase;
+    // text-transform: uppercase;
+    
     align-items: center;
     justify-content: space-between;
-  }
-  nav h1{
-    margin: 30px;
-  }
-  nav a {
+    h1{
+      margin:30px;
+      font-size: 60px;
+      font-weight:bold;
+      font-variant: small-caps;
+
+    }
+    a {
     display: inline-block;
     max-width: 50%;
-    font-size: 30px;
-    color:white;
+    font-size: 40px;
+    color:#24455E;
     text-decoration: none;
-    text-transform: uppercase;
+    // text-transform: uppercase;
     justify-content: center;
     margin: 25px;
+    
+    }
   }
   form div {
     margin: 1em;
@@ -92,19 +104,21 @@ td {
     background-image: url('http://www.powerpointhintergrund.com/uploads/presentation-background-grids-25.gif');
   }
   .login {
-   border: 2px solid black;
    display:flex;
    flex-direction: column;
    justify-content: center;
    align-content: center;
    align-items: center;
-   width: 150px;
+   width: 100%;
    margin: auto;
+   background:lightgray;
+   border-radius: 10px;
   }
   .box{
     display:flex;
     flex-direction: row;
     margin: 30px 0px;
+    flex-wrap: wrap;
   }
   .sidebar{
     background-color:lightblue;
@@ -120,8 +134,8 @@ td {
     flex-direction: column;
   }
   .buttons h1{
-    font-size: 50px;
-    color: white;
+    font-size: 25px;
+    color: #24455E;
   }
 
   .sidebar button{
@@ -195,4 +209,142 @@ td {
   .tableName{
     width:100%;
   }
+
+  input{
+    font-size: 30px;
+    border-radius: 5px;
+  }
+  .nav{
+    height: 100px;
+  }
+  .home-page{
+    background-image: url('http://www.powerpointhintergrund.com/uploads/presentation-background-grids-25.gif');
+    height:100vh;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex:1;
+    font-size: 40px;
+  }
+  .home-page-child1{
+    max-width: 50%;
+  }
+  .home-page-child2{
+    max-width: 50%;
+  }
+
+
+  /////FROM EMOTIVA
+  #page {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+}
+section {
+  height:100vh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+section > div {
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 5px;
+  font-weight:bold;
+  font-size:8vw;
+  color:lightblue;
+  text-align:center;
+}
+
+.next {
+  position:absolute;
+  bottom:0;
+  left:50%;
+  margin-left:-36px;
+  cursor:pointer;
+  font-size:400%;
+}
+.next:after {
+  content:'▼';
+}
+
+select button:not(.next) {
+    content: '▼';
+}
+
+.one {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  display:flex;
+  flex-direction: row;
+  flex:1;
+  background: white;
+}
+.description{
+  color:#24455E;
+  font-size: 50px;
+  width: 60%;
+}
+h1.one-child.description {
+  font-size: 100px;
+  width:100%;
+}
+.one-child1{
+  width:40%;
+}
+.two {
+   background: white;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  flex-direction: row-reverse;
+  flex:1;
+}
+.three {
+  background: white;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  flex-direction: row;
+  flex: 1;
+  width:100%;
+  height:100vh;
+  justify-content: center;
+
+}
+.three-child{
+  height:100vh;
+  flex:1;
+  width:100%;
+  align-content: center;
+}
+.four {
+  background: white;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+one-child.description img{
+  width: 100%;
+}
+.user-home{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  h1{
+    font-size:30px;
+    text-transform: uppercase;
+  }
+}
+
+
 }

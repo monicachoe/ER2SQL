@@ -5,7 +5,6 @@ import { withRouter, Link } from 'react-router-dom'
 
 export const DisplayTables = (props) => {
     const { tables } = props
-    console.log('INSIDE DISPLAYTABLES', tables)
     var columnNames;
     return (
         <div className='box'>

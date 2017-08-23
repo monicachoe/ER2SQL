@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { CreateLoad } from './index'
 import { loadDatabase, getMetatables } from '../store';
 import history from '../history'
+import {ShowCreateForm, ShowLoadForm} from './index'
 
 /**
  * COMPONENT
@@ -16,7 +16,6 @@ class UserHome extends Component {
   }
   handleClick(evt) {
     evt.preventDefault()
-    console.log('VALUE', evt.target)
     let selectedDb = this.props.userdbs.filter((eachDb) => eachDb.name === evt.target.innerHTML);
     this.props.loadDatabase(selectedDb[0]);
     var table = selectedDb[0]
@@ -27,12 +26,12 @@ class UserHome extends Component {
     var databases = this.props.userdbs
     return (
       <div>
-        <CreateLoad />
+        <ShowLoadForm/>
+        <ShowCreateForm/>
         {
           (databases.length)
-            ? <div className = 'userHome'>
+            ? <div className = 'user-home'>
               <h1>Welcome {this.props.user.name}, you have {databases.length} databases </h1>
-              
               <div className='db'>
                 {
                   databases.map((db) =>

@@ -28,7 +28,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.delete('/:tableId', (req, res, next) => {
-  var tableId = req.params.tableId
+  let tableId = req.params.tableId;
   Table.destroy({ where: { id: tableId } })
     .then(() => res.status(204).send(`Successfully deleted table ${tableId} `));
 })
@@ -66,7 +66,7 @@ router.get('/:tableId', (req, res, next) => {
 });
   
 router.get('/:tableId/columns', (req, res, next) => {
-  var tableId = req.params.tableId;
+  let tableId = req.params.tableId;
   Table.findOne({ where: { id: tableId } })
     .then((table) => 
       Database.findOne({where: {id: table.databaseId}})
@@ -81,11 +81,12 @@ router.get('/:tableId/columns', (req, res, next) => {
 });
 
 router.put('/:tablename', (req, res, next) => {
-  var tablename = req.params.tablename;
-  var tableName = req.body.name;
-  Table.findOne({where: {name: tablename}})
-  .then((table) => {console.log("fghsjfbjfh",tableName)
-        table.update({name: tableName})})
+  let tablename = req.params.tablename;
+  let databaseId = req.body.databaseId;
+  let tableName = req.body.name;
+  Table.findOne({where: {name: tablename, databaseId}})
+  .then((table) => 
+        table.update({name: tableName}))
   .then((table) => {res.json(table)})
   .catch(next)
 });

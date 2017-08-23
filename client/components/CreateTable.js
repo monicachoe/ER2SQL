@@ -52,7 +52,6 @@ class CreateTable extends Component{
             table.fields[temp] = field;
         }
         this.props.submitHelper(table);
-        // store.dispatch(addTableToTemp(table));
         this.setState({
             tableName : '',
             fields : [],
@@ -63,7 +62,6 @@ class CreateTable extends Component{
 
     render(){
         let fieldsArr = [...Array(this.state.fields.length).keys()];
-        console.log('my tables : ',this.props.tables)
         return (
             <form onSubmit={this.handleSubmit}>
             <label>Table Name: <input type='text' name='tableName' onChange={this.handleChange} value={this.state.tableName}/></label>

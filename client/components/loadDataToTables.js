@@ -18,14 +18,11 @@ class LoadData extends Component{
   handleTable(evt){
     let table = this.props.metatable[evt.target.value];
     this.setState({table: table});
-    console.log("table: ", this.state.table);
   }
 
   handleSubmit(evt){
     evt.preventDefault();
     let tableName = this.props.database.name + this.state.table.tableId + 's';
-    console.log("from handleSubmit: ", tableName);
-    console.log("tableName: ", this.state.table);
     this.props.fileUpload(this.state.file, tableName);
   }
 
@@ -36,8 +33,6 @@ class LoadData extends Component{
   }
 
   render(){
-    console.log("file: ", this.state.file);
-    console.log("fileContent: ", this.state.fileUrl);
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -61,7 +56,6 @@ const mapState = ({database, metatable}) => ({database, metatable});
 const mapDispatch = dispatch => {
   return {
     fileUpload(file, tableName){
-      console.log("mapDispatch: ", tableName);
       dispatch(uploadDataAsCsv(file, tableName));
     }
   }
