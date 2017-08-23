@@ -51,10 +51,10 @@ export const GenerateSQL = (props) => {
     }
     return (
         <div className='sqlScript'>
-            <form onSubmit={download}>
-            <input type="text" name="name" value='tableSQLQuery' />
-            <textarea name="text" value = {scriptCreator()}></textarea>
-            <input type="submit" value="Download" />
+            <form onChange= {null } onSubmit={download}>
+            <input onChange={null} type="text" name="name" value='tableSQLQuery' />
+            <textarea onChange={null} name="text" value = {scriptCreator()}></textarea>
+            <input onChange={null} type="submit" value="Download" />
         </form>
         </div>
     )

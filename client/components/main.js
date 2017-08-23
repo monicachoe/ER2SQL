@@ -29,8 +29,8 @@ const Main = (props) => {
                             </div>
                             : <div>
                                 {/* The navbar will show these links before you log in */}
-                                <a href ='#'> <ShowModal className='showModal'/></a>
-                                <a href ='#'> <ShowSignupForm className='showModal'/></a>
+                                 <ShowModal/>
+                                 <ShowSignupForm/>
                             </div>
                     }
                 </nav>

@@ -30,7 +30,6 @@ class LoadDb extends Component {
     this.props.loadDatabase(selectedDb[0]);
     var table = selectedDb[0]
     this.props.getMetatables(table.id)
-    console.log('THIS IS PROPS', this.props)
     history.push('/schema')
   }
 

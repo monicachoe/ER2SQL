@@ -16,7 +16,6 @@ class UserHome extends Component {
   }
   handleClick(evt) {
     evt.preventDefault()
-    console.log('VALUE', evt.target)
     let selectedDb = this.props.userdbs.filter((eachDb) => eachDb.name === evt.target.innerHTML);
     this.props.loadDatabase(selectedDb[0]);
     var table = selectedDb[0]

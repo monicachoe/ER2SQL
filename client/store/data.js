@@ -39,7 +39,6 @@ export const uploadDataAsCsv = (file, tableName) => dispatch => {
       }
 
       function processData(csv) {
-        console.log("CSV: ", csv);
         var allTextLines = csv.split(/\r\n|\n/);
         var lines = [];
         for (var i=0; i<allTextLines.length; i++) {
@@ -50,7 +49,7 @@ export const uploadDataAsCsv = (file, tableName) => dispatch => {
           }
           lines.push(tarr);
         }
-        console.log(lines);
+        // console.log(lines); //DO WE NEED THIS?
       }
 
       function errorHandler(evt) {

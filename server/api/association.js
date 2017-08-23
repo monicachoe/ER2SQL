@@ -15,18 +15,12 @@ router.post('/', (req, res, next) => {
   if (assocType === 'one to one'){
     fkName = (fkName === '') ? src.name + '_id' : fkName;
     let constraintName = 'fk_' + src.name;
-    console.log(`ALTER TABLE "${targetName}"
-                  ADD COLUMN "${fkName}" INTEGER UNIQUE,
-                  ADD CONSTRAINT "${constraintName}"
-                  FOREIGN KEY("${fkName}")
-                  REFERENCES "${srcName}"(id)`);
     client.query(`ALTER TABLE "${targetName}"
                   ADD COLUMN "${fkName}" INTEGER UNIQUE,
                   ADD CONSTRAINT "${constraintName}"
                   FOREIGN KEY("${fkName}")
                   REFERENCES "${srcName}"(id)`)
     .then(result => {
-      console.log("1:1 ", result);
       res.send("1:1 succeeded");
     })
     .catch(next);
@@ -40,7 +34,6 @@ router.post('/', (req, res, next) => {
                   FOREIGN KEY("${fkName}")
                   REFERENCES "${srcName}"(id)`)
     .then(result => {
-      console.log("1:n ", result);
       res.send("1:n succeeded");
     })
     .catch(next);
@@ -54,7 +47,6 @@ router.post('/', (req, res, next) => {
                   FOREIGN KEY("${fkName}")
                   REFERENCES "${targetName}"(id)`)
     .then(result => {
-      console.log("n:1 ", result);
       res.send("n:1 succeeded");
     })
     .catch(next);

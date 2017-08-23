@@ -55,8 +55,8 @@ export default class HomePageStack extends React.Component {
                 <div className ="one-child description">
                     <img src = 'https://media.giphy.com/media/DDNWPgUucWZoc/giphy.gif' />
                     <h1>your database</h1>
-                    <a href ='#'> <ShowModal className='showModal'/></a>
-                    <a href ='#'> <ShowSignupForm className='showModal'/></a>
+                    <ShowModal className='showModal'/>
+                    <ShowSignupForm/>
                 </div>
                 <div className = 'one-child1'>
                     <img src = 'http://i64.tinypic.com/sm9kia.png'/>
