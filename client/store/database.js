@@ -6,6 +6,7 @@ import {getMetatables} from './index';
 const CREATE = 'CREATE';
 const LOAD = 'LOAD';
 const REMOVE = 'REMOVE';
+const GET = 'GET';
 
 
 /* ------------   ACTION CREATORS     ------------------ */
@@ -13,6 +14,7 @@ const REMOVE = 'REMOVE';
 const create = newDb => ({type: CREATE, newDb});
 const load = (userDb) => ({type: LOAD, userDb });
 const remove = () => ({type: REMOVE});
+const get = database => ({type: GET, database})
 
 /* ------------       REDUCERS     ------------------ */
 
@@ -24,6 +26,8 @@ export default function reducer (state = {}, action){
       return action.userDb;
     case REMOVE:
       return {};
+    case GET:
+      return action.database;
     default:
       return state;
   }
@@ -34,14 +38,14 @@ export default function reducer (state = {}, action){
 export const createDatabase = (dbName, userId) => dispatch => {
     axios.post(`/api/users/${userId}/database/${dbName}`)
        .then(res => {
-         dispatch(create(res.data));
+         console.log(res.data)
+        //  dispatch(create(res.data));
        })
-       .catch(err => console.error(`Creating databse ${dbName} unsuccessfull`, err));
+       .catch(error => dispatch(get({error})));
 }
 
-// Chaining loadDatabe to loadMetatables!! 
+
 export const loadDatabase = (selectedDb) => dispatch => {
-  // dispatch(getMetatables(selectedDb.id));
   dispatch(load(selectedDb));
 }
 

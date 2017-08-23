@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {createDatabase} from '../store'
+import {createDatabase, clearTemp} from '../store'
+import {Link} from 'react-router-dom'
+import history from '../history'
 
 class CreateDB extends Component {
   constructor(props){
@@ -19,6 +21,10 @@ class CreateDB extends Component {
   handleSubmit(evt){
     evt.preventDefault();
     this.props.createDB(this.state.dbName, this.props.user.id);
+    history.push('/schema')
+    this.setState({
+      dbName : ''
+    });
   }
   render(){
     return (

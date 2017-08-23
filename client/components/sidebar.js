@@ -1,81 +1,57 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {getUserDatabases} from '../store'
+import { connect } from 'react-redux';
+import { getUserDatabases } from '../store'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {CreateTable, Field, CreateDB, RemoveTable, LoadDB} from './index';
+import { Field, CreateDB, RemoveTable, LoadDB, Modal, ShowAssociationForm, ShowCreateForm, ShowLoadForm, ShowLoadDataForm, LoadData, ShowModal, UpdateTableName, ShowSQL, ShowTableForm, ShowRemoveTable } from './index';
 
 class Sidebar extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showCreateTable: false,
-            showRemoveTable: false
-            // ,
-            // showAssociation: false
+            showUpdateTable: false
         }
-        // this.showBothForm = this.showBothForm.bind(this)
-        this.showCreateTableForm = this.showCreateTableForm.bind(this);
-        this.showRemoveTableForm = this.showRemoveTableForm.bind(this);
-        // this.showAssociationForm = this.showAssociationForm.bind(this);
+        this.showUpdateTableName = this.showUpdateTableName.bind(this);
     }
 
-    showCreateTableForm(e) {
-        e.preventDefault();
-        this.setState({
-            showCreateTable: true,
-            showRemoveTable: false
-            // ,
-            // showAssociation: false
-        })
-    }
-
-    showRemoveTableForm(e) {
+    showUpdateTableName(e) {
         e.preventDefault();
         this.setState({
             showCreateTable: false,
-            showRemoveTable: true
-            // ,
-            // showAssociation: false
+            showRemoveTable: false,
+            showUpdateTable: true
         })
     }
-    // showAssociationForm(e){
-    //     e.preventDefault();
-    //     this.setState({
-    //         showAssociation: !this.state.showAssociation
-    //     })
-    // }
-    // showBothForm(evt){
-    //     evt.preventDefault()
-    //     if(this.state.showLoad){
-    //         this.state
-    //     }
-    //     this.setState({
-    //         showLoad: !this.state.showLoad,
-    //         showCreate: !this.state.showCreate
-    //     })
-    // }
+
     render() {
         return (
-            <div>
-                <h1>Options</h1>
-                <button onClick={this.showCreateTableForm}>Create Table</button>
-                <button onClick={this.showRemoveTableForm}>RemoveTable</button>
-                {this.state.showCreateTable ? <CreateTable /> : null}
-                {this.state.showRemoveTable ? <RemoveTable /> : null}
+            <div className='sidebar'>
+                <div className='buttons'>
+                    <h1>Database: {this.props.database.name}</h1>
+                    <ShowCreateForm/>
+                    <ShowLoadForm/>
+                    <ShowTableForm/>
+                    <button onClick={this.showUpdateTableName}>Update Table Name</button>
+                    <ShowSQL/>
+                    <ShowRemoveTable/>
+                    <ShowAssociationForm/>
+                    <ShowLoadDataForm/>
+                    {this.state.showUpdateTable ? <UpdateTableName /> : null}
+                    
+                </div>
             </div>
         )
     }
 }
 
-const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
+const mapStateToProps = ({ user, userdbs, database }) => ({ user, userdbs, database });
 
 const mapDisptachProps = (dispatch) => {
-  return {
-    getUserDatabases(userId){
-      dispatch(getUserDatabases())
+    return {
+        getUserDatabases(userId) {
+            dispatch(getUserDatabases())
+        }
     }
-  }
 }
 
 export default connect(mapStateToProps, mapDisptachProps)(Sidebar);
