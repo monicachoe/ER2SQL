@@ -54,7 +54,8 @@ console.log("event.target", event.target)
 		event.preventDefault()
 		console.log("table", this.state.tableName, "old", this.state.oldName, "new", this.state.newName, this.props.database.name)
 		this.props.updateField(this.state.newName, this.state.oldName, this.state.tableName, this.props.database.name )
-		this.props.getMetatables(this.props.database.id)
+		history.push('/schema')
+    this.props.getTables(this.props.database.id)
 	}
 
 	render(){
@@ -99,8 +100,8 @@ const mapDispatchToProps = function(dispatch){
 		updateField(newName, oldName, tableName, databaseName){
 			dispatch(updateNameToField(newName, oldName, tableName, databaseName))
 		},
-		getMetatables(databaseId){
-      dispatch(getMetatables(databaseId));
+		getTables(databaseId){
+      dispatch(getMetatables(databaseId))
     }
 	}
 }

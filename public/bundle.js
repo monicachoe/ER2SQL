@@ -15719,7 +15719,8 @@ var UpdateFieldName = function (_Component) {
 			event.preventDefault();
 			console.log("table", this.state.tableName, "old", this.state.oldName, "new", this.state.newName, this.props.database.name);
 			this.props.updateField(this.state.newName, this.state.oldName, this.state.tableName, this.props.database.name);
-			this.props.getMetatables(this.props.database.id);
+			history.push('/schema');
+			this.props.getTables(this.props.database.id);
 		}
 	}, {
 		key: 'render',
@@ -15783,7 +15784,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 		updateField: function updateField(newName, oldName, tableName, databaseName) {
 			dispatch((0, _store.updateNameToField)(newName, oldName, tableName, databaseName));
 		},
-		getMetatables: function getMetatables(databaseId) {
+		getTables: function getTables(databaseId) {
 			dispatch((0, _store.getMetatables)(databaseId));
 		}
 	};
