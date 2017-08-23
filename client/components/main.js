@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout, clearDatabase, clearUserDbs, clearMetatable, clearTemp} from '../store'
-import {StoredTables, TempTables, CreateLoad, Sidebar, ShowModal,UpdateTableName} from './index'
+import {StoredTables, TempTables, Sidebar, ShowModal,UpdateTableName, ShowSignupForm} from './index'
 
 /**
  * COMPONENT
@@ -18,9 +18,8 @@ const Main = (props) => {
         <div id="main" className="container-fluid">
 
             <div>
-                
                 <nav className = 'nav'>
-                  <h1>SimpleQL</h1>
+                  <Link to='/'><h1>SimpleQL</h1></Link>
                     {
                         isLoggedIn
                             ? <div>
@@ -31,10 +30,11 @@ const Main = (props) => {
                             : <div>
                                 {/* The navbar will show these links before you log in */}
                                 <a href ='#'> <ShowModal className='showModal'/></a>
-                                <Link to='/signup'>Sign Up</Link>
+                                <a href ='#'> <ShowSignupForm className='showModal'/></a>
                             </div>
                     }
                 </nav>
+
                 {children}
             </div>
         </div>
@@ -58,7 +58,6 @@ const mapDispatch = (dispatch) => {
       dispatch(clearUserDbs());
       dispatch(clearDatabase());
       dispatch(clearMetatable());
-      dispatch(clearTemp());
       dispatch(logout());
     }
   }

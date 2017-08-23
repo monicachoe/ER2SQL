@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Modal from './Modal';
-import {Login} from './index'
+import {Signup} from './index'
 
 class ShowModal extends Component {
   constructor(props) {
@@ -18,13 +18,13 @@ class ShowModal extends Component {
   render() {
     return (
       <div className="ShowModal">
-         <a href='#' onClick={this.toggleModal}>Login</a>
+         <a href='#' onClick={this.toggleModal}>Signup</a>
         
 
         <Modal className = 'modal' show={this.state.isOpen}
           onClose={this.toggleModal}>
-          <h1>LOGIN</h1>
-          <Login className = 'ShowModal'/>
+          <h1>Signup</h1>
+          <Signup className = 'ShowModal'/>
           <button onClick={this.toggleModal}>close</button>
         </Modal>
       </div>

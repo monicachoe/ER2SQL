@@ -2,7 +2,9 @@ const router = require('express').Router();
 const client = require('../db/client');
 module.exports = router;
 
-// Adding a column 
+// validate that user logged in
+// user is only interfering with their own tables/databases
+// Adding a column
 // req: {tableName: ..., newField: {name: color, type: Sequelize.STRING}}
 router.post('/', (req, res, next) => {
   client.query('ALTER TABLE ($1) ADD COLUMN ($2) ($3)', [req.body.tableName, req.body.newField.name, req.body.newField.type], (err, res) => {

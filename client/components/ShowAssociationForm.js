@@ -1,33 +1,32 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {getUserDatabases, clearTemp} from '../store'
-import { LoadDB } from './index';
+import { Association } from './index';
 import Modal from './Modal';
 
-class ShowLoadForm extends Component {
+class ShowAssociationForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showLoad: false
+            showAssociation: false,
         }
-        this.showLoadForm = this.showLoadForm.bind(this);
+        this.showAssociationForm = this.showAssociationForm.bind(this);
     }
-    showLoadForm(evt) {
+    showAssociationForm(evt) {
         evt.preventDefault()
         this.setState({
-            showLoad: !this.state.showLoad
+            showAssociation: !this.state.showAssociation
         })
-        this.props.getUserDatabases(this.props.user.id);
     }
 
     render() {
         return (
             <div className = 'ShowModal'>
-                <button onClick={this.showLoadForm}>LOAD DATABASE</button>
-                <Modal className = 'modal' show= {this.state.showLoad}
-                    onClose={this.showLoadForm}>
-                    <LoadDB/>
-                    <button onClick ={this.showLoadForm}>DONE</button>
+                <button onClick={this.showAssociationForm}>+ ASSOCIATION</button>
+                <Modal className = 'modal' show= {this.state.showAssociation}
+                    onClose={this.showAssociationForm}>
+                    <Association/>
+                    <button onClick ={this.showAssociationForm}>DONE</button>
                 </Modal>
             </div>
         )
@@ -47,4 +46,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowLoadForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ShowAssociationForm);

@@ -77,9 +77,9 @@ router.delete('/:tableId', (req, res, next) => {
 
 router.put('/:tablename', (req, res, next) => {
   var tablename = req.params.tablename;
-  console.log("stop", req.body)
+  let databaseId = req.body.databaseId;
   var tableName = req.body.name;
-  Table.findOne({where: {name: tablename}})
+  Table.findOne({where: {name: tablename, databaseId}})
   .then((table) => {console.log("fghsjfbjfh",tableName)
         table.update({name: tableName})})
   .then((table) => {res.json(table)})

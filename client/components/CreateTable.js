@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {AddField} from '../components';
 import {connect} from 'react-redux';
-import store, {addTableToTemp} from '../store';
+import store, {addTableToTemp, getMetatables} from '../store';
 
 class CreateTable extends Component{
     constructor(){

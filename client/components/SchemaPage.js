@@ -1,9 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Sidebar from './Sidebar'
-import CreateLoad from './CreateLoad'
-import DisplayTable from './DisplayTable'
+import { DisplayTable , Sidebar } from './index'
 /**
  * COMPONENT
  */
@@ -18,7 +15,6 @@ export const SchemaPage = (props) => {
             <div className='schild2'>
                 <DisplayTable />
             </div>
-
         </div>
     )
 }

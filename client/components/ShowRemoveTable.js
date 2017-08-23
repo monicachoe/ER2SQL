@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Modal from './Modal';
-import {Login} from './index'
+import {RemoveTable} from './index'
 
-class ShowModal extends Component {
+class ShowRemoveTable extends Component {
   constructor(props) {
     super(props);
 
@@ -18,13 +18,13 @@ class ShowModal extends Component {
   render() {
     return (
       <div className="ShowModal">
-         <a href='#' onClick={this.toggleModal}>Login</a>
+         <button  onClick={this.toggleModal}>REMOVE TABLE</button>
         
 
         <Modal className = 'modal' show={this.state.isOpen}
           onClose={this.toggleModal}>
-          <h1>LOGIN</h1>
-          <Login className = 'ShowModal'/>
+          <h1>REMOVE TABLE</h1>
+          <RemoveTable/>
           <button onClick={this.toggleModal}>close</button>
         </Modal>
       </div>
@@ -32,4 +32,4 @@ class ShowModal extends Component {
   }
 }
 
-export default ShowModal;
+export default ShowRemoveTable;

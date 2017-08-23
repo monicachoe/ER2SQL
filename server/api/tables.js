@@ -5,14 +5,17 @@ const { Table, Database } = require('../db/models')
 const utils = require('../../utils');
 module.exports = router;
 
+// Connect metatable and table so frontend only hits one route
 router.post('/', (req, res, next) => {
     let table = req.body;
     let tableName = table.tableName.toString();
     let fields = utils.formatFields(table.fields);
     const createdTable = db.define(tableName, fields);
     db.sync()
-    .then(()=>res.status(200).send(`OK. Table ${tableName} created.`));
+    .then(()=>res.status(200).send(`OK. Table ${tableName} created.`))
+    .catch(err => next(err));
 });
+
 
 router.delete('/:tablename', (req, res, next) => {
     var table = req.params.tablename

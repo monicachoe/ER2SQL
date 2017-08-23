@@ -38,7 +38,8 @@ export default function reducer (state = {}, action){
 export const createDatabase = (dbName, userId) => dispatch => {
     axios.post(`/api/users/${userId}/database/${dbName}`)
        .then(res => {
-         dispatch(create(res.data));
+         console.log(res.data)
+        //  dispatch(create(res.data));
        })
        .catch(error => dispatch(get({error})));
 }
