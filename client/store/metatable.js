@@ -8,7 +8,6 @@ import {load} from './index';
 const GET_TABLES = 'GET_TABLES'
 const GET_COLUMNS = 'GET_COLUMNS'
 const REMOVE = 'REMOVE'
-
 const ADD_TABLE = 'ADD_TABLE';
 const ADD_FIELD = 'ADD_FIELD';
 const REMOVE_TABLE = 'REMOVE_TABLE';
@@ -76,7 +75,7 @@ export const addFieldToTable = (curTable, name, attributes) =>
 
 export const deleteTable = (tableId, databaseId) =>
     dispatch =>
-    axios.delete(`/api/metatable/${databaseId}/${tableId}`)
+    axios.delete(`/api/metatable/${databaseId}/id/${tableId}`)
       .then(() => dispatch(getMetatables(databaseId)))
       .catch(err => console.log(err))
 

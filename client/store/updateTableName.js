@@ -21,10 +21,7 @@ const updateTableName = (table) => ({type: UPDATE_TABLE_NAME, table});
 export const updateNameToTable = (newName, tableId, tableName, databaseName) =>
     dispatch => 
       axios.put(`api/tables/${tableName}/${databaseName}`,{"name": newName})
-      .then((res) => {
-        console.log("h", res)
-        dispatch(updateTableName(res.data))
-      })
+      .then((res) => dispatch(updateTableName(res.data)))
       .then(() => axios.put(`api/metatable/${tableName}`,{"name": newName}))
       .catch(err => console.log(err))
     

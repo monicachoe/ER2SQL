@@ -20,13 +20,13 @@ class Association extends Component {
   handleSubmit(e){
     console.log('THE DATABASE', this.props.database.id)
     e.preventDefault();
-    const dbName = this.props.database.name;
+    const database = this.props.database;
     const src = this.props.tables[e.target.table1.value];
     const target = this.props.tables[e.target.table2.value];
     const assocType = e.target.associationType.value;
     this.setState({assocType: assocType});
     const fkName = this.state.foreignKey;
-    this.props.createAssociation(dbName, src, target, assocType, fkName);
+    this.props.createAssociation(database, src, target, assocType, fkName);
     this.props.getMetatables(this.props.database.id)
   }
 
@@ -74,8 +74,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    createAssociation(dbName, src, target, assocType, fkName){
-      dispatch(createAssociation(dbName, src, target, assocType, fkName));
+    createAssociation(database, src, target, assocType, fkName){
+      dispatch(createAssociation(database, src, target, assocType, fkName));
     },
     getMetatables(dbId){
       dispatch(getMetatables(dbId))

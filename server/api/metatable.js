@@ -1,23 +1,9 @@
 const router = require('express').Router();
-const { Table, Database } = require('../db/models')
+const { Table, Database } = require('../db/models');
 const client = require('../db/client');
 const utils = require('../../utils');
 const {db} = require('../db');
 module.exports = router
-
-// .then((db) => {
-//   client.query(`SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '${db.name + tableId + 's'}'`)
-// })
-// .then((columns) => 
-//   res.json(columns.rows)
-// )
-//     return Database.findOne({where: {id: table.databaseId}})
-
-// })
-//  .then((db) => res.json(db)
-//     )
-// .then((db) => res.json(db))
-// .catch(next);
 
 router.get('/', (req, res, next) => {
   Table.findAll()
@@ -29,7 +15,7 @@ router.post('/', (req, res, next) => {
   let name = req.body.tableName;
   let databaseId = req.body.database.id;
   let databaseName = req.body.database.name;
-  let fields = utils.formatFields(req.body.fields);
+  let fields = (req.body.fields) ? utils.formatFields(req.body.fields) : null;
   Table.create({ name, databaseId })
     .then(table => table.dataValues)
     .then(table => {
@@ -47,7 +33,7 @@ router.delete('/:tableId', (req, res, next) => {
     .then(() => res.status(204).send(`Succesfully deleted table ${tableId} `));
 })
 
-router.delete('/:dbId/:tableId', (req, res, next) => {
+router.delete('/:dbId/id/:tableId', (req, res, next) => {
   let tableId = req.params.tableId;
   let dbId = req.params.dbId;
   let user = req.user;
@@ -90,29 +76,14 @@ router.get('/:tableId/columns', (req, res, next) => {
     )
     .then((columnNames) => res.json(columnNames))
     .catch(next)
-})
-// router.get('/:tableId/columns', (req, res, next) => {
-//   var tableId = req.params.tableId
-//   Table.findOne({ where: { id: tableId } })
-//     .then((table) => res.json(table))
-//     .catch(next)
-// })
-
-// // get each table along with its columns for a particular db.
-// router.get('/:databaseId/tables', (req, res, next) => {
-
-// })
-
-//Table will have name and databaseId. In update we are changing 
-//name of one of the tables
+});
 
 router.put('/:tablename', (req, res, next) => {
   var tablename = req.params.tablename;
-  console.log("stop", req.body)
   var tableName = req.body.name;
   Table.findOne({where: {name: tablename}})
   .then((table) => {console.log("fghsjfbjfh",tableName)
         table.update({name: tableName})})
   .then((table) => {res.json(table)})
   .catch(next)
-})
+});

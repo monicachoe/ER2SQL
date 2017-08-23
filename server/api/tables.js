@@ -18,4 +18,3 @@ router.put('/:tablename/:databaseName', (req, res, next) => {
         })
     })
 });
-
