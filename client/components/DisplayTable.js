@@ -5,7 +5,6 @@ import { withRouter, Link } from 'react-router-dom'
 
 export const DisplayTables = (props) => {
     const { tables } = props
-    console.log('INSIDE DISPLAYTABLES', tables)
     var columnNames;
     return (
         <div className='box'>
@@ -13,14 +12,18 @@ export const DisplayTables = (props) => {
                 (table) ? columnNames = (table.fields) : columnNames = false
                 return (
                     <table key={idx} style={{ width: 25 + 'px' }}>
+                        <caption>{table.name}</caption>
                         <tbody>
                             <tr>
-                                <th>{table.name}</th>
+                                <th>Name</th>
+                                <th>Type</th>
                             </tr>
                             {columnNames && columnNames.map((column) => {
+                                let name = Object.keys(column)[0];
                                 return (
-                                    <tr key={column}>
-                                        <td name="column" key={column}>{column}</td>
+                                    <tr key={name}>
+                                        <td name="column" key={name}>{name}</td>
+                                        <td name="type" key={column[name]}>{column[name]}</td>
                                     </tr>
                                 )
                             })}
@@ -34,6 +37,6 @@ export const DisplayTables = (props) => {
 
 
 
-const mapStoredState = (state) => ({tables : state.metatable})
+const mapStoredState = (state) => ({ tables: state.metatable })
 
 export default connect(mapStoredState)(DisplayTables);

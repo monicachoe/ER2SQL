@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout, clearDatabase, clearUserDbs, clearMetatable, clearTemp} from '../store'
-import {StoredTables, TempTables, CreateLoad, Sidebar, UpdateTableName} from './index'
+import {StoredTables, TempTables, Sidebar, ShowModal,UpdateTableName, ShowSignupForm} from './index'
 
 /**
  * COMPONENT
@@ -18,25 +18,23 @@ const Main = (props) => {
         <div id="main" className="container-fluid">
 
             <div>
-                
                 <nav className = 'nav'>
-                  <h1>SimpleQL</h1>
+                  <Link to='/'><h1>SimpleQL</h1></Link>
                     {
                         isLoggedIn
                             ? <div>
                                 {/* The navbar will show these links after you log in */}
                                 <Link to='/home'>Home</Link>
                                 <a href='#' onClick={handleClick}>Logout</a>
-                                <Link to='/schema'>Schema</Link>
                             </div>
                             : <div>
                                 {/* The navbar will show these links before you log in */}
-                                <Link to='/login'>Login</Link>
-                                <Link to='/signup'>Sign Up</Link>
+                                 <ShowModal/>
+                                 <ShowSignupForm/>
                             </div>
                     }
                 </nav>
-                <hr />
+
                 {children}
             </div>
         </div>
@@ -50,7 +48,6 @@ const mapState = (state) => {
     return {
         isLoggedIn: !!state.user.id,
         metatable: state.metatable,
-        temp: state.temp
     }
 }
 
@@ -61,7 +58,6 @@ const mapDispatch = (dispatch) => {
       dispatch(clearUserDbs());
       dispatch(clearDatabase());
       dispatch(clearMetatable());
-      dispatch(clearTemp());
       dispatch(logout());
     }
   }

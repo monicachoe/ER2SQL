@@ -5,18 +5,20 @@ import user from './user';
 import metatable from './metatable';
 import database from './database';
 import userdbs from './userDatabases';
-import updateTableName from './updateTableName'
 import updateField from './updateField'
+import association from './association';
+import data from './data';
 
-const reducer = combineReducers({user, metatable, database, userdbs, updateTableName});
+const reducer = combineReducers({user, metatable, database, userdbs, association, data, updateField});
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}));
 const store = createStore(reducer, middleware);
 
 export default store;
 export * from './user';
-// export * from './temp';
 export * from './metatable';
 export * from './database';
 export * from './userDatabases';
-export * from './updateTableName';
 export * from './updateField';
+export * from './association';
+export * from './data';
+

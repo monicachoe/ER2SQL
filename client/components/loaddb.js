@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { loadDatabase, getMetatables } from '../store';
+import {Link} from 'react-router-dom'
+import history from '../history'
 
 class LoadDb extends Component {
   constructor(props){
     super(props);
     this.state = {
-      dbName: ''
+      'dbName': '-select-'
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -26,20 +28,23 @@ class LoadDb extends Component {
     evt.preventDefault();
     let selectedDb = this.props.userdbs.filter((eachDb) => eachDb.name === this.state.dbName);
     this.props.loadDatabase(selectedDb[0]);
+    var table = selectedDb[0]
+    this.props.getMetatables(table.id)
+    history.push('/schema')
   }
 
   render (){
     return (
       <div>
         <form onSubmit= {this.handleSubmit}>
-          <label htmlFor="load">Select database</label>
+          <label htmlFor="load">Select a database</label>
           <select name="load" onChange={this.handleChange}>
-            <option>-</option>
+            <option value={this.state.dbName}>{this.state.dbName}</option>
             {this.props.userdbs && this.props.userdbs.map(eachDB => {
               return (<option key={eachDB.id} value={eachDB.name}>{eachDB.name}</option>)
             })}
           </select>
-          <button type="submit">Load DB</button>
+            <button type='submit'>Load DB</button>
         </form>
       </div>
     )
@@ -53,8 +58,8 @@ const mapDispatch = (dispatch) => {
     loadDatabase(selectedDb){
       dispatch(loadDatabase(selectedDb));
     },
-    getMetatables(databaseId){
-      dispatch(getMetatables(databaseId));
+    getMetatables(userdbs){
+      dispatch(getMetatables(userdbs));
     }
   }
 }
