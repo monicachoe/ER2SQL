@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const client = require('../db/client');
 const {Table, Database} = require('../db/models');
-const {validateDatabase, validateTableById, validateTableByName, formatTableName, formatJoinTableName} = require('./utils');
+const utils = require('./utils');
 module.exports = router;
 
 router.post('/', (req, res, next) => {
@@ -13,22 +13,22 @@ router.post('/', (req, res, next) => {
   let user = req.user;
   let db, dbName, src, target, srcName, targetName, tableId;
 
-  validateDatabase(uDb.id, user.id)
+  utils.validateDatabase(uDb.id, user.id)
   .then(database => {
     dbName = database.name;
     db = database;
-    return validateTableById(usrc.tableId, db.id);
+    return utils.validateTableById(usrc.tableId, db.id);
   })
   .then(srcTable => {
     src = srcTable;
-    srcName = formatTableName(db, srcTable);
-    return validateTableById(utarget.tableId, db.id);
+    srcName = utils.formatTableName(db, srcTable);
+    return utils.validateTableById(utarget.tableId, db.id);
   })
   .then(targetTable => {
     target = targetTable;
-    targetName = formatTableName(db, targetTable);
+    targetName = utils.formatTableName(db, targetTable);
     if (assocType === 'many to many'){
-      return validateTableByName(formatJoinTableName(src, target), db.id);
+      return utils.validateTableByName(formatJoinTableName(src, target), db.id);
     }
   })
   .then(joinTable => (assocType==='many to many') ? tableId = joinTable.id : null)
