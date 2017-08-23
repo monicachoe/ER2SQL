@@ -26,12 +26,12 @@ class UserHome extends Component {
     var databases = this.props.userdbs
     return (
       <div>
+        <ShowLoadForm/>
+        <ShowCreateForm/>
         {
           (databases.length)
             ? <div className = 'user-home'>
               <h1>Welcome {this.props.user.name}, you have {databases.length} databases </h1>
-              <ShowLoadForm/>
-              <ShowCreateForm/>
               <div className='db'>
                 {
                   databases.map((db) =>
