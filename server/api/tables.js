@@ -54,7 +54,7 @@ router.put('/:tablenam/:databaseName/field', (req, res, next) => {
     .then((table) => { 
         console.log("h", table)
         var ans = data+(table.id).toString()+'s'
-        console.log("ans", ans, "bbb", ans.nam, "body", req.body.old)
+        console.log("ans", ans, "bbb", ans, "body", req.body.old)
 
         client.query(`ALTER TABLE ${ans} RENAME ${req.body.old} TO ${req.body.new}`, function (err, result) {
             if (err) return next(err);
