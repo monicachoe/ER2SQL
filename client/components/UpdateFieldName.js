@@ -44,28 +44,32 @@ class UpdateFieldName extends Component {
 
 	render(){
 		var tables = this.props.tables;
+		console.log("tables", tables)
 		return(
 		    <div>
-		    <form onSubmit={this.handleSubmit}>
-		    	<label>
-		    		Field Name : 
-		    		<select value={this.state.tableId} onChange={this.handleChange1}>
-		    			<option>-</option>
-		    			{
+			    <form onSubmit={this.handleSubmit}>
+			    	<label>
+			    		Field Name : 
+			    		<select value={this.state.tableId} onChange={this.handleChange1}>
+			    			<option>-</option>
+			    			{
 
-		    				tables.map(each => 
-		    					each.fields.map(field => 
-		    				    <option key={field}>
-		    				    	 {each.name} : {field}
-		    				    </option>
-		    				  )
-		    				 )
-		    			}
-		    		</select>
-		    		<input type="text" onChange={this.handleChange2} />
-		    	</label>
-		    	<button type="submit">Submit</button>
-		    </form>
+			    				tables.map(each => 
+			    					each.fields.map((field, idx) => {
+			    						console.log("field", field, "object.keys", Object.keys(field)[0])
+			    						return(
+			    				    <option key={idx}>
+			    				    	 {each.name} : {Object.keys(field)[0]}
+			    				    </option>
+			    				    )}
+			    				  )
+			    				 )
+			    			}
+			    		</select>
+			    		<input type="text" onChange={this.handleChange2} />
+			    	</label>
+			    	<button type="submit">Submit</button>
+			    </form>
 		    </div>
 		  )
 	}
