@@ -17496,7 +17496,6 @@ var UpdateFieldName = function (_Component) {
 							),
 							tables.map(function (each) {
 								return each.fields.map(function (field, idx) {
-									console.log("field", field, "object.keys", Object.keys(field)[0]);
 									return _react2.default.createElement(
 										'option',
 										{ key: idx },

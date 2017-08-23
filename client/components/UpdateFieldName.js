@@ -56,7 +56,6 @@ class UpdateFieldName extends Component {
 
 			    				tables.map(each => 
 			    					each.fields.map((field, idx) => {
-			    						console.log("field", field, "object.keys", Object.keys(field)[0])
 			    						return(
 			    				    <option key={idx}>
 			    				    	 {each.name} : {Object.keys(field)[0]}
