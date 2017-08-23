@@ -8,7 +8,6 @@ export {default as Association} from './Association';
 export {default as AddField} from './AddField';
 export {default as RemoveTable} from './RemoveTable';
 export {default as Sidebar} from './Sidebar';
-export {default as CreateLoad} from './CreateLoad';
 export {StoredTables, TempTables} from './DisplayTable';
 export {default as Modal} from './Modal'
 export {default as ShowModal} from './ShowModal'
@@ -20,3 +19,5 @@ export {default as ShowSQL} from './ShowSQL'
 export {default as ShowCreateForm} from './ShowCreateForm'
 export {default as ShowLoadForm} from './ShowLoadForm'
 export {default as ShowLoadDataForm} from './ShowLoadDataForm'
+export {default as DV} from './DV';
+export {default as VisualizationForm} from './VisualizationForm';

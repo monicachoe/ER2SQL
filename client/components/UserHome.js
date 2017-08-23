@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { CreateLoad } from './index'
 import { loadDatabase, getMetatables } from '../store';
 import history from '../history'
 
@@ -27,7 +26,6 @@ class UserHome extends Component {
     var databases = this.props.userdbs
     return (
       <div>
-        <CreateLoad />
         {
           (databases.length)
             ? <div className = 'userHome'>

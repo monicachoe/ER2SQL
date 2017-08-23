@@ -4,7 +4,7 @@ import {getUserDatabases, clearTemp} from '../store'
 import { LoadDB } from './index';
 import Modal from './Modal';
 
-class CreateLoad extends Component {
+class ShowLoadForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -47,4 +47,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateLoad);
+export default connect(mapStateToProps, mapDispatchToProps)(ShowLoadForm);

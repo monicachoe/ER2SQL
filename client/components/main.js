@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout, clearDatabase, clearUserDbs, clearMetatable, clearTemp} from '../store'
-import {StoredTables, TempTables, CreateLoad, Sidebar, ShowModal,UpdateTableName} from './index'
+import {StoredTables, TempTables, Sidebar, ShowModal,UpdateTableName} from './index'
 
 /**
  * COMPONENT

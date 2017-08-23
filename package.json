@@ -33,18 +33,19 @@
     "pg-hstore": "^2.3.2",
     "pgtools": "0.3.0",
     "prop-types": "^15.5.8",
-    "react": "^15.4.2",
+    "react": "^15.6.1",
     "react-dom": "^15.4.2",
-    "react-modal": "^2.2.4",
     "react-file-input": "0.2.5",
     "react-file-reader": "1.1.1",
+    "react-modal": "^2.2.4",
     "react-redux": "^5.0.2",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
-    "sequelize": "^4.3.1"
+    "sequelize": "^4.3.1",
+    "victory": "^0.21.5"
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.9.0",
