@@ -63,26 +63,11 @@ export const clearMetatable = () => dispatch => {
   dispatch(remove());
 }
 
-//// FROM TEMP
-// fields : [{id : integer}, {name : string}]
-export const addTableToTemp = (table) =>
+export const createTable = (table) =>
   dispatch => {
-    let tableId, tableName;
-    axios.post('/api/metatable', {'tableName' : table.tableName, 'databaseId' : table.database.id})
-    .then(res => {
-      tableId = res.data.id;
-      tableName = table.database.name + tableId
-      return res.data})
-    .then(res => axios.post('/api/tables', {tableName, 'fields' : table.fields}))
-    .then(() => {
-      let fields = [{'id':'integer'}];
-      for (let each of Object.keys(table.fields)){
-        fields.push({[each] : table.fields[each].type})
-      }
-      fields.push({'createdAt' : 'timestamp with time zone'});
-      fields.push({'updatedAt' : 'timestamp with time zone'});
-      dispatch(addTable({name: table.tableName, fields, databaseId: table.database.id, tableId}))
-    });
+    axios.post('/api/metatable', {'tableName' : table.tableName, 'database' : table.database, 'fields' : table.fields})
+    .then(() => dispatch(getMetatables(table.database.id)))
+    .catch(err => console.log(err));
   }
 
 export const addFieldToTable = (curTable, name, attributes) =>

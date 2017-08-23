@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { Table, Database } = require('../db/models')
 const client = require('../db/client');
+const utils = require('../../utils');
+const {db} = require('../db');
 module.exports = router
 
 // .then((db) => {
@@ -24,12 +26,18 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  var name = req.body.tableName;
-  var databaseId = req.body.databaseId;
+  let name = req.body.tableName;
+  let databaseId = req.body.database.id;
+  let databaseName = req.body.database.name;
+  let fields = utils.formatFields(req.body.fields);
   Table.create({ name, databaseId })
-    .then((table) => {
-      res.send(table);
+    .then(table => table.dataValues)
+    .then(table => {
+      let tableName = databaseName + table.id.toString();
+      const created = db.define(tableName, fields);
+      return db.sync();
     })
+    .then(()=> res.send(`ok. Table ${name} created.`))
     .catch(next);
 });
 

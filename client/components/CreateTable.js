@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {AddField} from '../components';
 import {connect} from 'react-redux';
-import store, {addTableToTemp} from '../store';
+import store, {createTable} from '../store';
 
 class CreateTable extends Component{
     constructor(){
@@ -107,7 +107,7 @@ const mapState = (state) => {
 const mapDispatch = dispatch => {
     return {
         submitHelper(table){ 
-            dispatch(addTableToTemp(table))
+            dispatch(createTable(table))
         }
     }
 }
