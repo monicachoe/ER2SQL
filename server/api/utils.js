@@ -44,8 +44,9 @@ function validateApiKey(devId, hashedApiKey){
     return User.findOne({where : {devId}})
     .then(user => user.dataValues)
     .then(user => curUser = user)
-    .then(() => crypto.createHash('md5').update(curUser.devId).update(curUser.apiKey).update(new Date().toISOString().slice(0,19)))
-    .then(newHashed => newHashed===hashedApiKey ? curUser : null);
+    .then(() => curUser.apiKey===hashedApiKey ? curUser : null);
+    // .then(() => crypto.createHash('md5').update(curUser.devId).update(curUser.apiKey).update(new Date().toISOString().slice(0,19)))
+    // .then(newHashed => newHashed===hashedApiKey ? curUser : null);
 }
 
 module.exports = {
