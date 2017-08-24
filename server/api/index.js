@@ -7,7 +7,7 @@ router.use('/metatable', require('./metatable'));
 router.use('/metadatabase', require('./metadatabase'));
 router.use('/association', require('./association'));
 router.use('/data', require('./data'));
-router.use('/email', require('./email'))
+router.use('/email', require('./email'));
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')

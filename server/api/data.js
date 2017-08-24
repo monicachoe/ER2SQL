@@ -3,9 +3,11 @@ const client = require('../db').client;
 const copyFrom = require('pg-copy-streams').from;
 const fs = require('fs');
 const path = require('path');
+const utils = require('./utils');
 
 router.post('/upload/:tableName', (req, res, next) => {
-  let user = req.user || utils.validateApiKey(req.query.devId, req.query.apiKey);
+  utils.validateUser(req.query.devId, req.query.apiKey, req.user)
+  .then(user => {
   if (user){
     let data = req.body;
     fs.writeFile(path.join(__dirname, `../data/${req.params.tableName}.csv`), data.data, (err, data) => {
@@ -30,6 +32,8 @@ router.post('/upload/:tableName', (req, res, next) => {
       }
     })
   }
+})
+.catch(next);
 })
 
 module.exports = router;

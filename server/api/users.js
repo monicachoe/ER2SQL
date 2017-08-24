@@ -1,24 +1,35 @@
-const router = require('express').Router()
-const {User, Database} = require('../db/models')
+const router = require('express').Router();
+const utils = require('./utils');
+const {User, Database} = require('../db/models');
 
 module.exports = router
 
 router.get('/', (req, res, next) => {
+  utils.validateUser(req.query.devId, req.query.apiKey, req.user)
+  .then(user => {
   User.findAll({
     attributes: ['id', 'email']
   })
     .then(users => res.json(users))
     .catch(next)
 })
+.catch(next);
+})
 
 router.get('/databases', (req, res, next) => {
-  User.findById(req.user.id)
+  utils.validateUser(req.query.devId, req.query.apiKey, req.user)
+  .then(user => {
+  User.findById(user.id)
   .then(user => user.getDatabases())
   .then(databases => res.send(databases))
   .catch(err => console.log(err));
+  })
+  .catch(next);
 });
 
 router.post('/:userId/database/:dbName', (req, res, next) => {
+  utils.validateUser(req.query.devId, req.query.apiKey, req.user)
+  .then(user => {
   Database.findOrCreate( {where: {
     userId: req.params.userId,
     name: req.params.dbName
@@ -32,4 +43,6 @@ router.post('/:userId/database/:dbName', (req, res, next) => {
     }
   })
   .catch(next);
+})
+.catch(next);
 });

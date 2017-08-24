@@ -5,7 +5,8 @@ const utils = require('./utils');
 module.exports = router;
 
 router.post('/', (req, res, next) => {
-  let user = req.user || utils.validateApiKey(req.query.devId, req.query.apiKey);
+  utils.validateUser(req.query.devId, req.query.apiKey, req.user)
+  .then(user => {
   if (user){
     let uDb = req.body.database;
     let usrc = req.body.src;
@@ -42,12 +43,6 @@ router.post('/', (req, res, next) => {
                 ADD CONSTRAINT "${constraintName}"
                 FOREIGN KEY("${fkName}")
                 REFERENCES "${srcName}"(id)`)
-        // // return client.query('ALTER TABLE $1 ADD COLUMN $2 INTEGER UNIQUE, ADD CONSTRAINT $3 FOREIGN KEY $4 REFERENCES $5(id)',[targetName, fkName, constraintName, fkName, srcName])
-        //     return client.query(`ALTER TABLE $1
-        //         ADD COLUMN $2 INTEGER UNIQUE,
-        //         ADD CONSTRAINT $3
-        //         FOREIGN KEY($4)
-        //         REFERENCES $5(id)`, [targetName, fkName, constraintName, fkName, srcName])
       }
       else if (assocType === 'one to many'){
         fkName = (fkName === '') ? src.name + '_id' : fkName;
@@ -85,4 +80,6 @@ router.post('/', (req, res, next) => {
     })
     .catch(next);
   }
+})
+.catch(next);
 });

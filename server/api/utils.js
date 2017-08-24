@@ -39,26 +39,20 @@ function formatJoinTableName(src, target){
     return src.name+'_'+target.name;
 }
 
-// async function validateApiKey(devId, hashedApiKey){
-//     let curUser; 
-//     return User.findOne({where : {devId}})
+// // checking hashed apikey!
+// function validateUser(devId, hashed, reqUser){
+// console.log('hashedApiKey: ', crypto.createHash('md5').update(devId).update(hashed).update(new Date().toISOString().slice(0,19)).digest('hex'));    
+//     return User.findOne({where : devId})
 //     .then(user => user.dataValues)
-//     .then(user => curUser = user)
-//     .then(() => curUser.apiKey===hashedApiKey ? curUser : null)
-//     .then(res => res)
-//     // .then(() => crypto.createHash('md5').update(curUser.devId).update(curUser.apiKey).update(new Date().toISOString().slice(0,19)))
-//     // .then(newHashed => newHashed===hashedApiKey ? curUser : null);
+//     .then(user => crypto.createHash('md5').update(user.devId).update(user.apiKey).update(new Date().toISOString().slice(0,19)).digest('hex')===hashed ? user : null)
+//     .then(res => res || reqUser);
 // }
 
- function validateApiKey(devId, hashed){
-    // let curUser;
+// // checking unhashed apikey!!
+// if user is not found --> throws Error Cannot read property 'dataValues' of null b/c line 55 
+function validateUser(devId, hashed, reqUser){
     return User.findOne({where : {devId}})
-    .then(user => user.dataValues.apiKey===hashed ? user : null)
-    // .then(user => hashed===user.apiKey ? user : null)
-    // .catch(err => err);
-    // .then(user => curUser = user)
-    // .then(() => curUser.apiKey===hashed ? curUser : null)
-    // return curUser;
+    .then(user => user ? user.dataValues.apiKey === hashed ? user : null : reqUser)
 }
 
 module.exports = {
@@ -68,5 +62,5 @@ module.exports = {
     validateTableByName,
     formatTableName,
     formatJoinTableName,
-    validateApiKey
+    validateUser
 };
