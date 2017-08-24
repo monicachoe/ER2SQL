@@ -15160,13 +15160,13 @@ var Association = function (_Component) {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
       e.preventDefault();
-      var dbName = this.props.database.name;
+      var database = this.props.database;
       var src = this.props.tables[e.target.table1.value];
       var target = this.props.tables[e.target.table2.value];
       var assocType = e.target.associationType.value;
       this.setState({ assocType: assocType });
       var fkName = this.state.foreignKey;
-      this.props.createAssociation(dbName, src, target, assocType, fkName);
+      this.props.createAssociation(database, src, target, assocType, fkName);
       this.props.getMetatables(this.props.database.id);
     }
   }, {
@@ -15267,8 +15267,8 @@ var mapState = function mapState(state) {
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    createAssociation: function createAssociation(dbName, src, target, assocType, fkName) {
-      dispatch((0, _store.createAssociation)(dbName, src, target, assocType, fkName));
+    createAssociation: function createAssociation(database, src, target, assocType, fkName) {
+      dispatch((0, _store.createAssociation)(database, src, target, assocType, fkName));
     },
     getMetatables: function getMetatables(dbId) {
       dispatch((0, _store.getMetatables)(dbId));
@@ -15620,7 +15620,6 @@ var CreateTable = function (_Component) {
             }
 
             this.props.submitHelper(table);
-            // store.dispatch(addTableToTemp(table));
             this.setState({
                 tableName: '',
                 fields: [],
@@ -15747,7 +15746,7 @@ var mapState = function mapState(state) {
 var mapDispatch = function mapDispatch(dispatch) {
     return {
         submitHelper: function submitHelper(table) {
-            dispatch((0, _store.addTableToTemp)(table));
+            dispatch((0, _store.createTable)(table));
         }
     };
 };
@@ -16406,7 +16405,7 @@ var RemoveTable = function (_Component) {
     key: 'handleSubmit',
     value: function handleSubmit(evt) {
       evt.preventDefault();
-      this.props.removeTable(this.state.tableName, this.state.tableId, this.props.database.id);
+      this.props.removeTable(this.state.tableId, this.props.database.id);
       // history.push('/schema')
       // this.props.getTables(this.props.database.id)
     }
@@ -18174,20 +18173,33 @@ var addAssociation = function addAssociation(association) {
  * THUNK CREATORS
  */
 
-var createAssociation = exports.createAssociation = function createAssociation(dbName, src, target, assocType, fkName) {
+// export const createAssociation = (dbName, src, target, assocType, fkName) =>
+//   dispatch => {
+//     if (assocType==='many to many'){
+//       axios.post('/api/metatable', {'tableName' : src.name+'_'+target.name, 'databaseId': src.databaseId})
+//       .then(res => res.data.id)
+//       .then(tableID => axios.post('/api/association', {dbName, src, target, assocType, fkName, 'tableId': tableID}))
+//       .then(res => dispatch(getMetatables(src.databaseId)))
+//       .catch(err => console.log(err));
+//     } else {
+//       axios.post('/api/association', {dbName, src, target, assocType, fkName})
+//       .then(res => res.data)
+//       .catch(err => console.log(err));
+//     }
+//   }
+
+var createAssociation = exports.createAssociation = function createAssociation(database, src, target, assocType, fkName) {
   return function (dispatch) {
     if (assocType === 'many to many') {
-      _axios2.default.post('/api/metatable', { 'tableName': src.name + '_' + target.name, 'databaseId': src.databaseId }).then(function (res) {
-        return res.data.id;
-      }).then(function (tableID) {
-        return _axios2.default.post('/api/association', { dbName: dbName, src: src, target: target, assocType: assocType, fkName: fkName, 'tableId': tableID });
+      _axios2.default.post('/api/metatable', { 'tableName': src.name + '_' + target.name, database: database }).then(function () {
+        return _axios2.default.post('/api/association', { database: database, src: src, target: target, assocType: assocType, fkName: fkName });
       }).then(function (res) {
         return dispatch((0, _store.getMetatables)(src.databaseId));
       }).catch(function (err) {
         return console.log(err);
       });
     } else {
-      _axios2.default.post('/api/association', { dbName: dbName, src: src, target: target, assocType: assocType, fkName: fkName }).then(function (res) {
+      _axios2.default.post('/api/association', { database: database, src: src, target: target, assocType: assocType, fkName: fkName }).then(function (res) {
         return res.data;
       }).catch(function (err) {
         return console.log(err);
@@ -18382,7 +18394,7 @@ var clearDatabase = exports.clearDatabase = function clearDatabase() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateNameToField = exports.putTablename = exports.deleteTable = exports.addFieldToTable = exports.addTableToTemp = exports.clearMetatable = exports.getMetatables = undefined;
+exports.updateNameToField = exports.putTablename = exports.deleteTable = exports.addFieldToTable = exports.createTable = exports.clearMetatable = exports.getMetatables = undefined;
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultTables;
@@ -18466,7 +18478,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  */
 var GET_TABLES = 'GET_TABLES';
 var REMOVE = 'REMOVE';
-
 var ADD_TABLE = 'ADD_TABLE';
 var ADD_FIELD = 'ADD_FIELD';
 var REMOVE_TABLE = 'REMOVE_TABLE';
@@ -18538,25 +18549,12 @@ var clearMetatable = exports.clearMetatable = function clearMetatable() {
   };
 };
 
-var addTableToTemp = exports.addTableToTemp = function addTableToTemp(table) {
+var createTable = exports.createTable = function createTable(table) {
   return function (dispatch) {
-    var tableId = void 0,
-        tableName = void 0;
-    _axios2.default.post('/api/metatable', { 'tableName': table.tableName, 'databaseId': table.database.id }).then(function (res) {
-      tableId = res.data.id;
-      tableName = table.database.name + tableId;
-      return res.data;
-    }).then(function (res) {
-      return _axios2.default.post('/api/tables', { tableName: tableName, 'fields': table.fields });
-    }).then(function () {
-      // let fields = [{'id':'integer'}];
-      // for (let each of Object.keys(table.fields)){
-      //   fields.push({[each] : table.fields[each].type})
-      // }
-      // fields.push({'createdAt' : 'timestamp with time zone'});
-      // fields.push({'updatedAt' : 'timestamp with time zone'});
-      // dispatch(addTable({name: table.tableName, fields, databaseId: table.database.id, tableId}))
-      dispatch(getMetatables(table.database.id));
+    _axios2.default.post('/api/metatable', { 'tableName': table.tableName, 'database': table.database, 'fields': table.fields }).then(function () {
+      return dispatch(getMetatables(table.database.id));
+    }).catch(function (err) {
+      return console.log(err);
     });
   };
 };
@@ -18567,13 +18565,9 @@ var addFieldToTable = exports.addFieldToTable = function addFieldToTable(curTabl
   };
 };
 
-var deleteTable = exports.deleteTable = function deleteTable(tableName, tableId, databaseId) {
+var deleteTable = exports.deleteTable = function deleteTable(tableId, databaseId) {
   return function (dispatch) {
-    return _axios2.default.delete('/api/tables/' + tableName)
-    // .then(res => dispatch(removeTable(tableName)))
-    .then(function (res) {
-      return _axios2.default.delete('/api/metatable/' + tableId);
-    }).then(function () {
+    return _axios2.default.delete('/api/metatable/' + databaseId + '/id/' + tableId).then(function () {
       return dispatch(getMetatables(databaseId));
     }).catch(function (err) {
       return console.log(err);
@@ -18819,7 +18813,7 @@ function reducer() {
 var getUserDatabases = exports.getUserDatabases = function getUserDatabases() {
   return function (dispatch) {
     _axios2.default.get('/api/users/databases').then(function (userDbs) {
-      dispatch(load(userDbs.data));
+      return dispatch(load(userDbs.data));
     }).catch(function (err) {
       return console.error('Loading databases failed', err);
     });

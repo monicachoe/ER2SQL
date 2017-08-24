@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { Database, Table } = require('../db/models')
 module.exports = router
 
-// doesnt hate
 router.get('/:databaseId', (req, res, next) => {
     Database.findById(req.params.databaseId)
     .then((database) => res.status(204).send(`got database ${database.name}`))

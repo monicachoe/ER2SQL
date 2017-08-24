@@ -30,4 +30,3 @@ router.post('/upload/:tableName', (req, res, next) => {
 })
 
 module.exports = router;
-

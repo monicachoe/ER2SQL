@@ -7,7 +7,6 @@ import {load} from './index';
  */
 const GET_TABLES = 'GET_TABLES'
 const REMOVE = 'REMOVE'
-
 const ADD_TABLE = 'ADD_TABLE';
 const ADD_FIELD = 'ADD_FIELD';
 const REMOVE_TABLE = 'REMOVE_TABLE';
@@ -65,37 +64,21 @@ export const clearMetatable = () => dispatch => {
   dispatch(remove());
 }
 
-export const addTableToTemp = (table) =>
+export const createTable = (table) =>
   dispatch => {
-    let tableId, tableName;
-    axios.post('/api/metatable', {'tableName' : table.tableName, 'databaseId' : table.database.id})
-    .then(res => {
-      tableId = res.data.id;
-      tableName = table.database.name + tableId
-      return res.data})
-    .then(res => axios.post('/api/tables', {tableName, 'fields' : table.fields}))
-    .then(() => {
-      // let fields = [{'id':'integer'}];
-      // for (let each of Object.keys(table.fields)){
-      //   fields.push({[each] : table.fields[each].type})
-      // }
-      // fields.push({'createdAt' : 'timestamp with time zone'});
-      // fields.push({'updatedAt' : 'timestamp with time zone'});
-      // dispatch(addTable({name: table.tableName, fields, databaseId: table.database.id, tableId}))
-      dispatch(getMetatables(table.database.id))
-    });
+    axios.post('/api/metatable', {'tableName' : table.tableName, 'database' : table.database, 'fields' : table.fields})
+    .then(() => dispatch(getMetatables(table.database.id)))
+    .catch(err => console.log(err));
   }
 
 export const addFieldToTable = (curTable, name, attributes) =>
   dispatch =>
     dispatch(addField(curTable, name, attributes));
 
-export const deleteTable = (tableName, tableId, databaseId) =>
+export const deleteTable = (tableId, databaseId) =>
     dispatch =>
-    axios.delete(`/api/tables/${tableName}`)
-      // .then(res => dispatch(removeTable(tableName)))
-      .then((res) => axios.delete(`/api/metatable/${tableId}`))
-      .then(() => dispatch(getMetatables(databaseId))  )
+    axios.delete(`/api/metatable/${databaseId}/id/${tableId}`)
+      .then(() => dispatch(getMetatables(databaseId)))
       .catch(err => console.log(err))
 
 export const putTablename = (curName, newName, databaseId) => 
