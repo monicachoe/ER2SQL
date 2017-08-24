@@ -29,3 +29,4 @@ export {default as HomePageStack} from './HomePageStack'
 export {default as ShowRemoveTable} from './ShowRemoveTable'
 export {default as TableData} from './TableData';
 export {default as ShowUpdateTableName} from './ShowUpdateTableName'
+export {default as UpdateFieldForm} from './UpdateFieldForm'

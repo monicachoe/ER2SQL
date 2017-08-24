@@ -26,7 +26,7 @@ class ShowCreateForm extends Component {
                 <Modal className = 'modal' show= {this.state.showCreate}
                     onClose={this.showCreateForm}>
                     <CreateDB/>
-                    <button onClick ={this.showCreateForm}>DONE</button>
+                    <button onClick ={this.showCreateForm}>✕</button>
                 </Modal>
             </div>
         )

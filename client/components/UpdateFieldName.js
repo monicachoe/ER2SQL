@@ -20,7 +20,7 @@ class UpdateFieldName extends Component {
 		var tableColumn = (event.target.value).split(': ')
 		var tablename = tableColumn[0];
 		var selectedColumn = tableColumn[1];
-		this.setState({ oldColumn: selectedColumn, table: this.props.tables.filter( table => (table.name === tablename))[0]})
+		this.setState({ oldColumn: selectedColumn, table: this.props.tables.filter(table => (table.name === tablename))[0] })
 	}
 
 	handleNewColumn(event) {
@@ -47,10 +47,10 @@ class UpdateFieldName extends Component {
 								tables.map(table =>
 									table.fields.map((field, idx) => {
 										return (!(Object.keys(field)[0] === 'id' ||
-										Object.keys(field)[0] === 'createdAt' ||
-										Object.keys(field)[0] === 'updatedAt'))
-										? (<option key={idx}> {table.name}: {Object.keys(field)[0]} </option>)
-										: ''
+											Object.keys(field)[0] === 'createdAt' ||
+											Object.keys(field)[0] === 'updatedAt'))
+											? (<option key={idx}> {table.name}: {Object.keys(field)[0]} </option>)
+											: ''
 									}))
 							}
 						</select>

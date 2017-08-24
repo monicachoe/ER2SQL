@@ -1,49 +1,29 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {getUserDatabases, clearTemp} from '../store'
 import { Association } from './index';
 import Modal from './Modal';
 
 class ShowAssociationForm extends Component {
     constructor(props) {
-        super(props)
-        this.state = {
-            showAssociation: false,
-        }
-        this.showAssociationForm = this.showAssociationForm.bind(this);
+    super(props);
+        this.state = { isOpen: false };
     }
-    showAssociationForm(evt) {
-        evt.preventDefault()
+    toggleModal = () => {
         this.setState({
-            showAssociation: !this.state.showAssociation
-        })
+        isOpen: !this.state.isOpen
+        });
     }
 
     render() {
         return (
             <div className = 'ShowModal'>
-                <button onClick={this.showAssociationForm}>+ ASSOCIATION</button>
-                <Modal className = 'modal' show= {this.state.showAssociation}
-                    onClose={this.showAssociationForm}>
+                <button onClick={this.toggleModal}>+ ASSOCIATION</button>
+                <Modal className = 'modal' show= {this.state.isOpen}
+                    onClose={this.toggleModal}>
                     <Association/>
-                    <button onClick ={this.showAssociationForm}>DONE</button>
+                    <button onClick ={this.toggleModal}>✕</button>
                 </Modal>
             </div>
         )
     }
 }
-
-const mapStateToProps = ({user, userdbs}) => ({user, userdbs});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getUserDatabases(userId){
-      dispatch(getUserDatabases(userId))
-    },
-    clearTables(){
-      dispatch(clearTemp())
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShowAssociationForm);
+export default (ShowAssociationForm);

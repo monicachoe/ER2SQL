@@ -128,7 +128,7 @@ td {
   }
   .sidebar{
     background-color:lightblue;
-    height:68vh;
+    height:70vh;
     display: flex;
     padding: 0 15px;
     position: static;
@@ -186,8 +186,8 @@ td {
     flex-direction: column;
   }
   .dbImg img{
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 110px;
 
   }
   .dbImg button{
@@ -372,6 +372,11 @@ form.load-data{
   font-size: 20px;
   color: #24455E;
   font-family: 'Cabin', sans-serif;
+}
+form.createdbform{
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
 
 

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { getUserDatabases } from '../store'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Field, CreateDB, RemoveTable, LoadDB, Modal, ShowAssociationForm, ShowCreateForm, ShowLoadForm, ShowLoadDataForm, LoadData, ShowModal, UpdateTableName, ShowSQL, ShowTableForm, ShowRemoveTable, UpdateFieldName } from './index';
+import history from '../history'
+import { Field, CreateDB, RemoveTable, LoadDB, Modal, ShowAssociationForm, ShowCreateForm, ShowLoadForm, ShowLoadDataForm, LoadData, ShowModal, UpdateTableName, ShowSQL, ShowTableForm, ShowRemoveTable, UpdateFieldForm, ShowUpdateTableName } from './index';
 
 class Sidebar extends Component {
     constructor(props) {
@@ -53,7 +54,7 @@ class Sidebar extends Component {
                     <ShowLoadDataForm/>
                     <ShowUpdateTableName/>
                     <button onClick={this.handleClick}>SHOW TABLE DATA</button>
-                    {this.state.showUpdateField ? <UpdateFieldName /> : null}
+                    <UpdateFieldForm/>
                 </div>
             </div>
         )
