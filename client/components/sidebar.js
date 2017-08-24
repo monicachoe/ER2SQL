@@ -42,8 +42,8 @@ class Sidebar extends Component {
                     <ShowCreateForm/>
                     <ShowLoadForm/>
                     <ShowTableForm/>
-                    <button onClick={this.showUpdateTableName}>Update Table Name</button>
-                    <button onClick={this.showUpdateFieldName}>Update Field Name</button>
+                    <button onClick={this.showUpdateTableName}>RENAME TABLE</button>
+                    <button onClick={this.showUpdateFieldName}>RENAME FIELDS</button>
                     <ShowSQL/>
                     <ShowRemoveTable/>
                     <ShowAssociationForm/>

@@ -81,19 +81,18 @@ export const deleteTable = (tableId, databaseId) =>
       .then(() => dispatch(getMetatables(databaseId)))
       .catch(err => console.log(err))
 
-export const putTablename = (curName, newName, databaseId) => 
-  dispatch => 
-    axios.put(`/api/metatable/${curName}`, {name : newName, databaseId})
+export const putTablename = (curName, newName, databaseId) =>
+  dispatch =>
+    axios.put(`/api/metatable/${curName}`, {name: newName, databaseId})
     .then(res => dispatch(updateTableName(curName, newName)))
     .catch(err => console.log(err));
 
-export const updateNameToField = (newName, oldName, tableName, databaseName) => 
-    dispatch => 
-      axios.put(`api/tables/${tableName}/${databaseName}/field`,{"new": newName, "old": oldName})
-      .then((res) => {
-        dispatch(updateFieldName(res.data))
-      })
+export const renameField = (dbName, table, oldColumn, newColumn) =>
+    dispatch => {
+      axios.put(`/api/table/${dbName}/id/${table.tableId}/fields`, {new: newColumn, old: oldColumn, table: table})
+      .then(() => dispatch(getMetatables(table.databaseId)))
       .catch(err => console.log(err))
+    }
 
 /**
  * REDUCER

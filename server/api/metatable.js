@@ -42,7 +42,6 @@ router.delete('/:dbId/id/:tableId', (req, res, next) => {
     return Table.destroy({where : {id : table.id}})
   })
   .then(() => client.query(`DROP TABLE "${tableName}" CASCADE`, function (err, result) {
-  // .then(() => client.query('DROP TABLE $1 CASCADE', [`"${tableName}"`],function (err, result) {
       if (err) return next(err);
       res.send(`OK. Table ${tableName} deleted.`);
     }))
@@ -55,11 +54,11 @@ router.get('/:tableId', (req, res, next) => {
     .then((table) => res.json(table))
     .catch(next)
 });
-  
+
 router.get('/:tableId/columns', (req, res, next) => {
   let tableId = req.params.tableId;
   Table.findOne({ where: { id: tableId } })
-    .then((table) => 
+    .then((table) =>
       Database.findOne({where: {id: table.databaseId}})
     )
     .then((db) =>
@@ -76,7 +75,7 @@ router.put('/:tablename', (req, res, next) => {
   let databaseId = req.body.databaseId;
   let tableName = req.body.name;
   Table.findOne({where: {name: tablename, databaseId}})
-  .then((table) => 
+  .then((table) =>
         table.update({name: tableName}))
   .then((table) => res.json(table))
   .catch(next)
