@@ -21,7 +21,7 @@ class RemoveTable extends Component{
 
   handleSubmit(evt){
     evt.preventDefault();
-    this.props.removeTable(this.state.tableName, this.state.tableId, this.props.database.id);
+    this.props.removeTable(this.state.tableId, this.props.database.id);
     // history.push('/schema')
     // this.props.getTables(this.props.database.id)
   }

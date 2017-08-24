@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {AddField} from '../components';
 import {connect} from 'react-redux';
-import store, {addTableToTemp, getMetatables} from '../store';
+import store, {createTable} from '../store';
 
 class CreateTable extends Component{
     constructor(){
@@ -52,7 +52,6 @@ class CreateTable extends Component{
             table.fields[temp] = field;
         }
         this.props.submitHelper(table);
-        // store.dispatch(addTableToTemp(table));
         this.setState({
             tableName : '',
             fields : [],
@@ -106,7 +105,7 @@ const mapState = (state) => {
 const mapDispatch = dispatch => {
     return {
         submitHelper(table){ 
-            dispatch(addTableToTemp(table))
+            dispatch(createTable(table))
         }
     }
 }
