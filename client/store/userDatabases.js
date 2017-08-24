@@ -35,9 +35,7 @@ export default function reducer(state = [], action){
 
 export const getUserDatabases = () => dispatch => {
   axios.get(`/api/users/databases`)
-  .then(userDbs => {
-    dispatch(load(userDbs.data));
-  })
+  .then(userDbs => dispatch(load(userDbs.data)))
   .catch(err => console.error(`Loading databases failed`, err));
 }
 

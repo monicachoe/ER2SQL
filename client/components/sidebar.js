@@ -2,25 +2,36 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUserDatabases } from '../store'
 import { Link } from 'react-router-dom';
-import history from '../history'
-import { Field, CreateDB, RemoveTable, LoadDB, Modal, ShowAssociationForm, ShowCreateForm, ShowLoadForm, ShowLoadDataForm, LoadData, ShowModal, ShowUpdateTableName, ShowSQL, ShowTableForm, ShowRemoveTable } from './index';
+import axios from 'axios';
+import { Field, CreateDB, RemoveTable, LoadDB, Modal, ShowAssociationForm, ShowCreateForm, ShowLoadForm, ShowLoadDataForm, LoadData, ShowModal, UpdateTableName, ShowSQL, ShowTableForm, ShowRemoveTable, UpdateFieldName } from './index';
 
 class Sidebar extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showUpdateTable: false
+            showUpdateTable: false,
+            showUpdateField: false
+
         }
         this.showUpdateTableName = this.showUpdateTableName.bind(this);
         this.handleClick = this.handleClick.bind(this)
+        this.showUpdateFieldName = this.showUpdateFieldName.bind(this);
+        // this.showAssociationForm = this.showAssociationForm.bind(this);
     }
 
     showUpdateTableName(e) {
         e.preventDefault();
         this.setState({
-            showCreateTable: false,
-            showRemoveTable: false,
-            showUpdateTable: true
+            showUpdateTable: true,
+            showUpdateField: false
+        })
+    }
+
+    showUpdateFieldName(e) {
+        e.preventDefault();
+        this.setState({
+            showUpdateTable: false,
+            showUpdateField: true
         })
     }
     handleClick(evt){
@@ -42,7 +53,7 @@ class Sidebar extends Component {
                     <ShowLoadDataForm/>
                     <ShowUpdateTableName/>
                     <button onClick={this.handleClick}>SHOW TABLE DATA</button>
-                    
+                    {this.state.showUpdateField ? <UpdateFieldName /> : null}
                 </div>
             </div>
         )
