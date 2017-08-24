@@ -25,7 +25,10 @@ export const getTableData =  (table, dbName) => (dispatch) => {
   console.log("thunk: ", table, dbName)
   axios.get(`/api/data/${dbName}/id/${table.tableId}`)
   .then(result => {
-    const data = {rows: result.data.rows, rowCount: result.data.rowCount};
+    let columns = result.data.fields.map(field => {
+      return ({key: field.name, name: field.name});
+    });
+    const data = {columns: columns, rows: result.data.rows, rowCount: result.data.rowCount};
     dispatch(get(data));
   })
   .catch(err => console.error(`Getting data of ${table.name} unsuccessfull`, err));

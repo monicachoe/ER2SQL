@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {AddField} from '../components';
 import {connect} from 'react-redux';
 import store, {addTableToTemp, getMetatables} from '../store';
+import history from '../history'
 
 class CreateTable extends Component{
     constructor(){
@@ -59,6 +60,7 @@ class CreateTable extends Component{
             fieldsValid : false,
             tableNameValid : false
         });
+        history.push('/schema')
     }
 
     render(){
@@ -67,12 +69,13 @@ class CreateTable extends Component{
             <form onSubmit={this.handleSubmit}>
             <label>Table Name: <input type='text' name='tableName' onChange={this.handleChange} value={this.state.tableName}/></label>
             <button onClick={this.handleClick}>Add Field</button>
-            <input type='submit' disabled={(this.state.tableName.length === 0) || !this.state.fieldsValid || !this.state.tableNameValid}/>
+            
             {(this.state.tableName.length === 0) ? <p>Please input table name</p> : null}
             {(!this.state.tableNameValid && this.state.tableName.length>0) ? <p>Tablename is invalid</p> : null}
             {(!this.state.fieldsValid && this.state.fields.length!==0) ? <p>Name and type of column is required</p> : null}
             <hr />
             {fieldsArr.map(each => <AddField key={each} id={each} handleChange={this.handleChange}/>)}
+            <input type='submit' disabled={(this.state.tableName.length === 0) || !this.state.fieldsValid || !this.state.tableNameValid}/>
             </form>
         );
     }

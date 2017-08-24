@@ -4,7 +4,7 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, CreateDB, LoadDb, Box, CreateTable, RemoveTable, SchemaPage, UpdateTableName, HomePage, HomePageStack} from './components'
+import {Main, Login, Signup, UserHome, CreateDB, LoadDb, Box, CreateTable, RemoveTable, SchemaPage, UpdateTableName, HomePage, HomePageStack, TableData} from './components'
 import {me, getUserDatabases} from './store'
 
 /**
@@ -38,6 +38,7 @@ class Routes extends Component {
                   {/* Routes placed here are only available after logging in */}
                   <Route path='/home' component={UserHome} />
                   <Route path='/schema' component={SchemaPage}/>
+                  <Route path ='/data' component={TableData}/>
                   
                 </Switch>
             }

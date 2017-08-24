@@ -26,7 +26,7 @@ class ShowLoadForm extends Component {
                 <button onClick={this.showLoadForm}>LOAD DATABASE</button>
                 <Modal className = 'modal' show= {this.state.showLoad}
                     onClose={this.showLoadForm}>
-                    <LoadDB/>
+                    <LoadDB className=''/>
                     <button onClick ={this.showLoadForm}>DONE</button>
                 </Modal>
             </div>

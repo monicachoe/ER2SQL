@@ -9,12 +9,7 @@ import association from './association';
 import data from './data';
 import tableData from './tableData';
 
-<<<<<<< HEAD
-const reducer = combineReducers({user, metatable, database, userdbs, association, data});
-
-=======
 const reducer = combineReducers({user, metatable, database, userdbs, association, data, tableData});
->>>>>>> 37555a98e451d6556b45a364d7f37d0a97f0eda0
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}));
 const store = createStore(reducer, middleware);
 

@@ -34,8 +34,8 @@ class LoadData extends Component{
 
   render(){
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <div className = 'modal-load-data'>
+        <form className = 'load-data' onSubmit={this.handleSubmit}>
           <select name="table" onChange={this.handleTable}>
             <option>-select-</option>
             {this.props.metatable && this.props.metatable.map((table, idx) =>

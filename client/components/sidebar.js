@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUserDatabases } from '../store'
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { Field, CreateDB, RemoveTable, LoadDB, Modal, ShowAssociationForm, ShowCreateForm, ShowLoadForm, ShowLoadDataForm, LoadData, ShowModal, UpdateTableName, ShowSQL, ShowTableForm, ShowRemoveTable } from './index';
+import history from '../history'
+import { Field, CreateDB, RemoveTable, LoadDB, Modal, ShowAssociationForm, ShowCreateForm, ShowLoadForm, ShowLoadDataForm, LoadData, ShowModal, ShowUpdateTableName, ShowSQL, ShowTableForm, ShowRemoveTable } from './index';
 
 class Sidebar extends Component {
     constructor(props) {
@@ -12,6 +12,7 @@ class Sidebar extends Component {
             showUpdateTable: false
         }
         this.showUpdateTableName = this.showUpdateTableName.bind(this);
+        this.handleClick = this.handleClick.bind(this)
     }
 
     showUpdateTableName(e) {
@@ -22,6 +23,10 @@ class Sidebar extends Component {
             showUpdateTable: true
         })
     }
+    handleClick(evt){
+        evt.preventDefault
+        history.push('/data')
+    }
 
     render() {
         return (
@@ -31,12 +36,12 @@ class Sidebar extends Component {
                     <ShowCreateForm/>
                     <ShowLoadForm/>
                     <ShowTableForm/>
-                    <button onClick={this.showUpdateTableName}>Update Table Name</button>
                     <ShowSQL/>
                     <ShowRemoveTable/>
                     <ShowAssociationForm/>
                     <ShowLoadDataForm/>
-                    {this.state.showUpdateTable ? <UpdateTableName /> : null}
+                    <ShowUpdateTableName/>
+                    <button onClick={this.handleClick}>SHOW TABLE DATA</button>
                     
                 </div>
             </div>

@@ -20,6 +20,7 @@ class TableData extends Component{
   componentWillReceiveProps(nextProps){
     console.log("In componentWillRecieveProps...", nextProps);
     if(nextProps.tableData &&   nextProps.tableData.rows !== this.state._rows){
+      this.setState({_columns: nextProps.tableData.columns});
       this.setState({_rows: nextProps.tableData.rows});
       this.setState({_rowCount: nextProps.tableData.rowCount});
     }
@@ -33,13 +34,8 @@ class TableData extends Component{
 
   handleSubmit (evt){
     evt.preventDefault();
-    console.log("table: ", this.state.table );
-    let columns = [];
-    this.state.table.fields.forEach(column =>
-      columns.push({key: column, name: column})
-    );
-    this.setState({_columns: columns})
     this.props.getData(this.state.table, this.props.database.name);
+    
   }
 
   rowGetter(i) {

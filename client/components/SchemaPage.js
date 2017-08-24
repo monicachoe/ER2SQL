@@ -13,7 +13,6 @@ export const SchemaPage = (props) => {
             </div>
             <div className='schild2'>
                 <DisplayTable />
-                <TableData />
             </div>
         </div>
     )

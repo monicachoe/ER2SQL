@@ -11,7 +11,7 @@ export const DisplayTables = (props) => {
             {(tables) && tables.map((table, idx) => {
                 (table) ? columnNames = (table.fields) : columnNames = false
                 return (
-                    <table key={idx} style={{ width: 25 + 'px' }}>
+                    <table key={idx} style={{ width: '10vw' }}>
                         <caption>{table.name}</caption>
                         <tbody>
                             <tr>

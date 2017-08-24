@@ -45,6 +45,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createDB(dbName, userID){
       dispatch(createDatabase(dbName, userID));
+    },
+    loadDB(selectedDB){
+      dispatch(loadDatabase(selectedDB))
     }
   }
 }

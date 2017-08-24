@@ -33,6 +33,7 @@ router.post('/:userId/database/:dbName', (req, res, next) => {
       res.status(401).send(`Database ${req.params.dbName} already exists`)
     }
     else {
+      console.log('createdDB: ', db);
       res.send(db);
     }
   })
