@@ -1,4 +1,5 @@
-const {Table, Database} = require('../db/models');
+const crypto = require('crypto');
+const {Table, Database, User} = require('../db/models');
 const Sequelize = require('sequelize');
 
 function toSequelize(type){
@@ -26,7 +27,7 @@ function validateTableById(tableId, databaseId){
 }
 
 function validateTableByName(tableName, databaseId){
-        return Table.findOne({where : {name : tableName, databaseId}})
+    return Table.findOne({where : {name : tableName, databaseId}})
     .then(table => table.dataValues);
 }
 
@@ -38,11 +39,21 @@ function formatJoinTableName(src, target){
     return src.name+'_'+target.name;
 }
 
+function validateApiKey(devId, hashedApiKey){
+    let curUser; 
+    return User.findOne({where : {devId}})
+    .then(user => user.dataValues)
+    .then(user => curUser = user)
+    .then(() => crypto.createHash('md5').update(curUser.devId).update(curUser.apiKey).update(new Date().toISOString().slice(0,19)))
+    .then(newHashed => newHashed===hashedApiKey ? curUser : null);
+}
+
 module.exports = {
     formatFields,
     validateDatabase,
     validateTableById,
     validateTableByName,
     formatTableName,
-    formatJoinTableName
+    formatJoinTableName,
+    validateApiKey
 };

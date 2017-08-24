@@ -3,15 +3,17 @@ import { connect } from 'react-redux';
 import { getUserDatabases } from '../store'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Field, CreateDB, RemoveTable, LoadDB, Modal, ShowAssociationForm, ShowCreateForm, ShowLoadForm, ShowLoadDataForm, LoadData, ShowModal, UpdateTableName, ShowSQL, ShowTableForm, ShowRemoveTable } from './index';
+import {EndpointsInfo, Field, CreateDB, RemoveTable, LoadDB, Modal, ShowAssociationForm, ShowCreateForm, ShowLoadForm, ShowLoadDataForm, LoadData, ShowModal, UpdateTableName, ShowSQL, ShowTableForm, ShowRemoveTable } from './index';
 
 class Sidebar extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showUpdateTable: false
+            showUpdateTable: false,
+            showEndpoints: false
         }
         this.showUpdateTableName = this.showUpdateTableName.bind(this);
+        this.showEndpointInfo = this.showEndpointInfo.bind(this);
     }
 
     showUpdateTableName(e) {
@@ -20,6 +22,13 @@ class Sidebar extends Component {
             showCreateTable: false,
             showRemoveTable: false,
             showUpdateTable: true
+        })
+    }
+    showEndpointInfo(e){
+        e.preventDefault();
+        this.setState({
+            showUpdateTable: false,
+            showEndpoints: true
         })
     }
 
@@ -36,7 +45,9 @@ class Sidebar extends Component {
                     <ShowRemoveTable/>
                     <ShowAssociationForm/>
                     <ShowLoadDataForm/>
+                    <button onClick={this.showEndpointInfo}>DevId and API Key</button>
                     {this.state.showUpdateTable ? <UpdateTableName /> : null}
+                    {this.state.showEndpoints ? <EndpointsInfo /> : null}
                     
                 </div>
             </div>
