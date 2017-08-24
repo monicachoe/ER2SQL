@@ -12,6 +12,7 @@ const ADD_TABLE = 'ADD_TABLE';
 const ADD_FIELD = 'ADD_FIELD';
 const REMOVE_TABLE = 'REMOVE_TABLE';
 const UPDATE_TABLENAME = 'UPDATE_TABLENAME';
+const UPDATE_FIELD_NAME = 'UPDATE_FIELD_NAME';
 
 /**
  * INITIAL STATE
@@ -27,6 +28,7 @@ const addTable = table => ({type: ADD_TABLE, table});
 const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field});
 const removeTable = (tableName) => ({type: REMOVE_TABLE, tableName});
 const updateTableName = (curName, newName) => ({type: UPDATE_TABLENAME, curName, newName});
+const updateFieldName = (field) => ({type: UPDATE_FIELD_NAME, field});
 /**
  * THUNK CREATORS
  */
@@ -102,6 +104,14 @@ export const putTablename = (curName, newName, databaseId) =>
     .then(res => dispatch(updateTableName(curName, newName)))
     .catch(err => console.log(err));
 
+export const updateNameToField = (newName, oldName, tableName, databaseName) => 
+    dispatch => 
+      axios.put(`api/tables/${tableName}/${databaseName}/field`,{"new": newName, "old": oldName})
+      .then((res) => {
+        dispatch(updateFieldName(res.data))
+      })
+      .catch(err => console.log(err))
+
 /**
  * REDUCER
  */
@@ -130,6 +140,8 @@ export default function (state = defaultTables, action) {
       return tables;
     case REMOVE_TABLE:
       return state.filter(each => each.tableName !== action.tableName);
+    case UPDATE_FIELD_NAME:
+      return  action.table;
     default:
       return state
   }

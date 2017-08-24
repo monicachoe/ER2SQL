@@ -735,7 +735,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 var _prodInvariant = __webpack_require__(4);
 
-var DOMProperty = __webpack_require__(24);
+var DOMProperty = __webpack_require__(23);
 var ReactDOMComponentFlags = __webpack_require__(90);
 
 var invariant = __webpack_require__(2);
@@ -2765,12 +2765,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(128);
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
@@ -2794,7 +2788,7 @@ exports.default = history;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3007,6 +3001,12 @@ var DOMProperty = {
 
 module.exports = DOMProperty;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(128);
 
 /***/ }),
 /* 25 */
@@ -10294,7 +10294,7 @@ module.exports = PooledClass.addPoolingTo(CallbackQueue);
 
 
 
-var DOMProperty = __webpack_require__(24);
+var DOMProperty = __webpack_require__(23);
 var ReactDOMComponentTree = __webpack_require__(9);
 var ReactInstrumentation = __webpack_require__(16);
 
@@ -11031,7 +11031,7 @@ module.exports = ReactInputSelection;
 var _prodInvariant = __webpack_require__(4);
 
 var DOMLazyTree = __webpack_require__(28);
-var DOMProperty = __webpack_require__(24);
+var DOMProperty = __webpack_require__(23);
 var React = __webpack_require__(30);
 var ReactBrowserEventEmitter = __webpack_require__(40);
 var ReactCurrentOwner = __webpack_require__(19);
@@ -14052,7 +14052,7 @@ var _propTypes = __webpack_require__(7);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _history = __webpack_require__(23);
+var _history = __webpack_require__(22);
 
 var _history2 = _interopRequireDefault(_history);
 
@@ -15417,7 +15417,7 @@ var _store = __webpack_require__(5);
 
 var _reactRouterDom = __webpack_require__(21);
 
-var _history = __webpack_require__(23);
+var _history = __webpack_require__(22);
 
 var _history2 = _interopRequireDefault(_history);
 
@@ -16228,7 +16228,7 @@ var _store = __webpack_require__(5);
 
 var _reactRouterDom = __webpack_require__(21);
 
-var _history = __webpack_require__(23);
+var _history = __webpack_require__(22);
 
 var _history2 = _interopRequireDefault(_history);
 
@@ -16367,7 +16367,7 @@ var _reactRedux = __webpack_require__(6);
 
 var _store = __webpack_require__(5);
 
-var _history = __webpack_require__(23);
+var _history = __webpack_require__(22);
 
 var _history2 = _interopRequireDefault(_history);
 
@@ -17412,7 +17412,7 @@ var _store = __webpack_require__(5);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _history = __webpack_require__(23);
+var _history = __webpack_require__(22);
 
 var _history2 = _interopRequireDefault(_history);
 
@@ -17697,7 +17697,7 @@ var _reactRedux = __webpack_require__(6);
 
 var _store = __webpack_require__(5);
 
-var _history = __webpack_require__(23);
+var _history = __webpack_require__(22);
 
 var _history2 = _interopRequireDefault(_history);
 
@@ -17978,7 +17978,7 @@ var _store = __webpack_require__(5);
 
 var _reactRouterDom = __webpack_require__(21);
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(24);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -18147,7 +18147,7 @@ exports.default = function () {
   }
 };
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(24);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -18213,7 +18213,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.uploadDataAsCsv = undefined;
 exports.default = reducer;
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(24);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -18297,7 +18297,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.clearDatabase = exports.loadDatabase = exports.createDatabase = undefined;
 exports.default = reducer;
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(24);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -18382,7 +18382,7 @@ var clearDatabase = exports.clearDatabase = function clearDatabase() {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.putTablename = exports.deleteTable = exports.addFieldToTable = exports.addTableToTemp = exports.clearMetatable = exports.getMetatables = undefined;
+exports.updateNameToField = exports.putTablename = exports.deleteTable = exports.addFieldToTable = exports.addTableToTemp = exports.clearMetatable = exports.getMetatables = undefined;
 
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultTables;
@@ -18440,16 +18440,18 @@ exports.default = function () {
       return state.filter(function (each) {
         return each.tableName !== action.tableName;
       });
+    case UPDATE_FIELD_NAME:
+      return action.table;
     default:
       return state;
   }
 };
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(24);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _history = __webpack_require__(23);
+var _history = __webpack_require__(22);
 
 var _history2 = _interopRequireDefault(_history);
 
@@ -18469,6 +18471,7 @@ var ADD_TABLE = 'ADD_TABLE';
 var ADD_FIELD = 'ADD_FIELD';
 var REMOVE_TABLE = 'REMOVE_TABLE';
 var UPDATE_TABLENAME = 'UPDATE_TABLENAME';
+var UPDATE_FIELD_NAME = 'UPDATE_FIELD_NAME';
 
 /**
  * INITIAL STATE
@@ -18495,6 +18498,9 @@ var removeTable = function removeTable(tableName) {
 };
 var updateTableName = function updateTableName(curName, newName) {
   return { type: UPDATE_TABLENAME, curName: curName, newName: newName };
+};
+var updateFieldName = function updateFieldName(field) {
+  return { type: UPDATE_FIELD_NAME, field: field };
 };
 /**
  * THUNK CREATORS
@@ -18585,60 +18591,6 @@ var putTablename = exports.putTablename = function putTablename(curName, newName
   };
 };
 
-/**
- * REDUCER
- */
-
-/***/ }),
-/* 176 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.updateNameToField = undefined;
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : field;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case UPDATE_FIELD_NAME:
-      return action.field;
-    default:
-      return state;
-  }
-};
-
-var _axios = __webpack_require__(22);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * ACTION TYPES
- */
-var UPDATE_FIELD_NAME = 'UPDATE_FIELD_NAME';
-
-/**
- * INITIAL STATE
- */
-var field = {};
-
-/**
- * ACTION CREATORS
- */
-var updateFieldName = function updateFieldName(field) {
-  return { type: UPDATE_FIELD_NAME, field: field };
-};
-/**
- * THUNK CREATORS
- */
-
 var updateNameToField = exports.updateNameToField = function updateNameToField(newName, oldName, tableName, databaseName) {
   return function (dispatch) {
     return _axios2.default.put('api/tables/' + tableName + '/' + databaseName + '/field', { "new": newName, "old": oldName }).then(function (res) {
@@ -18652,6 +18604,53 @@ var updateNameToField = exports.updateNameToField = function updateNameToField(n
 /**
  * REDUCER
  */
+
+/***/ }),
+/* 176 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+//import axios from 'axios';
+
+/**
+ * ACTION TYPES
+ */
+// const UPDATE_FIELD_NAME = 'UPDATE_FIELD_NAME';
+
+// /**
+//  * INITIAL STATE
+//  */
+// const field = {};
+
+// /**
+//  * ACTION CREATORS
+//  */
+// const updateFieldName = (field) => ({type: UPDATE_FIELD_NAME, field});
+// /**
+//  * THUNK CREATORS
+//  */
+
+// export const updateNameToField = (newName, oldName, tableName, databaseName) => 
+//     dispatch => 
+//       axios.put(`api/tables/${tableName}/${databaseName}/field`,{"new": newName, "old": oldName})
+//       .then((res) => {
+//         dispatch(updateFieldName(res.data))
+//       })
+//       .catch(err => console.log(err))
+
+
+// /**
+//  * REDUCER
+//  */
+// export default function (state = field, action) {
+//   switch (action.type) {
+//     case UPDATE_FIELD_NAME:
+//       return  action.field;
+//     default:
+//       return state
+//   }
+// }
+
 
 /***/ }),
 /* 177 */
@@ -18679,11 +18678,11 @@ exports.default = function () {
   }
 };
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(24);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _history = __webpack_require__(23);
+var _history = __webpack_require__(22);
 
 var _history2 = _interopRequireDefault(_history);
 
@@ -18773,7 +18772,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.clearUserDbs = exports.getUserDatabases = undefined;
 exports.default = reducer;
 
-var _axios = __webpack_require__(22);
+var _axios = __webpack_require__(24);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -23157,7 +23156,7 @@ module.exports = FallbackCompositionState;
 
 
 
-var DOMProperty = __webpack_require__(24);
+var DOMProperty = __webpack_require__(23);
 
 var MUST_USE_PROPERTY = DOMProperty.injection.MUST_USE_PROPERTY;
 var HAS_BOOLEAN_VALUE = DOMProperty.injection.HAS_BOOLEAN_VALUE;
@@ -24622,7 +24621,7 @@ var AutoFocusUtils = __webpack_require__(212);
 var CSSPropertyOperations = __webpack_require__(214);
 var DOMLazyTree = __webpack_require__(28);
 var DOMNamespaces = __webpack_require__(53);
-var DOMProperty = __webpack_require__(24);
+var DOMProperty = __webpack_require__(23);
 var DOMPropertyOperations = __webpack_require__(89);
 var EventPluginHub = __webpack_require__(34);
 var EventPluginRegistry = __webpack_require__(39);
@@ -26088,7 +26087,7 @@ module.exports = ReactDOMInput;
 
 
 
-var DOMProperty = __webpack_require__(24);
+var DOMProperty = __webpack_require__(23);
 var ReactComponentTreeHook = __webpack_require__(13);
 
 var warning = __webpack_require__(3);
@@ -27057,7 +27056,7 @@ module.exports = {
 
 
 
-var DOMProperty = __webpack_require__(24);
+var DOMProperty = __webpack_require__(23);
 var EventPluginRegistry = __webpack_require__(39);
 var ReactComponentTreeHook = __webpack_require__(13);
 
@@ -27967,7 +27966,7 @@ module.exports = ReactHostOperationHistoryHook;
 
 
 
-var DOMProperty = __webpack_require__(24);
+var DOMProperty = __webpack_require__(23);
 var EventPluginHub = __webpack_require__(34);
 var EventPluginUtils = __webpack_require__(54);
 var ReactComponentEnvironment = __webpack_require__(57);
