@@ -13,6 +13,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   let user = req.user || utils.validateApiKey(req.query.devId, req.query.apiKey);
+  console.log('my user is: ', user);
   if (user){
     let name = req.body.tableName;
     let databaseId = req.body.database.id;
@@ -27,6 +28,8 @@ router.post('/', (req, res, next) => {
       })
       .then(()=> res.send(`Ok. Table ${name} created.`))
       .catch(next);
+  } else {
+    res.send('unauthorized');
   }
 });
 
@@ -54,14 +57,47 @@ router.delete('/:dbId/id/:tableId', (req, res, next) => {
   }
 });
 
+// router.get('/:tableId', (req, res, next) => {
+//   let user = req.user || utils.validateApiKey(req.query.devId, req.query.apiKey);
+//   console.log('my user is: ', user);
+//   if (user){
+//     let tableId = req.params.tableId;
+//     Table.findById(tableId)
+//       .then((table) => res.json(table))
+//       .catch(next)
+//   } else {
+//     res.send('unauthorized');
+//   }
+// });
+
 router.get('/:tableId', (req, res, next) => {
-  let user = req.user || utils.validateApiKey(req.query.devId, req.query.apiKey);
-  if (user){
-    let tableId = req.params.tableId;
-    Table.findById(tableId)
-      .then((table) => res.json(table))
-      .catch(next)
-  }
+  // let user = req.user || utils.validateApiKey(req.query.devId, req.query.apiKey);
+  console.log('query parames: ', req.query)
+  let user; 
+  utils.validateApiKey(req.query.devId, req.query.apiKey)
+  .then(res => user = res || res.user)
+  .then(() => {
+    console.log('my user is : ', user);
+    if (user){
+      let tableId = req.params.tableId;
+      Table.findById(tableId)
+        .then((table) => res.json(table))
+        .catch(next)
+    } else {
+      res.send('unauthorized');
+    }
+  })
+  .catch(err => next(err))
+
+  // console.log('my user is: ', user);
+  // if (user){
+  //   let tableId = req.params.tableId;
+  //   Table.findById(tableId)
+  //     .then((table) => res.json(table))
+  //     .catch(next)
+  // } else {
+  //   res.send('unauthorized');
+  // }
 });
   
 router.get('/:tableId/columns', (req, res, next) => {

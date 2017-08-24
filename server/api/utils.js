@@ -39,14 +39,26 @@ function formatJoinTableName(src, target){
     return src.name+'_'+target.name;
 }
 
-function validateApiKey(devId, hashedApiKey){
-    let curUser; 
+// async function validateApiKey(devId, hashedApiKey){
+//     let curUser; 
+//     return User.findOne({where : {devId}})
+//     .then(user => user.dataValues)
+//     .then(user => curUser = user)
+//     .then(() => curUser.apiKey===hashedApiKey ? curUser : null)
+//     .then(res => res)
+//     // .then(() => crypto.createHash('md5').update(curUser.devId).update(curUser.apiKey).update(new Date().toISOString().slice(0,19)))
+//     // .then(newHashed => newHashed===hashedApiKey ? curUser : null);
+// }
+
+ function validateApiKey(devId, hashed){
+    // let curUser;
     return User.findOne({where : {devId}})
-    .then(user => user.dataValues)
-    .then(user => curUser = user)
-    .then(() => curUser.apiKey===hashedApiKey ? curUser : null);
-    // .then(() => crypto.createHash('md5').update(curUser.devId).update(curUser.apiKey).update(new Date().toISOString().slice(0,19)))
-    // .then(newHashed => newHashed===hashedApiKey ? curUser : null);
+    .then(user => user.dataValues.apiKey===hashed ? user : null)
+    // .then(user => hashed===user.apiKey ? user : null)
+    // .catch(err => err);
+    // .then(user => curUser = user)
+    // .then(() => curUser.apiKey===hashed ? curUser : null)
+    // return curUser;
 }
 
 module.exports = {
