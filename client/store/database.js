@@ -52,3 +52,10 @@ export const loadDatabase = (selectedDb) => dispatch => {
 export const clearDatabase = () => dispatch => {
   dispatch(remove());
 }
+
+export const sendMail = () => dispatch => {
+  axios.get(`/api/email`)
+  .then( res => {
+    console.log(res.data)
+  })
+}

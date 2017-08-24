@@ -5,7 +5,6 @@ const EndpointsInfo = (props) => {
     return (
         <div>
             <p>DevId : {props.user.devId}</p>
-            <p>APIKey : {props.user.apiKey}</p>
             <p>Instructions: md5 hash devId + apiKey + UTC time</p>
         </div>
     )
