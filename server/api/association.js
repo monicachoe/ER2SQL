@@ -37,10 +37,16 @@ router.post('/', (req, res, next) => {
       fkName = (fkName === '') ? src.name + '_id' : fkName;
       let constraintName = 'fk_' + src.name;
       return client.query(`ALTER TABLE "${targetName}"
-                    ADD COLUMN "${fkName}" INTEGER UNIQUE,
-                    ADD CONSTRAINT "${constraintName}"
-                    FOREIGN KEY("${fkName}")
-                    REFERENCES "${srcName}"(id)`)
+              ADD COLUMN "${fkName}" INTEGER UNIQUE,
+              ADD CONSTRAINT "${constraintName}"
+              FOREIGN KEY("${fkName}")
+              REFERENCES "${srcName}"(id)`)
+      // // return client.query('ALTER TABLE $1 ADD COLUMN $2 INTEGER UNIQUE, ADD CONSTRAINT $3 FOREIGN KEY $4 REFERENCES $5(id)',[targetName, fkName, constraintName, fkName, srcName])
+      //     return client.query(`ALTER TABLE $1
+      //         ADD COLUMN $2 INTEGER UNIQUE,
+      //         ADD CONSTRAINT $3
+      //         FOREIGN KEY($4)
+      //         REFERENCES $5(id)`, [targetName, fkName, constraintName, fkName, srcName])
     }
     else if (assocType === 'one to many'){
       fkName = (fkName === '') ? src.name + '_id' : fkName;

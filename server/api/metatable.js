@@ -42,6 +42,7 @@ router.delete('/:dbId/id/:tableId', (req, res, next) => {
     return Table.destroy({where : {id : table.id}})
   })
   .then(() => client.query(`DROP TABLE "${tableName}" CASCADE`, function (err, result) {
+  // .then(() => client.query('DROP TABLE $1 CASCADE', [`"${tableName}"`],function (err, result) {
       if (err) return next(err);
       res.send(`OK. Table ${tableName} deleted.`);
     }))
