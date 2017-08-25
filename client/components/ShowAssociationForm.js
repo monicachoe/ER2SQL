@@ -20,7 +20,7 @@ class ShowAssociationForm extends Component {
                 <Modal className = 'modal' show= {this.state.isOpen}
                     onClose={this.toggleModal}>
                     <Association/>
-                    <button onClick ={this.toggleModal}>✕</button>
+                    <button className = 'tablebutton' onClick ={this.toggleModal}>✕</button>
                 </Modal>
             </div>
         )

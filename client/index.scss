@@ -98,7 +98,7 @@ td {
     background-image: url('http://www.powerpointhintergrund.com/uploads/presentation-background-grids-25.gif');
   }
   .schild1{
-    width:20vw;
+    width:280px;
     height: 82vh;
   }
   .schild2{
@@ -128,12 +128,13 @@ td {
   }
   .sidebar{
     background-color:lightblue;
-    height:70vh;
+    height:75vh;
     display: flex;
     padding: 0 15px;
     position: static;
     border-radius: 15px;
     margin: 15px 15px;
+    width:220px;
   }
   .buttons{
     display: flex;
@@ -165,6 +166,7 @@ td {
     align-items: center;
     display: flex;
     flex-direction: column;
+    position:relative;
   }
   .ShowModal{
     font-size:20px;
@@ -379,5 +381,12 @@ form.createdbform{
   align-items: center;
 }
 
+button.tablebutton{
+  position: absolute;
+  right: 10px;
+  top: 10%;
+  width:30px;
+
+}
 
 }

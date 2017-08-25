@@ -27,7 +27,7 @@ class ShowLoadDataForm extends Component {
                 <Modal className = 'modal' show= {this.state.showLoadData}
                     onClose={this.showLoadDataForm}>
                     <LoadData/>
-                    <button onClick ={this.showLoadDataForm}>✕</button>
+                    <button className = 'tablebutton' onClick ={this.showLoadDataForm}>✕</button>
                 </Modal>
             </div>
         )

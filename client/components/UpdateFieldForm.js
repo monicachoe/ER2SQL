@@ -24,7 +24,7 @@ class UpdateFieldForm extends Component {
           onClose={this.toggleModal}>
           <h1>UPDATE FIELD</h1>
           <UpdateFieldName className = 'ShowModal'/>
-          <button onClick={this.toggleModal}>✕</button>
+          <button className = 'tablebutton' onClick={this.toggleModal}>✕</button>
         </Modal>
       </div>
     );

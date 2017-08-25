@@ -25,7 +25,7 @@ class ShowModal extends Component {
 
         <Modal className = 'modal' show={this.state.isOpen}
           onClose={this.toggleModal}>
-          <button className = 'modal-button' onClick={this.toggleModal}>✕</button>
+          <button className = 'tablebutton' onClick={this.toggleModal}>✕</button>
           <GenerateSQL/>
           
         </Modal>

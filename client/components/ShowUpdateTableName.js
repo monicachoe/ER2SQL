@@ -23,7 +23,7 @@ class ShowUpdateTableName extends Component {
           onClose={this.toggleModal}>
           <h1>RENAME TABLE</h1>
           <UpdateTableName className = 'ShowModal'/>
-          <button onClick={this.toggleModal}>close</button>
+          <button className = 'tablebutton' onClick={this.toggleModal}>✕</button>
         </Modal>
       </div>
     );
