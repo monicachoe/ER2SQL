@@ -57,12 +57,14 @@ class Sidebar extends Component {
                     <ShowCreateForm/>
                     <ShowLoadForm/>
                     <ShowTableForm/>
+                    <ShowSQL/>
                     <ShowRemoveTable/>
                     <ShowAssociationForm/>
-                    <ShowSQL/>
                     <ShowLoadDataForm/>
+                    <ShowUpdateTableName />
+                    <UpdateFieldForm />
+                    <button onClick={this.handleClick}>SHOW TABLE DATA</button>
                     <EndpointsInfo />
-                    {this.state.showUpdateTable ? <UpdateTableName /> : null}
                 </div>
             </div>
         )
