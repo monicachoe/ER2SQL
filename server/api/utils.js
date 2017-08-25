@@ -12,7 +12,7 @@ function formatFields(fields){
     for (var field of keys){
         let attribute = fields[field]; 
         let seqType = attribute['type']
-        fields[field] = Object.assign({}, attribute, {type: toSequelize(seqType)})
+        fields[cleanString(field)] = Object.assign({}, attribute, {type: toSequelize(seqType)})
     }
     return fields;
 }

@@ -37,7 +37,7 @@ router.post('/:userId/database/:dbName', (req, res, next) => {
     if (user){
       Database.findOrCreate( {where: {
         userId: req.params.userId,
-        name: req.params.dbName
+        name: utils.cleanString(req.params.dbName)
       }})
       .spread( (db, created) => {
         if (!created){
