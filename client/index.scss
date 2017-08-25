@@ -8,7 +8,7 @@
 
 body {
 font-family: 'Cabin', sans-serif;
-
+height: 95vh;
   a {
     font-size:40px;
     color:#33ccff;
@@ -27,7 +27,7 @@ font-family: 'Cabin', sans-serif;
     color:#24455E;
     text-decoration: none;
     // text-transform: uppercase;
-    
+    height: 5vh;
     align-items: center;
     justify-content: space-between;
     h1{
@@ -49,10 +49,14 @@ font-family: 'Cabin', sans-serif;
     
     }
   }
-  form div {
-    margin: 1em;
-    display: inline-block;
-  }
+  // form div {
+  //   margin: 1em;
+  //   display: inline-block;
+  // }
+  // form.load-data{
+  //   font-size: 20px;
+  //   height:100px;
+  // }
   table {  
     color: black;
     font-family: 'Cabin', sans-serif;
@@ -91,17 +95,19 @@ td {
     display:flex;
     flex-direction: row;
     width:100%;
-    height: 100vh;
     background-image: url('http://www.powerpointhintergrund.com/uploads/presentation-background-grids-25.gif');
   }
   .schild1{
-    width:350px;
-    height:100vh;
+    width:280px;
+    height: 82vh;
   }
   .schild2{
-    width:100%;
-    height:100vh;
+    width: 75vw;
+    height: 85vh;
     background-image: url('http://www.powerpointhintergrund.com/uploads/presentation-background-grids-25.gif');
+    display:flex;
+    flex-wrap: wrap;
+    overflow: scroll;
   }
   .login {
    display:flex;
@@ -122,12 +128,13 @@ td {
   }
   .sidebar{
     background-color:lightblue;
-    height:80vh;
+    height:75vh;
     display: flex;
     padding: 0 15px;
     position: static;
     border-radius: 15px;
     margin: 15px 15px;
+    width:220px;
   }
   .buttons{
     display: flex;
@@ -159,6 +166,7 @@ td {
     align-items: center;
     display: flex;
     flex-direction: column;
+    position:relative;
   }
   .ShowModal{
     font-size:20px;
@@ -180,8 +188,8 @@ td {
     flex-direction: column;
   }
   .dbImg img{
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 110px;
 
   }
   .dbImg button{
@@ -334,6 +342,14 @@ h1.one-child.description {
 one-child.description img{
   width: 100%;
 }
+
+.modal-load-data{
+  margin:auto;
+}
+form.load-data{
+  padding: 10px;
+  margin: auto;
+}
 .user-home{
   display:flex;
   justify-content: center;
@@ -345,6 +361,52 @@ one-child.description img{
     text-transform: uppercase;
   }
 }
+.sqlScript{
+  width: 100%;
+  height: 50vh;
+  border: 1px solid transparent;
+  border-radius: 10px;
 
+}
+.textarea{
+  width: 482px;
+  height: 234px;
+  font-size: 20px;
+  color: #24455E;
+  font-family: 'Cabin', sans-serif;
+}
+form.createdbform{
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
 
+button.tablebutton{
+  position: absolute;
+  right: 10px;
+  top: 2%;
+  width:30px;
+
+}
+.fieldGrid{
+  display : flex;
+  flex-direction : row;
+  justify-content : space-around;
+  align-content : center;
+}
+.fieldInput{
+  width : 125px;
+  height : 20px;
+  font-size : 15px;
+} 
+.tableInput{
+  width : 250px;
+  height : 25px;
+  font-size : 20px;
+}
+button.fieldButton{
+  width : 30px;
+  margin : 0px;
+  border : 0px 1px;
+}
 }

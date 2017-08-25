@@ -67,7 +67,7 @@ router.get('/:tableId', (req, res, next) => {
   })
   .catch(next);
 });
-  
+
 router.get('/:tableId/columns', (req, res, next) => {
   utils.validateUser(req.query.devId, req.query.apiKey, req.user)
   .then(user => {

@@ -36,4 +36,15 @@ router.post('/upload/:tableName', (req, res, next) => {
 .catch(next);
 })
 
+router.get('/:dbName/id/:tableId', (req, res, next) => {
+  let tableName = req.params.dbName + req.params.tableId + 's';
+  console.log("tableName: ", tableName);
+  client.query(`SELECT * FROM "${tableName}"`)
+  .then(result => {
+    res.send(result);
+  })
+  .catch(next);
+})
+
 module.exports = router;
+

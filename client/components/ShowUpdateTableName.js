@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Modal from './Modal';
-import GenerateSQL from './GenerateSQL'
-import history from '../history'
+import {UpdateTableName} from './index'
 
-class ShowModal extends Component {
+class ShowUpdateTableName extends Component {
   constructor(props) {
     super(props);
 
@@ -14,24 +13,21 @@ class ShowModal extends Component {
     this.setState({
       isOpen: !this.state.isOpen
     });
-    // history.push('/data')
   }
 
   render() {
     return (
       <div className="ShowModal">
-         <button onClick={this.toggleModal}>CREATE SCRIPT</button>
-        
-
+         <button onClick={this.toggleModal}>RENAME TABLE</button>
         <Modal className = 'modal' show={this.state.isOpen}
           onClose={this.toggleModal}>
+          <h1>RENAME TABLE</h1>
+          <UpdateTableName className = 'ShowModal'/>
           <button className = 'tablebutton' onClick={this.toggleModal}>✕</button>
-          <GenerateSQL/>
-          
         </Modal>
       </div>
     );
   }
 }
 
-export default ShowModal;
+export default ShowUpdateTableName;

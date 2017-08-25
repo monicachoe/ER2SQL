@@ -29,7 +29,7 @@ class CreateDB extends Component {
   render(){
     return (
       <div>
-      <form onSubmit={this.handleSubmit}>
+      <form className = 'createdbform' onSubmit={this.handleSubmit}>
         <label>Enter the DB name:</label>
         <input name="db" type="text" value={this.state.dbName} onChange={this.handleChange}/>
         <button type="submit">Create DB</button>
@@ -45,6 +45,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createDB(dbName, userID){
       dispatch(createDatabase(dbName, userID));
+    },
+    loadDB(selectedDB){
+      dispatch(loadDatabase(selectedDB))
     }
   }
 }

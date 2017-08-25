@@ -11,6 +11,7 @@ const ADD_TABLE = 'ADD_TABLE';
 const ADD_FIELD = 'ADD_FIELD';
 const REMOVE_TABLE = 'REMOVE_TABLE';
 const UPDATE_TABLENAME = 'UPDATE_TABLENAME';
+const UPDATE_FIELD_NAME = 'UPDATE_FIELD_NAME';
 
 /**
  * INITIAL STATE
@@ -26,6 +27,7 @@ const addTable = table => ({type: ADD_TABLE, table});
 const addField = (curTable, field) => ({type: ADD_FIELD, curTable, field});
 const removeTable = (tableName) => ({type: REMOVE_TABLE, tableName});
 const updateTableName = (curName, newName) => ({type: UPDATE_TABLENAME, curName, newName});
+const updateFieldName = (field) => ({type: UPDATE_FIELD_NAME, field});
 /**
  * THUNK CREATORS
  */
@@ -79,11 +81,18 @@ export const deleteTable = (tableId, databaseId) =>
       .then(() => dispatch(getMetatables(databaseId)))
       .catch(err => console.log(err))
 
-export const putTablename = (curName, newName, databaseId) => 
-  dispatch => 
-    axios.put(`/api/metatable/${curName}`, {name : newName, databaseId})
+export const putTablename = (curName, newName, databaseId) =>
+  dispatch =>
+    axios.put(`/api/metatable/${curName}`, {name: newName, databaseId})
     .then(res => dispatch(updateTableName(curName, newName)))
     .catch(err => console.log(err));
+
+export const renameField = (dbName, table, oldColumn, newColumn) =>
+    dispatch => {
+      axios.put(`/api/table/${dbName}/id/${table.tableId}/fields`, {new: newColumn, old: oldColumn, table: table})
+      .then(() => dispatch(getMetatables(table.databaseId)))
+      .catch(err => console.log(err))
+    }
 
 /**
  * REDUCER
@@ -113,6 +122,8 @@ export default function (state = defaultTables, action) {
       return tables;
     case REMOVE_TABLE:
       return state.filter(each => each.tableName !== action.tableName);
+    case UPDATE_FIELD_NAME:
+      return  action.table;
     default:
       return state
   }
