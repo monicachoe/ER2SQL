@@ -36,7 +36,7 @@ class UserHome extends Component {
                 {
                   databases.map((db) =>
                     <div key = {db.id} className='dbImg'>
-                      <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrMYCR72Uxo8_-n1jbL9uvhq_ldAVZbUSmiW9xxqF9Pa_YCv3u'} />
+                      <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXYEa3jxHQ7jw3_d4kCpHot4syUvH1TTIhWU4CLrCfZFuiJgvllw'}/>
                       <button onClick = {this.handleClick}>{db.name}</button>
                     </div>
                   )

@@ -19,7 +19,10 @@ const Main = (props) => {
 
             <div>
                 <nav className = 'nav'>
-                  <Link to='/'><h1>SimpleQL</h1></Link>
+                    <div className= 'logoandname'>
+                        <img className = 'logo' src= 'http://www.freeiconspng.com/uploads/sql-server-icon-png-29.png'/>
+                        <Link to='/'><h1>SimpleQL</h1></Link>
+                    </div>
                     {
                         isLoggedIn
                             ? <div>

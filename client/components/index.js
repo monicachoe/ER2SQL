@@ -24,7 +24,6 @@ export {default as ShowLoadDataForm} from './ShowLoadDataForm'
 export {default as ShowAssociationForm} from './ShowAssociationForm'
 export {default as ShowTableForm} from './ShowTableForm'
 export {default as ShowSignupForm} from './ShowSignupForm'
-export * from './Home'
 export {default as HomePageStack} from './HomePageStack'
 export {default as ShowRemoveTable} from './ShowRemoveTable'
 export {default as TableData} from './TableData';
