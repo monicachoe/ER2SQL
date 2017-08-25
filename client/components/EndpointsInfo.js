@@ -10,16 +10,19 @@ class EndpointsInfo extends Component {
             showEndpoints : false,
         }
         this.showInfo = this.showInfo.bind(this);
+        this.sendApiKey = this.sendApiKey.bind(this);
     }
     showInfo(e){
         e.preventDefault();
         this.setState({
             showEndpoints : !this.state.showEndpoints
         });
-        if (this.state.showEndpoints){
-            this.props.sendEmail();
-        }
     }
+    sendApiKey(e){
+        e.preventDefault();
+        this.props.sendEmail();
+    }
+    
     render(){
         return (
             <div className = 'ShowModal'>
@@ -28,6 +31,7 @@ class EndpointsInfo extends Component {
                 onClose={this.showInfo}>
                 <p>DevId : {this.props.user.devId}</p>
                 <p>Instructions: md5 hash devId + apiKey + UTC time</p>
+                <button onClick={this.sendApiKey}>Get API Key</button>
                 <button className = 'tablebutton' onClick ={this.showInfo}>✕</button>
             </Modal>
         </div>
