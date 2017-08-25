@@ -35,8 +35,6 @@ export const DisplayTables = (props) => {
     )
 }
 
-
-
 const mapStoredState = (state) => ({ tables: state.metatable })
 
 export default connect(mapStoredState)(DisplayTables);

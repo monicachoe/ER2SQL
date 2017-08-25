@@ -40,7 +40,7 @@ export const createAssociation = (database, src, target, assocType, fkName) =>
       .catch(err => console.log(err));
     } else {
       axios.post('/api/association', {database, src, target, assocType, fkName})
-      .then(res => res.data)
+      .then(res => dispatch(getMetatables(src.databaseId)))
       .catch(err => console.log(err));
     }
   }

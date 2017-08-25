@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Field = (props) => {
-    const types = ['string', 'text', 'integer','float', 'date', 'boolean', 'enum', 'array'];
+    const types = ['string', 'text', 'integer','float', 'date', 'boolean'];
     const {handleChange, id} = props;
     return (
         <div className='fieldGrid'>

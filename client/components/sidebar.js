@@ -15,7 +15,7 @@ class Sidebar extends Component {
             showEndpoints: false
         }
         this.showUpdateTableName = this.showUpdateTableName.bind(this);
-        this.showEndpointInfo = this.showEndpointInfo.bind(this);
+        // this.showEndpointInfo = this.showEndpointInfo.bind(this);
         this.handleClick = this.handleClick.bind(this)
         this.showUpdateFieldName = this.showUpdateFieldName.bind(this);
     }
@@ -28,14 +28,14 @@ class Sidebar extends Component {
         })
     }
 
-    showEndpointInfo(e){
-        e.preventDefault();
-        this.setState({
-            showUpdateTable: false,
-            showEndpoints: true
-        })
-        this.props.sendEmail();
-    }
+    // showEndpointInfo(e){
+    //     e.preventDefault();
+    //     this.setState({
+    //         showUpdateTable: false,
+    //         showEndpoints: true
+    //     })
+    //     this.props.sendEmail();
+    // }
 
     showUpdateFieldName(e) {
         e.preventDefault();
@@ -57,11 +57,11 @@ class Sidebar extends Component {
                     <ShowCreateForm/>
                     <ShowLoadForm/>
                     <ShowTableForm/>
-                    <ShowSQL/>
                     <ShowRemoveTable/>
                     <ShowAssociationForm/>
+                    <ShowSQL/>
                     <ShowLoadDataForm/>
-                    <button onClick={this.showEndpointInfo}>DevId and API Key</button>
+                    <EndpointsInfo />
                     {this.state.showUpdateTable ? <UpdateTableName /> : null}
                     {this.state.showEndpoints ? <EndpointsInfo /> : null}
                 </div>
@@ -76,9 +76,6 @@ const mapDispatchProps = (dispatch) => {
     return {
         getUserDatabases(userId) {
             dispatch(getUserDatabases())
-        },
-        sendEmail(){
-            dispatch(sendMail());
         }
     }
 }

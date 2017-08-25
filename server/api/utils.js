@@ -3,7 +3,7 @@ const {Table, Database, User} = require('../db/models');
 const Sequelize = require('sequelize');
 
 function toSequelize(type){
-    let d = {'string': Sequelize.STRING, 'text': Sequelize.TEXT, 'integer': Sequelize.INTEGER,'float': Sequelize.FLOAT, 'date': Sequelize.DATE, 'boolean': Sequelize.BOOLEAN, 'enum': Sequelize.ENUM, 'array': Sequelize.ARRAY};
+    let d = {'string': Sequelize.STRING, 'text': Sequelize.TEXT, 'integer': Sequelize.INTEGER,'float': Sequelize.FLOAT, 'date': Sequelize.DATE, 'boolean': Sequelize.BOOLEAN};
     return d[type];
 }
 
