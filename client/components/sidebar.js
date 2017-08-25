@@ -63,7 +63,6 @@ class Sidebar extends Component {
                     <ShowLoadDataForm/>
                     <EndpointsInfo />
                     {this.state.showUpdateTable ? <UpdateTableName /> : null}
-                    {this.state.showEndpoints ? <EndpointsInfo /> : null}
                 </div>
             </div>
         )
