@@ -7,22 +7,26 @@ module.exports = router
 router.get('/', (req, res, next) => {
   utils.validateUser(req.query.devId, req.query.apiKey, req.user)
   .then(user => {
-  User.findAll({
-    attributes: ['id', 'email']
+    if (user){    
+      User.findAll({
+        attributes: ['id', 'email']
+      })
+      .then(users => res.json(users))
+      .catch(next)
+    }
   })
-    .then(users => res.json(users))
-    .catch(next)
-})
-.catch(next);
+  .catch(next);
 })
 
 router.get('/databases', (req, res, next) => {
   utils.validateUser(req.query.devId, req.query.apiKey, req.user)
   .then(user => {
-  User.findById(user.id)
-  .then(user => user.getDatabases())
-  .then(databases => res.send(databases))
-  .catch(err => console.log(err));
+    if (user){
+    User.findById(user.id)
+    .then(user => user.getDatabases())
+    .then(databases => res.send(databases))
+    .catch(err => console.log(err));
+    }
   })
   .catch(next);
 });
@@ -30,19 +34,21 @@ router.get('/databases', (req, res, next) => {
 router.post('/:userId/database/:dbName', (req, res, next) => {
   utils.validateUser(req.query.devId, req.query.apiKey, req.user)
   .then(user => {
-  Database.findOrCreate( {where: {
-    userId: req.params.userId,
-    name: req.params.dbName
-  }})
-  .spread( (db, created) => {
-    if (!created){
-      res.status(401).send(`Database ${req.params.dbName} already exists`)
-    }
-    else {
-      res.send(db);
+    if (user){
+      Database.findOrCreate( {where: {
+        userId: req.params.userId,
+        name: req.params.dbName
+      }})
+      .spread( (db, created) => {
+        if (!created){
+          res.status(401).send(`Database ${req.params.dbName} already exists`)
+        }
+        else {
+          res.send(db);
+        }
+      })
+      .catch(next);
     }
   })
   .catch(next);
-})
-.catch(next);
 });

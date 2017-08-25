@@ -12,8 +12,8 @@ router.post('/', (req, res, next) => {
     let usrc = req.body.src;
     let utarget = req.body.target;
     let assocType = req.body.assocType;
-    let fkName = req.body.fkName;
-    let db, dbName, src, target, srcName, targetName, tableId;
+    let fkName = utils.cleanString(req.body.fkName);
+    let db, dbName, src, target, srcName, targetName, tableId, constraintName;
 
     utils.validateDatabase(uDb.id, user.id)
     .then(database => {

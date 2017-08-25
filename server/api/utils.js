@@ -55,6 +55,10 @@ function validateUser(devId, hashed, reqUser){
     .then(user => user ? user.dataValues.apiKey === hashed ? user : null : reqUser)
 }
 
+function cleanString(str){
+    return str.replace(/[^a-zA-Z0-9_-]/g, "");
+}
+
 module.exports = {
     formatFields,
     validateDatabase,
@@ -62,5 +66,6 @@ module.exports = {
     validateTableByName,
     formatTableName,
     formatJoinTableName,
-    validateUser
+    validateUser,
+    cleanString
 };

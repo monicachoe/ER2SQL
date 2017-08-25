@@ -5,17 +5,11 @@ const utils = require('./utils');
 const {db} = require('../db');
 module.exports = router
 
-router.get('/', (req, res, next) => {
-  Table.findAll()
-    .then(tables => res.json(tables))
-    .catch(next);
-});
-
 router.post('/', (req, res, next) => {
   utils.validateUser(req.query.devId, req.query.apiKey, req.user)
   .then(user => {
     if (user){
-      let name = req.body.tableName;
+      let name = utils.cleanString(req.body.tableName);
       let databaseId = req.body.database.id;
       let databaseName = req.body.database.name;
       let fields = (req.body.fields) ? utils.formatFields(req.body.fields) : null;
@@ -60,7 +54,6 @@ router.delete('/:dbId/id/:tableId', (req, res, next) => {
   .catch(next);
 });
 
-// Complete for endpoints
 router.get('/:tableId', (req, res, next) => {
   utils.validateUser(req.query.devId, req.query.apiKey, req.user)
   .then(user => {
