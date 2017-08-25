@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {sendMail} from '../store';
-import Modal from './Modal';
+import {Modal} from './index';
 
 class EndpointsInfo extends Component {
     constructor(props){
@@ -23,7 +23,7 @@ class EndpointsInfo extends Component {
     render(){
         return (
             <div className = 'ShowModal'>
-            <button onClick={this.showInfo}>REQUEST ENDPOINT</button>
+            <button onClick={this.showInfo}>ENDPOINTS</button>
             <Modal className = 'modal' show={this.state.showEndpoints}
                 onClose={this.showInfo}>
                 <p>DevId : {this.props.user.devId}</p>
