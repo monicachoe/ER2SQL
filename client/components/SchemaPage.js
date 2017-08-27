@@ -1,13 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { DisplayTable , Sidebar } from './index'
+import { Sidebar, CreateLoad, TableData, DisplayTable } from './index';
 /**
  * COMPONENT
  */
 export const SchemaPage = (props) => {
-    const { isLoggedIn, metatable } = props
+    const { isLoggedIn } = props
     return (
-
         <div className='schema'>
             <div className='schild1'>
                 <Sidebar />

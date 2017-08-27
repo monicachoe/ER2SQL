@@ -25,7 +25,7 @@ class ShowRemoveTable extends Component {
           onClose={this.toggleModal}>
           <h1>REMOVE TABLE</h1>
           <RemoveTable/>
-          <button onClick={this.toggleModal}>close</button>
+          <button className='tablebutton' onClick={this.toggleModal}>✕</button>
         </Modal>
       </div>
     );

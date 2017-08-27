@@ -20,10 +20,22 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  devId: {
+    type: Sequelize.STRING
+  },
+  apiKey: {
+    type: Sequelize.STRING
   }
+}, {
+
 })
 
 module.exports = User
+
+User.afterCreate((user, options) => {
+  User.update({devId : user.id+5000},{where: {id: user.id}});
+});
 
 User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt) === this.password
@@ -44,5 +56,14 @@ const setSaltAndPassword = user => {
   }
 }
 
+User.generateApiKey = function() {
+  return crypto.randomBytes(16).toString('base64');
+}
+
+const setApiKeyAndDevId = user => {
+  user.apiKey = User.generateApiKey();
+}
+
 User.beforeCreate(setSaltAndPassword);
 User.beforeUpdate(setSaltAndPassword);
+User.beforeCreate(setApiKeyAndDevId);

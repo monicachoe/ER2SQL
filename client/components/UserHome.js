@@ -26,8 +26,6 @@ class UserHome extends Component {
     var databases = this.props.userdbs
     return (
       <div>
-        <ShowLoadForm/>
-        <ShowCreateForm/>
         {
           (databases.length)
             ? <div className = 'user-home'>
@@ -36,17 +34,28 @@ class UserHome extends Component {
                 {
                   databases.map((db) =>
                     <div key = {db.id} className='dbImg'>
-                      <img src={'https://d3pl14o4ufnhvd.cloudfront.net/v2/uploads/d847032d-b1d0-4a02-ae73-6ece9628a1b4/7862911875c02202a4fafd4b3fbce3fa559108b0_original.png'} />
+                      <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXYEa3jxHQ7jw3_d4kCpHot4syUvH1TTIhWU4CLrCfZFuiJgvllw'}/>
                       <button onClick = {this.handleClick}>{db.name}</button>
                     </div>
                   )
                 }
+                <div className='dbImg'>
+                      <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXYEa3jxHQ7jw3_d4kCpHot4syUvH1TTIhWU4CLrCfZFuiJgvllw'}/>
+                      <ShowCreateForm/>
+                    </div>
               </div>
             </div>
-            : <div>
-              <h1>Welcome {this.props.user.name}</h1>
-              <h1>You don't have any databases yet. Create one! </h1>
-            </div>
+            : 
+            <div>
+              <div>
+                <h1>Welcome {this.props.user.name}</h1>
+                <h1>You don't have any databases yet. Create one! </h1>
+              </div>
+              <div className='dbImg'>
+                        <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXYEa3jxHQ7jw3_d4kCpHot4syUvH1TTIhWU4CLrCfZFuiJgvllw'}/>
+                        <ShowCreateForm/>
+              </div>
+              </div>
 
         }
       </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {logout, clearDatabase, clearUserDbs, clearMetatable, clearTemp} from '../store'
+import {logout, clearDatabase, clearUserDbs, clearMetatable} from '../store'
 import {StoredTables, TempTables, Sidebar, ShowModal,UpdateTableName, ShowSignupForm} from './index'
 
 /**
@@ -19,7 +19,10 @@ const Main = (props) => {
 
             <div>
                 <nav className = 'nav'>
-                  <Link to='/'><h1>SimpleQL</h1></Link>
+                    <div className= 'logoandname'>
+                        <img className = 'logo' src= 'http://www.freeiconspng.com/uploads/sql-server-icon-png-29.png'/>
+                        <Link to='/'><h1>SimpleQL</h1></Link>
+                    </div>
                     {
                         isLoggedIn
                             ? <div>
