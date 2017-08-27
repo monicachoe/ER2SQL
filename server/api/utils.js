@@ -10,7 +10,7 @@ function toSequelize(type){
 function formatFields(fields){
     let keys = Object.keys(fields);
     for (var field of keys){
-        let attribute = fields[field]; 
+        let attribute = fields[field];
         let seqType = attribute['type']
         fields[cleanString(field)] = Object.assign({}, attribute, {type: toSequelize(seqType)})
     }
@@ -40,20 +40,18 @@ function formatJoinTableName(src, target){
 }
 
 // // checking hashed apikey!
-// function validateUser(devId, hashed, reqUser){
-// console.log('hashedApiKey: ', crypto.createHash('md5').update(devId).update(hashed).update(new Date().toISOString().slice(0,19)).digest('hex'));    
-//     return User.findOne({where : devId})
-//     .then(user => user.dataValues)
-//     .then(user => crypto.createHash('md5').update(user.devId).update(user.apiKey).update(new Date().toISOString().slice(0,19)).digest('hex')===hashed ? user : null)
-//     .then(res => res || reqUser);
-// }
-
-// // checking unhashed apikey!!
-// if user is not found --> throws Error Cannot read property 'dataValues' of null b/c line 55 
 function validateUser(devId, hashed, reqUser){
-    return User.findOne({where : {devId}})
-    .then(user => user ? user.dataValues.apiKey === hashed ? user : null : reqUser)
+// console.log('hashedApiKey: ', crypto.createHash('md5').update(devId).update(hashed).update(new Date().toISOString().slice(0,19)).digest('hex'));
+    return User.findOne({where : devId})
+    .then(user => user ? crypto.createHash('md5').update(user.dataValues.devId).update(user.dataValues.apiKey).update(new Date().toISOString().slice(0,19)).digest('hex')===hashed ? user : null : reqUser);
 }
+
+// // // checking unhashed apikey!!
+// // if user is not found --> throws Error Cannot read property 'dataValues' of null b/c line 55
+// function validateUser(devId, hashed, reqUser){
+//     return User.findOne({where : {devId}})
+//     .then(user => user ? user.dataValues.apiKey === hashed ? user : null : reqUser)
+// }
 
 function cleanString(str){
     return str.replace(/[^a-zA-Z0-9_-]/g, "");
