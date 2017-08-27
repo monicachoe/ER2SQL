@@ -63,17 +63,17 @@ import {logout, clearDatabase, clearUserDbs, clearMetatable} from '../store'
                             <Link to ='/home'> Your Account </Link>
                             <a href='#' onClick={this.props.handleClick}>Logout</a>
                         </div>
-                        
+
                         : <div>
                              <ShowModal className='showModal'/>
                             <ShowSignupForm/>
                           </div>
-                       
+
                     }
-                    
+
                 </div>
                 <div className = 'one-child1'>
-                    <img src = 'http://i64.tinypic.com/sm9kia.png'/>
+                    <img src = "http://i.imgur.com/4fpFWqa.png" />
                 </div>
 
                 <div className="next"></div>
@@ -93,7 +93,7 @@ import {logout, clearDatabase, clearUserDbs, clearMetatable} from '../store'
                     <h1 className="two-child" style={{color: 'pink'}}><Link to='/'>you can create sql scripts for your tables</Link></h1>
                     <ul className="nav-links">
                     </ul>
-                </div>    
+                </div>
                 <div className="next"></div>
             </section>
         </div>
