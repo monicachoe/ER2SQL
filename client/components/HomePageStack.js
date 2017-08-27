@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {ShowModal, ShowSignupForm} from './index'
+import {connect} from 'react-redux'
+import {logout, clearDatabase, clearUserDbs, clearMetatable} from '../store'
 
-export default class HomePageStack extends React.Component {
+ class HomePageStack extends React.Component {
     constructor() {
     super();
     this.styling = this.styling.bind(this);
@@ -53,10 +55,22 @@ export default class HomePageStack extends React.Component {
             <section className="one">
 
                 <div className ="one-child description">
-                    <img src = 'https://media.giphy.com/media/DDNWPgUucWZoc/giphy.gif' />
+                    <img src = 'https://media.giphy.com/media/ARrPXri3V72Fi/giphy.gif' />
                     <h1>your database</h1>
-                    <ShowModal className='showModal'/>
-                    <ShowSignupForm/>
+                    {
+                        this.props.isLoggedIn
+                        ? <div>
+                            <Link to ='/home'> Your Account </Link>
+                            <a href='#' onClick={this.props.handleClick}>Logout</a>
+                        </div>
+                        
+                        : <div>
+                             <ShowModal className='showModal'/>
+                            <ShowSignupForm/>
+                          </div>
+                       
+                    }
+                    
                 </div>
                 <div className = 'one-child1'>
                     <img src = 'http://i64.tinypic.com/sm9kia.png'/>
@@ -86,3 +100,17 @@ export default class HomePageStack extends React.Component {
     )
   }
 }
+
+const mapStoredState = (state) => ({ isLoggedIn: !!state.user.id })
+const mapDispatch = (dispatch) => {
+  return {
+    handleClick () {
+      dispatch(clearUserDbs());
+      dispatch(clearDatabase());
+      dispatch(clearMetatable());
+      dispatch(logout());
+    }
+  }
+}
+
+export default connect(mapStoredState, mapDispatch)(HomePageStack);

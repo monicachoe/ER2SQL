@@ -1,26 +1,52 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUserDatabases } from '../store'
+import { sendMail, getUserDatabases } from '../store'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Field, CreateDB, RemoveTable, LoadDB, Modal, ShowAssociationForm, ShowCreateForm, ShowLoadForm, ShowLoadDataForm, LoadData, ShowModal, UpdateTableName, ShowSQL, ShowTableForm, ShowRemoveTable } from './index';
+import history from '../history';
+import {EndpointsInfo, Field, CreateDB, RemoveTable, LoadDB, Modal, ShowAssociationForm, ShowCreateForm, ShowLoadForm, ShowLoadDataForm, LoadData, ShowModal, UpdateTableName, ShowSQL, ShowTableForm, ShowRemoveTable, UpdateFieldForm, ShowUpdateTableName} from './index';
 
 class Sidebar extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showUpdateTable: false
+            showUpdateTable: false,
+            showUpdateField: false,
+            showEndpoints: false
         }
         this.showUpdateTableName = this.showUpdateTableName.bind(this);
+        // this.showEndpointInfo = this.showEndpointInfo.bind(this);
+        this.handleClick = this.handleClick.bind(this)
+        this.showUpdateFieldName = this.showUpdateFieldName.bind(this);
     }
 
     showUpdateTableName(e) {
         e.preventDefault();
         this.setState({
-            showCreateTable: false,
-            showRemoveTable: false,
-            showUpdateTable: true
+            showUpdateTable: true,
+            showUpdateField: false
         })
+    }
+
+    // showEndpointInfo(e){
+    //     e.preventDefault();
+    //     this.setState({
+    //         showUpdateTable: false,
+    //         showEndpoints: true
+    //     })
+    //     this.props.sendEmail();
+    // }
+
+    showUpdateFieldName(e) {
+        e.preventDefault();
+        this.setState({
+            showUpdateTable: false,
+            showUpdateField: true
+        })
+    }
+    handleClick(evt){
+        evt.preventDefault
+        history.push('/data')
     }
 
     render() {
@@ -31,13 +57,14 @@ class Sidebar extends Component {
                     <ShowCreateForm/>
                     <ShowLoadForm/>
                     <ShowTableForm/>
-                    <button onClick={this.showUpdateTableName}>Update Table Name</button>
                     <ShowSQL/>
                     <ShowRemoveTable/>
                     <ShowAssociationForm/>
                     <ShowLoadDataForm/>
-                    {this.state.showUpdateTable ? <UpdateTableName /> : null}
-                    
+                    <ShowUpdateTableName />
+                    <UpdateFieldForm />
+                    <button onClick={this.handleClick}>SHOW TABLE DATA</button>
+                    <EndpointsInfo />
                 </div>
             </div>
         )
@@ -46,7 +73,7 @@ class Sidebar extends Component {
 
 const mapStateToProps = ({ user, userdbs, database }) => ({ user, userdbs, database });
 
-const mapDisptachProps = (dispatch) => {
+const mapDispatchProps = (dispatch) => {
     return {
         getUserDatabases(userId) {
             dispatch(getUserDatabases())
@@ -54,4 +81,4 @@ const mapDisptachProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDisptachProps)(Sidebar);
+export default connect(mapStateToProps, mapDispatchProps)(Sidebar);

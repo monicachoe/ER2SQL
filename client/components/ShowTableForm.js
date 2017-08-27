@@ -24,7 +24,7 @@ class ShowCreateForm extends Component {
                 <Modal className = 'modal' show= {this.state.showAddTable}
                     onClose={this.showTableForm}>
                     <CreateTable/>
-                    <button onClick ={this.showTableForm}>DONE</button>
+                    <button className = 'tablebutton' onClick ={this.showTableForm}>✕</button>
                 </Modal>
             </div>
         )

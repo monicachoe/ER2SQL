@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {getMetatables} from './index';
+import {getUserDatabases, getMetatables} from './index';
 
 /* ------------   ACTION TYPES     ------------------ */
 
@@ -38,7 +38,10 @@ export default function reducer (state = {}, action){
 export const createDatabase = (dbName, userId) => dispatch => {
     axios.post(`/api/users/${userId}/database/${dbName}`)
        .then(res => {
-         console.log(res.data)
+        //  console.log(res.data)
+        dispatch(getUserDatabases())
+        dispatch(loadDatabase(res.data))
+        
         //  dispatch(create(res.data));
        })
        .catch(error => dispatch(get({error})));
@@ -47,6 +50,7 @@ export const createDatabase = (dbName, userId) => dispatch => {
 
 export const loadDatabase = (selectedDb) => dispatch => {
   dispatch(load(selectedDb));
+  dispatch(getMetatables(selectedDb.id))
 }
 
 export const clearDatabase = () => dispatch => {

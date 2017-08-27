@@ -13,12 +13,13 @@ class LoadDb extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
-  componentWillReceiveProps(nextProps){
-    if((Object.keys(nextProps.database).length !== 0) && (nextProps.database !== this.props.database)){
-      this.props.getMetatables(nextProps.database.id);
-    }
-  }
+  // looks like we don't need to do this but keeping just in case
+  // componentWillReceiveProps(nextProps){
+  //   if((Object.keys(nextProps.database).length !== 0) && (nextProps.database !== this.props.database)){
+  //     console.log('inside of LOADDB')
+  //     this.props.loadDatabase(nextProps.database);
+  //   }
+  // }
 
   handleChange(evt){
     this.setState({dbName: evt.target.value})
@@ -29,7 +30,6 @@ class LoadDb extends Component {
     let selectedDb = this.props.userdbs.filter((eachDb) => eachDb.name === this.state.dbName);
     this.props.loadDatabase(selectedDb[0]);
     var table = selectedDb[0]
-    this.props.getMetatables(table.id)
     history.push('/schema')
   }
 
@@ -57,9 +57,6 @@ const mapDispatch = (dispatch) => {
   return {
     loadDatabase(selectedDb){
       dispatch(loadDatabase(selectedDb));
-    },
-    getMetatables(userdbs){
-      dispatch(getMetatables(userdbs));
     }
   }
 }
