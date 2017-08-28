@@ -39,11 +39,9 @@ function formatJoinTableName(src, target){
     return src.name+'_'+target.name;
 }
 
-// // checking hashed apikey!
 function validateUser(devId, hashed, reqUser){
-// console.log('hashedApiKey: ', crypto.createHash('md5').update(devId).update(hashed).update(new Date().toISOString().slice(0,19)).digest('hex'));
-    return User.findOne({where : devId})
-    .then(user => user ? crypto.createHash('md5').update(user.dataValues.devId).update(user.dataValues.apiKey).update(new Date().toISOString().slice(0,19)).digest('hex')===hashed ? user : null : reqUser);
+    return User.findOne({where : {devId}})
+    .then(user => user ? crypto.createHash('md5').update(user.dataValues.devId).update(user.dataValues.apiKey).update(new Date().toISOString().slice(0,19)).digest('hex')===hashed? user : null : reqUser)
 }
 
 // // // checking unhashed apikey!!
