@@ -1,5 +1,5 @@
 # SimpleQL 
-[simpleql.tech] (https://www.simpleql.tech)
+https://www.simpleql.tech
 
 ## Introduction
 SimpleQL is a web based application that allows users to define the database schema, upload and access the data in their databases, and interact with their database without having to write a single line of code. Database schema visualization is an essential process during the initial project design phase. Also, it can be useful when you need to reverse engineer a big schema. Our application allows users to visualize the schema and understand various relationships between different tables. SimpleQL creates the users database on Amazon Relational Database Service (well known as RDS) and also allow users to even store and retrieve data from RDS. That’s not all. If you want to use the same database for production application you can use it through our api endpoints.
