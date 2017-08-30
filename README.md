@@ -19,7 +19,7 @@ SimpleQL is a web based application that allows users to define the database sch
 * React-Redux
 
 ## Contributors
-* Monica Choe [https://github.com/haesoox3] (https://www.github.com/haesoox3) 
-* Vinaya M S [https://github.com/vinayarv] (https://www.github.com/vinayarv)
-* Kelaiya Parikh [https://github.com/kelaiya] (https://www.github.com/kelaiya)
-* Brenda Sukh [https://github.com/brendasukh] (https://www.github.com/brendasukh)
+* Monica Choe [https://github.com/haesoox3] 
+* Vinaya M S [https://github.com/vinayarv] 
+* Kelaiya Parikh [https://github.com/kelaiya] 
+* Brenda Sukh [https://github.com/brendasukh] 
