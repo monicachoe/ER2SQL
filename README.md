@@ -1,5 +1,5 @@
 # SimpleQL 
-https://www.simpleql.tech
+http://www.simpleql.tech
 
 ## Introduction
 SimpleQL is a web based application that allows users to create their database schemas visually. SimpleQL creates the users databases on Amazon RDS to allows for users to collaborate with each other on their schemas. It can also be used to upload and view their data and allows users to make requests to their databases from external sources. 
